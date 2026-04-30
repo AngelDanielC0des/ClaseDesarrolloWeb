@@ -1,0 +1,29 @@
+li{
+display: inline-block;
+width: 150px;
+height: 50px;
+align-items:center ;
+}
+.enlace {
+    color:blue
+}
+/* El contenedor que envuelve a todos tus .div */
+h2{
+    color:blueviolet;
+}
+
+.div {
+    display: inline-block;
+    vertical-align: top; /* Alinea los divs por la parte de arriba */
+    width: 600px;
+    height: 400px;
+    font-size: 16px; /* Restauramos el tamaño de fuente para el texto dentro */
+    background-color: #eee;
+    margin-right: 10px; /* Espacio opcional entre los cuadros */
+    box-shadow: 5px 5px 5px 5px black;
+}
+
+img {
+   max-width: 20%;
+   max-height: 20%;
+}

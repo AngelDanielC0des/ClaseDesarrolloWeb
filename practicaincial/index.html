@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- idioma de la página -->
+<html lang='es-ES'>
+<!-- sección head, cabecefra, información de contro, descripción, archivos css, js -->
+
+<head>
+    <!-- charset tabla de equivalencia símbolos y números -->
+    <meta charset='utf-8'>
+    <!-- título que aparece en la pestaña del navegador -->
+    <title>Primera práctica curso web</title>
+    <!-- ruta relativa (en el mismo directorio) -->
+    <link rel='stylesheet' href='styles/styles.css'>
+</head>
+<!-- sección visible dentro de la página -->
+
+<body>
+    <header>
+        <!-- h1 tiene que haber solo uno por página: título principal -->
+        <marquee><h1>Curso de HTML y CSS</h1></marquee>
+        <p class="primerParrafo">VAMOS A HACER PÁGIANAS WEB CHULAS :) </p>
+        <nav>
+            <h2>Íncide de Contenido :</h2>
+            <ul>
+                <!-- list item -->
+                <li>
+                    <a href="#seccion-html">1 HTML</a>
+                </li>
+                <li>
+                    <a href="#seccion-css">2 CSS</a>
+                </li>
+                <li><a href="seccion-javascript">3 Javascript</a></li>
+                <li><a href="seccion-java">4 Java</a></li>
+                <li><a href="seccion-baseDeDatos">5 Base de Datos</a></li>
+                <li><a href="#seccion-enlaces">Enlaces de Interés</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <div id="seccion-html" class="div">
+        <h2>1 HTML</h2>
+        <p>HTML creamos la estructura de páginas web</p>
+        <!-- esto es una ruta absoluta -->
+        <img src="img/html.svg" alt="Icono de HTML" />
+    </div>
+
+    <div id="seccion-css" class="div">
+        <h2>2 CSS</h2>
+        <p>Damos estilo a nuestras páginas</p>
+        <!-- esto es una ruta relativa estamos en el mismo directorio -->
+        <img src="img/css.png" alt="Imagen CSS" />
+    </div>
+    <div id="seccion-javascript" class="div">
+        <h2>3 Javascript</h2>
+        <p>Damos dinamismo a nuestras páginas</p>
+        <img src="img/javascript.svg" alt="Imagen Javascript">
+    </div>
+    <div id="seccion-java" class="div">
+        <h2>4 Java</h2>
+        <p>Añadimos lógica del servidor a nuestra página</p>
+        <img src="img/Java.svg" alt="Imagen Java">
+    </div>
+    <div id="seccion-baseDeDatos" class="div">
+        <h2>5 Base de Datos</h2>
+        <p>Conectamos los Datos con el servidor</p>
+        <img src="img/basededatos.svg" alt="Imagen Base de Datos">
+    </div>
+
+    <div id="seccion-enlaces" class="div">
+        <h2>Enlaces De Interés </h2>
+        <p class="parrafoDeEnlace"><a href="https://www.midu.dev" class="enlace"> Web Principal de midudev</a></p>
+        <p class="parrafoDeEnlace"><a href="https://www.aprendejavascript.dev" class="enlace"> Web de midudev para
+                aprender Jascript</a></p>
+        <p class="parrafoDeEnlace"><a href="https://www.youtube.com/watch?v=niPExbK8lSw" class="enlace"> Video de
+                midudev Curso de Git</a></p>
+        <p class="parrafoDeEnlace"><a href="https://www.jscamp.dev/html-css" class="enlace"> Curso de midudev
+                HTML/CSS</a></p>
+        <p class="parrafoDeEnlace"><a href="https://www.jscamp.dev/sql" class="enlace"> Curso de midudev de SQL</a></p>
+        <p class="parrafoDeEnlace"><a href="https://www.google.com" class="enlace">www.enlaceengañoso.com</a></p>
+
+    </div>
+
+    <footer> &copy;2026 Ángel</footer>
+</body>
+
+</html>
