@@ -27,3 +27,9 @@ img {
    max-width: 20%;
    max-height: 20%;
 }
+details {
+    display:flex;
+    justify-content: center;
+border-color: 1px solid aqua;
+    border-collapse: collapse;
+}
