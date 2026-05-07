@@ -1,27 +1,27 @@
-/* Tu CSS anterior con mejoras */
+/* Estilos Generales */
+body {
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 .instagram-card {
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    margin: 20px auto; /* Centra la card en la pantalla */
+    width: 100%;
+    margin: 20px auto;
     border: 1px solid #dbdbdb;
     background-color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.avatar-small {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.card-image img {
-    width: 100%;
-    display: block;
-}
-
-.card-header, .card-actions, .card-main-content {
+/* Cabecera */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 12px;
 }
 
@@ -31,10 +31,26 @@
     gap: 10px;
 }
 
+.avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Imagen (según tu altura de 500px) */
+.card-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Botones de Acción */
 .card-actions {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 0; /* Instagram pega los likes a los iconos */
+    padding: 12px 12px 8px;
 }
 
 .left-actions {
@@ -56,9 +72,42 @@ button:hover {
 
 .bi {
     font-size: 1.5rem;
+    color: #262626;
 }
 
-/* Estilos para comentarios */
+/* Ajuste avión de papel (inclinación estilo Instagram) */
+.bi-send {
+    transform: rotate(-15deg);
+}
+
+/* Contenido de texto */
+.card-main-content {
+    padding: 0 12px 12px;
+}
+
+
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-list li {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    overflow: hidden; /* Limpia el float del corazón */
+}
+
+/* EL CORAZÓN GRIS */
+.small-gray-heart {
+    font-size: 0.8rem !important;
+    color: #8e8e8e !important;
+    float: right;
+    margin-top: 4px;
+}
+
+/* Botón Ver Más */
 .load-more-btn {
     color: #8e8e8e;
     font-size: 0.9rem;
@@ -66,24 +115,43 @@ button:hover {
     display: block;
 }
 
-.comments-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-.comments-list li {
-    margin-bottom: 4px;
-}
-
 .post-date {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #8e8e8e;
     text-transform: uppercase;
     margin-top: 8px;
     display: block;
 }
-img{
-    height: 500px;
+/* Contenedor de la sección de likes para alinear imágenes y texto */
+.likes-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Contenedor de los círculos pequeños */
+.likes-avatars {
+    display: flex;
+    flex-direction: row-reverse; /* Esto ayuda a que el orden de solapamiento sea el correcto */
+    justify-content: flex-end;
+}
+
+.avatar-tiny {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff; /* Borde blanco para separar las fotos entre sí */
+    margin-right: -8px; /* El truco para que se solapen */
+    object-fit: cover;
+}
+
+/* Quitamos el margen inferior que tenía el p de likes para que se alinee bien con las fotos */
+.likes-count {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0; 
+}
+.hashtag {
+    color: blue;
 }
