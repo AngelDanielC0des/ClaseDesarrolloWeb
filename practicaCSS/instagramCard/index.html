@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1. CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. CSS de Bootstrap Icons (ESTO FALTABA) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <title>Instagram Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<article class="instagram-card">
+    <header class="card-header">
+        <div class="user-info">
+            <img src="https://via.placeholder.com/32" alt="Avatar" class="avatar-small">
+            <strong>nombre_usuario</strong>
+        </div>
+        <button class="options-btn"><i class="bi bi-three-dots"></i></button>
+    </header>
+
+    <figure class="card-image">
+        <!-- Corregido el error de comillas aquí -->
+        <img src="https://via.placeholder.com/500" alt="Descripción de la imagen">
+    </figure>
+
+    <section class="card-actions">
+        <div class="left-actions">
+            <button aria-label="Me gusta"><i class="bi bi-suit-heart"></i></button>
+            <button aria-label="Comentar"><i class="bi bi-chat"></i></button>
+            <button aria-label="Compartir"><i class="bi bi-telegram"></i></button>
+        </div>
+        <button aria-label="Guardar"><i class="bi bi-bookmark"></i></button>
+    </section>
+
+    <section class="card-main-content">
+        <p class="likes-count">Le gusta a <strong>persona_x</strong> y <strong>120 más</strong></p>
+        <!-- Botón para cargar más (estilo Instagram) -->
+        <button id="load-comments" class="load-more-btn">
+            Ver los 15 comentarios
+        </button>
+
+       <ul id="comments-list" class="comments-list">
+    <!-- Comentarios que se ven nada más cargar -->
+    <li><strong>fan_coding</strong> ¡Increíble! 🔥</li>
+    <li><strong>dev_girl</strong> Pasa el repo porfa.</li>
+
+    <!-- El molde para los nuevos comentarios -->
+    <template id="comment-template">
+        <li class="comment-item">
+            <strong></strong> <span></span>
+        </li>
+    </template>
+</ul>
+
+        <time datetime="2024-05-20" class="post-date">HACE 1 DÍA</time>
+    </section>
+
+
+    
+</article>
+
+</body>
+</html>

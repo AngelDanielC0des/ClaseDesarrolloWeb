@@ -1,0 +1,89 @@
+/* Tu CSS anterior con mejoras */
+.instagram-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 20px auto; /* Centra la card en la pantalla */
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card-image img {
+    width: 100%;
+    display: block;
+}
+
+.card-header, .card-actions, .card-main-content {
+    padding: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0; /* Instagram pega los likes a los iconos */
+}
+
+.left-actions {
+    display: flex;
+    gap: 16px;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.6;
+}
+
+.bi {
+    font-size: 1.5rem;
+}
+
+/* Estilos para comentarios */
+.load-more-btn {
+    color: #8e8e8e;
+    font-size: 0.9rem;
+    margin: 8px 0;
+    display: block;
+}
+
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.comments-list li {
+    margin-bottom: 4px;
+}
+
+.post-date {
+    font-size: 0.75rem;
+    color: #8e8e8e;
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+}
+img{
+    height: 500px;
+}
