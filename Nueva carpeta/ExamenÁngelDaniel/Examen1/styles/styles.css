@@ -1,0 +1,51 @@
+article {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+label {
+    color: red;
+    margin-right: 30px;
+    margin-left: 100px;
+}
+
+div {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 20px;
+    justify-content: flex-start;
+}
+
+fieldset {
+    justify-content: center;
+    border-radius: 0 20px 0 20px;
+    border: 2px solid green;
+}
+
+legend {
+    color: rgb(159, 170, 6);
+}
+
+span {
+    color: purple;
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: blue;
+}
+
+.datosPersonalesFieldset {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.botones{
+    display: flex;
+    justify-content: space-evenly;
+}

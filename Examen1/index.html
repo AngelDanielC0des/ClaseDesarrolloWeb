@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Examen de html de Ángel Daniel">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Examen Angel Daniel</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <article>
+            <header>
+                <h1>RELLENA TU CV</h1>
+            </header>
+            <form action="/" method="POST">
+                <section class="datosPersonalesSection">
+                    <fieldset class="datosPersonalesFieldset">
+                        <legend>DATOS PERSONALES</legend>
+                        <div><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" required>
+                        </div>
+                        <div><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" type="text"
+                                required>
+                        </div>
+                        <div><label for="password">Contraseña</label><input id="password" name="password" type="text"
+                                maxlength="12" required>
+                        </div>
+                        <div><label for="dni">DNI</label><input id="dni" name="dni" type="text" required></div>
+                        <div>
+                            <label for="">Sexo: &nbsp&nbsp&nbsp</label>
+                            <label for="masculino">Hombre<input id="masculino" name="masculino" type="radio"
+                                    value="m"></label>
+                            <label for="femenino">Mujer<input id="femenino" name="femenino" type="radio" value="f">
+                        </div>
+                        </label>
+                        <div><label for="incluirFoto">Incluir mi foto</label><input id="incluirFoto" name="incluirFoto"
+                                type="file"></div>
+                    </fieldset>
+                </section>
+                <section class="formacion">
+
+                    <fieldset>
+                        <legend>FORMACIÓN</legend>
+                        <div><label for="titulo">Título</label><input id="titulo" name="titulo" type="text"></div>
+                        <div><label for="nombreCurso">Nombre del Curso</label><input id="nombreCurso" name="nombreCurso"
+                                type="text"></div>
+                        <div><label for="fechaInicio">Fecha de Inicio</label><input id="fechaInicio" name="fechaInicio"
+                                type="date"></div>
+                        <div><label for="fechaFin">Fecha de Finalización</label><input id="fechaFin" name="fechaFin"
+                                type="date"></div>
+                        <div><label for="actualmente">Actulmente</label><input id="actualmente" name="actualmente"
+                                type="checkbox"></div>
+                        <div><label for="centro">Centro</label><input id="centro" name="centro" type="text"></div>
+                        <div><label for=""><span>No quiero que la empresa <br>vea estos estudios</span></label><input
+                                id="" name="" type="checkbox"></div>
+
+                    </fieldset>
+                </section>
+                <section class="experiencia">
+                    <fieldset>
+                        <legend>Experiencia</legend>
+                        <div><label for="puesto">Puesto</label><input id="puesto" name="puesto" type="text"></div>
+                        <div><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text"></div>
+                        <div><label for="descripcionPuesto">Descripción del puesto</label><input id="descripcionPuesto"
+                                name="descripcionPuesto" type="text"></div>
+                        <div><label for="fechaInicioExp">Fecha de inicio</label><input id="fechaInicioExp"
+                                name="fechaInicioExp" type="date"></div>
+                        <div><label for="fechaFinExp">Fecha de finalización</label><input id="fechaFinExp"
+                                name="fechaFinExp" type="date"></div>
+                        <div><label for="">Actualmente</label><input id="" name="" type="checkbox"></div>
+                        <div><label for="salario">Salario anual percibido</label><input id="salario" name="salario"
+                                type="number" placeholder="ingrese solo cifras"></div>
+                    </fieldset>
+                </section>
+                <section class="idiomas">
+                    <fieldset>
+                        <legend>Idiomas</legend>
+                        <div class="filaIdioma">
+                            <label for="idiomas">Elige el idioma</label><select name="idiomas" id="idiomas">
+                                <option value="ES">Español</option>
+                                <option value="EN" selected>Inglés</option>
+                                <option value="FR">Francés</option>
+                            </select>
+                            <label for="nivelOral">Hablado</label><select name="nivelOral" id="nivelOral">
+                                <option value="alto" selected>ALTO</option>
+                                <option value="medio">MEDIO</option>
+                                <option value="bajo">BAJO</option>
+                            </select>
+                            <label for="nivelEscrito">Escrito</label><select name="nivelEscrito" id="nivelEscrito">
+                                <option value="alto">ALTO</option>
+                                <option value="medio" selected>MEDIO</option>
+                                <option value="bajo">BAJO</option>
+                            </select>
+                            <label for="nivelLeido">Leido</label><select name="nivelLeido" id="nivelLeido">
+                                <option value="alto">ALTO</option>
+                                <option value="medio">MEDIO</option>
+                                <option value="bajo" selected>BAJO</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </section>
+                <section class="botones">
+                    <div class="botones">
+                        <button type="submit" value="Send Request">Enviar</button>
+                        <button type="reset">Limpiar</button>
+                    </div>
+                </section>
+            </form>
+        </article>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
