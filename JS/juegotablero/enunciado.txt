@@ -1,0 +1,24 @@
+Haced una app que conste de 2 páginas.
+
+La primera, un formulario de alta y la segunda un tablero dividido en 9 cuadrículas de colores, 
+como se muestra en la imagen.
+
+En el formulario debemos pedir el nombre, la contraseña y la fecha de nacimiento. 
+Cuando el usuario clique en dar de alta, le pasamos a la siguiente página (del tablero)
+
+En el tablero, cuando toque un cuadrado de color, se volverá a negro. Y cuando todos los 
+cuadrados de colores se hayan pasado a negro, debo mostrar un alert con "Fin de Juego"
+
+EXTRAS
+
+1) SÓLO PUEDE PASAR DE LA PRIMERA PANTALLA
+SÍ, ES MAYOR DE 18 AÑOS. USAD LA FECHA DE nacimiento
+PARA EL CÁLCULO
+
+2) La contraseña del usuario debe ser evaluada. Y sólo le 
+dejamos pasar si la contraseña es fuerte. Una contraseña es 
+fuerte si tiene longitud mayor a 6, tiene mayúsuclas, 
+minusculas, algún número y algún caracter especial
+Si no supera la contraseña fuerte, debemos marcar el 
+input de contraseña en rojo e indicar cómo 
+debe ser la contraseña
