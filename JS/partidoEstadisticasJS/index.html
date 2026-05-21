@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+
+    <article class="as-stat-card">
+
+        <header class="as-header">
+            <div class="logo-ring"><img id="logoLocal" src="" alt=""></div>
+            <h2 class="as-title">REMATES</h2>
+            <div class="logo-ring"><img id="logoVisitante" src="" alt=""></div>
+        </header>
+
+        <div class="as-body">
+            <!-- Etiquetas: Forzamos 1fr 1fr para que el corte sea a la mitad -->
+            <div class="as-grid-row labels-row">
+                <div class="team-label local"><span>FUERA</span><span>A PUERTA</span></div>
+                <div class="team-label visitor"><span>A PUERTA</span><span>FUERA</span></div>
+            </div>
+
+            <!-- Barras: Forzamos 1fr 1fr para simetría total -->
+            <div class="as-grid-row bars-row">
+                <!-- Equipo Local (50% del ancho) -->
+                <div class="bar-half local">
+                    <div class="dark-box" style="">
+                        <span id="localApuerta" class="num"></span>
+                    </div>
+                    <span id="localFuera" class="num num-outside"></span>
+                </div>
+
+                <!-- Equipo Visitante (50% del ancho) -->
+                <div class="bar-half visitor">
+                    <div class="dark-box" style="">
+                        <span id="visitanteApurta" class="num"></span>
+                    </div>
+                    <span id="visitanteFuera" class="num num-outside"></span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="as-footer">
+                <p class="footer-desc">DISPAROS EFECTUADOS BLOQUEADOS</p>
+                <div class="footer-vals"><span id="localBloqueados"></span><span id="visitanteBloqueados"></span></div>
+                <div class="footer-progress">
+                    <div class="track local">
+                        <div class="fill" style="width: 50.0%;"></div>
+                    </div>
+                    <div class="track visitor">
+                        <div class="fill" style="width: 50.0%;"></div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </article>
+
+</body>
+
+</html>

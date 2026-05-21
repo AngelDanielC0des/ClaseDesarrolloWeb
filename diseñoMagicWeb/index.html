@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mystic Void</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#474647",
+                        "tertiary": "#c8c6c7",
+                        "tertiary-container": "#a7a5a6",
+                        "on-primary": "#412d00",
+                        "surface": "#121317",
+                        "surface-container": "#1e1f23",
+                        "primary-fixed": "#ffdea5",
+                        "on-primary-container": "#4e3700",
+                        "surface-container-lowest": "#0d0e12",
+                        "background": "#121317",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#343539",
+                        "on-secondary-container": "#b7b4b7",
+                        "on-surface-variant": "#d1c5b4",
+                        "on-tertiary-container": "#3c3b3c",
+                        "primary-fixed-dim": "#e9c176",
+                        "surface-variant": "#343539",
+                        "surface-dim": "#121317",
+                        "on-error": "#690005",
+                        "surface-tint": "#e9c176",
+                        "secondary-fixed": "#e4e2e4",
+                        "on-primary-fixed": "#261900",
+                        "secondary-fixed-dim": "#c8c6c8",
+                        "primary-container": "#c5a059",
+                        "primary": "#e9c176",
+                        "outline": "#9a8f80",
+                        "inverse-surface": "#e3e2e7",
+                        "tertiary-fixed-dim": "#c8c6c7",
+                        "on-tertiary-fixed": "#1c1b1c",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "surface-container-high": "#292a2e",
+                        "on-secondary-fixed-variant": "#474649",
+                        "surface-container-low": "#1a1b1f",
+                        "secondary-container": "#474649",
+                        "outline-variant": "#4e4639",
+                        "on-surface": "#e3e2e7",
+                        "on-background": "#e3e2e7",
+                        "inverse-primary": "#775a19",
+                        "on-secondary-fixed": "#1b1b1d",
+                        "surface-bright": "#38393d",
+                        "inverse-on-surface": "#2f3034",
+                        "secondary": "#c8c6c8",
+                        "on-secondary": "#303032",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#e5e2e3",
+                        "on-tertiary": "#313031"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": [
+                            "Playfair Display"
+                        ],
+                        "body-md": [
+                            "Noto Serif"
+                        ],
+                        "headline-lg-mobile": [
+                            "Playfair Display"
+                        ],
+                        "headline-lg": [
+                            "Playfair Display"
+                        ],
+                        "headline-md": [
+                            "Playfair Display"
+                        ],
+                        "label-sm": [
+                            "Noto Serif"
+                        ],
+                        "body-lg": [
+                            "Noto Serif"
+                        ],
+                        "display-sm": [
+                            "Playfair Display"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-lg": [
+                            "64px",
+                            {
+                                "lineHeight": "72px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-md": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "28px",
+                            {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-lg": [
+                            "18px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "display-sm": [
+                            "48px",
+                            {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Inner Glow Utility */
+        .inner-glow {
+            box-shadow: inset 0 0 15px rgba(197,160,89,0.1);
+        }
+        
+        /* Ornate Frame Utility */
+        .ornate-frame {
+            position: relative;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+        }
+        .ornate-frame::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            pointer-events: none;
+        }
+        
+        .corner-brackets::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: 
+                linear-gradient(to right, #C5A059 8px, transparent 8px) 0 0,
+                linear-gradient(to bottom, #C5A059 8px, transparent 8px) 0 0,
+                linear-gradient(to left, #C5A059 8px, transparent 8px) 100% 0,
+                linear-gradient(to bottom, #C5A059 8px, transparent 8px) 100% 0,
+                linear-gradient(to right, #C5A059 8px, transparent 8px) 0 100%,
+                linear-gradient(to top, #C5A059 8px, transparent 8px) 0 100%,
+                linear-gradient(to left, #C5A059 8px, transparent 8px) 100% 100%,
+                linear-gradient(to top, #C5A059 8px, transparent 8px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 1px 8px, 8px 1px;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface/80 backdrop-blur-md border-b border-primary/20 z-50">
+<div class="flex flex-row-reverse justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full">
+<div class="font-display-lg text-headline-md text-primary tracking-tighter uppercase">MYSTIC VOID</div>
+<!-- Mobile Menu Icon -->
+<div class="md:hidden flex items-center cursor-pointer active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[28px]">menu</span>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-primary border-b-2 border-primary pb-1 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Astrology</a>
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Tarot</a>
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Tarotmancy</a>
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Chiromancy</a>
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Horoscopes</a>
+<a class="font-display-sm text-display-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300 hover:tracking-widest transition-all duration-500 cursor-pointer active:scale-95" href="#">Numerology</a>
+</nav>
+</div>
+</header>
+<!-- Mobile Drawer (Hidden by default, structure provided based on JSON) -->
+<!-- 
+    <aside class="fixed left-0 top-0 h-full w-80 bg-surface-container-lowest border-r border-primary/10 shadow-[0_0_15px_rgba(197,160,89,0.1)] z-40 p-8 transform -translate-x-full md:hidden">
+        <h2 class="font-body-lg text-body-lg uppercase tracking-widest text-primary mb-12">THE ARCANA</h2>
+        <nav class="flex flex-col gap-6">
+            <a href="#" class="flex items-center gap-4 text-primary font-bold translate-x-4 hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">stars</span> Astrology
+            </a>
+            <a href="#" class="flex items-center gap-4 text-on-surface-variant hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">auto_awesome</span> Tarot
+            </a>
+            <a href="#" class="flex items-center gap-4 text-on-surface-variant hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">style</span> Tarotmancy
+            </a>
+            <a href="#" class="flex items-center gap-4 text-on-surface-variant hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">front_hand</span> Chiromancy
+            </a>
+            <a href="#" class="flex items-center gap-4 text-on-surface-variant hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">nights_stay</span> Horoscopes
+            </a>
+            <a href="#" class="flex items-center gap-4 text-on-surface-variant hover:translate-x-2 hover:text-primary transition-transform duration-300 ease-in-out cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined">calculate</span> Numerology
+            </a>
+        </nav>
+    </aside>
+    -->
+<main class="pt-[88px]"> <!-- Offset for fixed header -->
+<!-- Hero Section -->
+<section class="relative min-h-[707px] flex items-center justify-center px-margin-mobile md:px-margin-desktop py-24 overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-surface/50 absolute inset-0 z-10"></div> <!-- Overlay -->
+<img alt="Deep cosmic expanse with subtle golden starlight" class="w-full h-full object-cover opacity-60" data-alt="A vast, dark cosmic nebula in an obsidian black space, punctuated by faint, ethereal golden dust and starlight. The scene is deeply mysterious and majestic, designed for a dark-mode luxury interface. The lighting is low and atmospheric, creating a sense of a hidden, mystical void waiting to be explored." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuOeFsGspVZSFz-1qMf6-kN_B1AH8IxjCWz8cXOtv9Fe7jfdLz_cZRRazYFB_RnNMNjr8uMJNFi4YjQ-eWKPbXWUzjaFx86q2UQSR5Xxh_a7qORc4AYCaFco1yOyNrwrD7r55uM7NOWw9YFRYbtMchHkSRVzsUuAGIs8Gc-VefHDEFIUNfVkO_ycArhLXtdHNxjAkjqLZ9PSsv5HAKH0x_j8ElE0EbZK85DCWaSy0RdinXELHfW5fITuIx7A6LAaTi1cyNpflVjj3O"/>
+</div>
+<!-- Content -->
+<div class="relative z-20 text-center max-w-3xl mx-auto flex flex-col items-center">
+<!-- Portal Frame Effect around Title -->
+<div class="ornate-frame corner-brackets p-8 md:p-16 bg-surface-container-lowest/80 backdrop-blur-sm inner-glow">
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary mb-6 drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]">The Universe Whispers Your Truth</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl mx-auto">Step into the ethereal realms. Uncover ancient wisdom and decode the celestial patterns that shape your destiny.</p>
+<button class="bg-primary-container text-surface px-8 py-4 font-label-sm text-label-sm uppercase tracking-widest hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all duration-300">
+                        Begin Exploration
+                    </button>
+</div>
+</div>
+</section>
+<!-- Realms Section (Bento Grid) -->
+<section class="px-margin-mobile md:px-margin-desktop py-24 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-lg text-primary mb-4">The Disciplines</h2>
+<div class="w-12 h-px bg-primary/40 mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">stars</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Astrology</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Map the stars to understand the foundational energies guiding your path.</p>
+</div>
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">auto_awesome</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Tarot</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Consult the archetypes through the classic 78-card journey of insight.</p>
+</div>
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">style</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Tarotmancy</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Advanced divination practices blending tarot interpretation with deep intuition.</p>
+</div>
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">front_hand</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Chiromancy</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Read the lines of fate written upon the landscape of the human hand.</p>
+</div>
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">nights_stay</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Horoscopes</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Daily, weekly, and monthly alignments based on your solar ascendant.</p>
+</div>
+<!-- Discipline Card -->
+<div class="bg-[#161618] ornate-frame p-8 group hover:shadow-[0_0_15px_rgba(197,160,89,0.2)] transition-all duration-500 cursor-pointer">
+<div class="flex items-center gap-4 mb-4 border-b border-primary/10 pb-4">
+<span class="material-symbols-outlined text-primary text-[32px] group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.6)] transition-all duration-300">calculate</span>
+<h3 class="font-display-sm text-headline-md text-on-surface group-hover:text-primary transition-colors duration-300">Numerology</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:translate-x-2 transition-transform duration-300">Discover the underlying mathematical frequencies of your name and birthdate.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Daily Guidance & Celestial Events (Asymmetric Layout) -->
+<section class="px-margin-mobile md:px-margin-desktop py-24 bg-surface">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Daily Guidance (Featured Left) -->
+<div class="lg:col-span-7 flex flex-col justify-center">
+<div class="ornate-frame corner-brackets p-12 bg-[#161618] inner-glow relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-surface px-4">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Daily Focus</span>
+</div>
+<blockquote class="font-display-lg text-headline-lg text-on-surface italic text-center leading-relaxed">
+                            "The void is not empty; it is pregnant with infinite potential. What you seek in the stars is already seeded within."
+                        </blockquote>
+<div class="mt-8 text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-primary/50 text-[48px] mb-2">auto_awesome</span>
+<span class="font-body-md text-body-md text-on-surface-variant uppercase tracking-widest text-sm">Meditation on the Abyss</span>
+</div>
+</div>
+</div>
+<!-- Celestial Events (Timeline Right) -->
+<div class="lg:col-span-5 flex flex-col">
+<h3 class="font-display-lg text-headline-md text-primary mb-8 border-b border-primary/20 pb-4">Upcoming Celestial Alignments</h3>
+<div class="space-y-6">
+<!-- Event Item -->
+<div class="flex gap-6 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center bg-surface-container-lowest group-hover:border-primary transition-colors duration-300">
+<div class="w-2 h-2 rounded-full bg-primary inner-glow"></div>
+</div>
+<div class="w-px h-full bg-primary/10 my-2"></div>
+</div>
+<div class="pb-6">
+<span class="font-label-sm text-label-sm text-primary/80 uppercase tracking-wider block mb-1">Oct 28</span>
+<h4 class="font-display-sm text-body-lg text-on-surface group-hover:text-primary transition-colors duration-300">Full Moon in Taurus</h4>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">A period for grounding desires and materializing intentions set during the new moon.</p>
+</div>
+</div>
+<!-- Event Item -->
+<div class="flex gap-6 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center bg-surface-container-lowest group-hover:border-primary transition-colors duration-300">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+<div class="w-px h-full bg-primary/10 my-2"></div>
+</div>
+<div class="pb-6">
+<span class="font-label-sm text-label-sm text-primary/80 uppercase tracking-wider block mb-1">Nov 04</span>
+<h4 class="font-display-sm text-body-lg text-on-surface group-hover:text-primary transition-colors duration-300">Saturn Direct in Pisces</h4>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">Karmic lessons begin to integrate. Structural changes in spiritual practices.</p>
+</div>
+</div>
+<!-- Event Item -->
+<div class="flex gap-6 group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full border border-primary/40 flex items-center justify-center bg-surface-container-lowest group-hover:border-primary transition-colors duration-300">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-primary/80 uppercase tracking-wider block mb-1">Nov 13</span>
+<h4 class="font-display-sm text-body-lg text-on-surface group-hover:text-primary transition-colors duration-300">New Moon in Scorpio</h4>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">Deep emotional reset. Excellent time for shadow work and divination.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-primary/30 relative before:content-[''] before:absolute before:inset-1 before:border before:border-primary/5 flex flex-col items-center justify-center py-16 gap-8">
+<div class="font-display-sm text-display-sm text-primary">MYSTIC VOID</div>
+<nav class="flex flex-wrap justify-center gap-8 px-margin-mobile">
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-fixed-variant hover:text-primary transition-opacity transition-all duration-300" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-fixed-variant hover:text-primary transition-opacity transition-all duration-300" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-fixed-variant hover:text-primary transition-opacity transition-all duration-300" href="#">Contact</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-fixed-variant hover:text-primary transition-opacity transition-all duration-300" href="#">The Order</a>
+</nav>
+<div class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-fixed-variant opacity-60 mt-8">
+            © 2024 OBSIDIAN GOLD. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+</body></html>
