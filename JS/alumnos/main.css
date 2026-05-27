@@ -1,0 +1,88 @@
+/* Configuración general y tipografía limpia */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* Contenedor y diseño de la tabla */
+table {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px auto; /* Centra la tabla perfectamente sin romper sus filas */
+    border-collapse: collapse; /* Une los bordes dobles en una sola línea */
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para darle relieve */
+    border-radius: 8px;
+    overflow: hidden; /* Mantiene las esquinas redondeadas */
+}
+
+/* Cabeceras de la tabla */
+th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    padding: 14px 18px;
+}
+
+/* Celdas de datos */
+td {
+    padding: 12px 18px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+/* Filas alternas de diferente color (Efecto cebra) */
+tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+/* Efecto visual al pasar el ratón por encima de una fila */
+tr:hover {
+    background-color: #edf2f7;
+}
+
+/* Contenedor de botones inferiores */
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Separa los botones entre sí */
+}
+
+/* Estilo para los botones principales (Añadir) */
+button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+/* Estilo específico para el botón de borrar de cada fila */
+td button {
+    background-color: #e74c3c;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+td button:hover {
+    background-color: #c0392b;
+}
