@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='es-ES'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Gestión de Alumnos (DOM y Tablas)</title>
+    <!-- Vinculación de estilos -->
+    <link rel='stylesheet' href='main.css'>
+    
+    <!-- 
+         CONCEPTO: Vinculación JS
+         En este caso el script se carga al principio sin 'defer'.
+         No falla porque las funciones se llaman desde eventos de botones
+         cuando el usuario hace clic (y el DOM ya está cargado para entonces).
+    -->
+    <script src="alumnos.js"></script>
+</head>
+<body>
+    <h1>LISTADO DE ALUMNOS</h1>
+    
+    <!-- 
+         CONCEPTO: Tablas Semánticas (HTML5)
+         El uso de thead y tbody es fundamental cuando vamos a inyectar
+         filas dinámicamente con JavaScript. Nos permite tener una cabecera
+         fija mientras el cuerpo crece.
+    -->
+    <table>
+        <!-- Cabecera de la tabla (Fija) -->
+        <thead>
+            <tr>
+                <!-- th = Table Header (Columna de Cabecera, negrita por defecto) -->
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Curso</th>
+                <th>Email</th>
+                <th>Borrar Alumno</th>
+            </tr>
+        </thead>
+        
+        <!-- 
+             Cuerpo de la tabla (Dinámico)
+             Este <tbody> tiene una ID ('bodytabla') porque será el "contenedor padre"
+             donde JavaScript inyectará (appendChild) las filas (<tr>) nuevas.
+        -->
+        <tbody id="bodytabla">
+            <!-- 
+                 Ejemplo de fila inactiva:
+                 <tr>
+                    <td>Pepa</td>
+                    <td>86</td>
+                    <td>2</td>
+                    <td>pepa@gmail.com</td>
+                 </tr> 
+            -->
+        </tbody>
+    </table>
+    
+    <!-- Controles de Usuario -->
+    <div class="botones">
+        <!-- Eventos en línea llamando a las funciones de alumnos.js -->
+        <button onclick="addAlumno()">Añadir Primer Alumno</button>
+        <button onclick="addAlumnos()">Añadir Todos (Array)</button>
+        <button onclick="calcularEstadisticas()">Mostrar Estadísticas</button>
+    </div>
+    
+</body>
+</html>

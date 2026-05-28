@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ======================================================================
+         LECCIÓN: Formulario Avanzado — HTML5 y Animaciones CSS
+         ======================================================================
+         En esta lección aprenderás:
+         
+         HTML5:
+           - Inputs avanzados (range, color, date, email, url, number)
+           - <datalist>     → Autocompletado nativo sin librerías
+           - <output>       → Elemento semántico para mostrar resultados de cálculos
+           - <progress>     → Barra de progreso nativa (carga o completado)
+           - <meter>        → Indicador de medida o rango escalar conocido (ej. fuerza de contraseña)
+           - Atributos de validación (required, min, max, step, minlength, maxlength, pattern)
+         
+         CSS:
+           - @keyframes & animation → Creación de animaciones personalizadas y complejas
+           - :valid / :invalid      → Pseudo-clases para validación en tiempo real
+           - :focus-within          → Detectar si un elemento hijo tiene el foco
+           - :placeholder-shown     → Truco avanzado de CSS para crear Labels Flotantes
+           - :checked               → Estilización avanzada de inputs seleccionados
+           - calc() & clamp()       → Funciones matemáticas para dimensionamiento responsive
+           - accent-color           → Personalizar el color de inputs nativos (ranges, checkboxes)
+         ====================================================================== -->
+
+    <title>Formulario Avanzado — HTML5 y CSS</title>
+
+    <!-- Google Fonts: Inter para la tipografía principal y Outfit para cabeceras -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos de la lección -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lógica de apoyo del formulario -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main class="contenedor-formulario">
+
+        <!-- Encabezado del Formulario -->
+        <header class="form-header">
+            <h1 class="form-titulo">Registro TechCon 2026</h1>
+            <p class="form-subtitulo">Completa tu registro para la mayor conferencia de desarrollo</p>
+            
+            <!-- ========================================================
+                 CONCEPTO NUEVO: <progress>
+                 ─────────────────────────
+                 La etiqueta <progress> representa el progreso de una tarea.
+                 Es ideal para barras de carga o, como aquí, pasos de un formulario.
+                 
+                 Atributos clave:
+                 - max: El valor total que representa el 100% (por defecto 1.0)
+                 - value: El progreso actual (si no se pone, se muestra una barra indeterminada)
+                 
+                 Diferencia con div/css:
+                 Es semántica y accesible. Los lectores de pantalla indican el porcentaje
+                 exacto al usuario de forma automática.
+            ======================================================== -->
+            <div class="progreso-contenedor">
+                <span class="progreso-texto">Progreso del registro:</span>
+                <progress id="barra-progreso" max="100" value="0"></progress>
+            </div>
+        </header>
+
+        <!-- Formulario con validación nativa -->
+        <form id="registro-form" class="formulario" novalidate>
+            <!-- 
+                CONCEPTO: novalidate
+                Usamos 'novalidate' en el form para evitar que el navegador muestre
+                sus bocadillos flotantes por defecto (que suelen ser feos y difíciles de estilizar).
+                Esto nos permite validar usando las pseudo-clases de CSS (:valid, :invalid)
+                y aplicar nuestra propia interactividad por JS, manteniendo las reglas semánticas.
+            -->
+
+            <!-- SECCIÓN 1: Datos Personales -->
+            <fieldset class="grupo-campos">
+                <legend class="grupo-titulo">1. Información Personal</legend>
+
+                <!-- Campo Nombre Completo (Validación básica) -->
+                <div class="campo-contenedor">
+                    <!-- 
+                        CONCEPTO CLAVE: Label Flotante (Floating Label)
+                        Usamos el orden: <input> primero y <label> después.
+                        Esto nos permite usar el selector hermano (+) en CSS y la pseudo-clase
+                        :placeholder-shown para animar el label cuando el usuario escribe.
+                    -->
+                    <input type="text" id="nombre" class="control-input" placeholder=" " required minlength="3">
+                    <label for="nombre" class="control-label">Nombre Completo</label>
+                    <span class="error-mensaje">El nombre debe tener al menos 3 caracteres.</span>
+                </div>
+
+                <!-- Campo Correo Electrónico (type="email") -->
+                <div class="campo-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="email"
+                        Valida automáticamente que la estructura del texto introducido
+                        corresponda a un correo electrónico válido (ej. usuario@dominio.com).
+                    -->
+                    <input type="email" id="email" class="control-input" placeholder=" " required>
+                    <label for="email" class="control-label">Correo Electrónico</label>
+                    <span class="error-mensaje">Introduce una dirección de correo válida.</span>
+                </div>
+
+                <!-- Campo Web Personal/GitHub (type="url") -->
+                <div class="campo-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="url"
+                        Valida automáticamente que el valor introducido sea un enlace web válido,
+                        requiriendo obligatoriamente el protocolo (ej. http:// o https://).
+                    -->
+                    <input type="url" id="sitio-web" class="control-input" placeholder=" " required>
+                    <label for="sitio-web" class="control-label">Enlace GitHub o Portfolio (https://...)</label>
+                    <span class="error-mensaje">Introduce una URL válida que empiece por https://.</span>
+                </div>
+
+                <!-- Campo Fecha de Nacimiento (type="date") -->
+                <div class="campo-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="date"
+                        Muestra un selector de calendario nativo optimizado para cada navegador
+                        y sistema operativo (especialmente útil en móviles).
+                        
+                        Atributos de control:
+                        - min: Fecha mínima permitida.
+                        - max: Fecha máxima permitida (ej. restringir a mayores de edad).
+                    -->
+                    <input type="date" id="fecha-nacimiento" class="control-input" required 
+                           min="1950-01-01" max="2010-12-31">
+                    <label for="fecha-nacimiento" class="control-label label-estatico">Fecha de Nacimiento</label>
+                    <span class="error-mensaje">Debes ser mayor de 16 años para asistir.</span>
+                </div>
+
+                <!-- Campo Edad (type="number" con min y max) -->
+                <div class="campo-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="number" + min + max + step
+                        Permite introducir solo números. El atributo 'step' define los saltos
+                        permitidos (por defecto 1). 'min' y 'max' limitan el rango numérico.
+                    -->
+                    <input type="number" id="edad" class="control-input" placeholder=" " required 
+                           min="16" max="99" step="1">
+                    <label for="edad" class="control-label">Edad</label>
+                    <span class="error-mensaje">Debes tener entre 16 y 99 años.</span>
+                </div>
+            </fieldset>
+
+
+            <!-- SECCIÓN 2: Preferencias de Asistencia -->
+            <fieldset class="grupo-campos">
+                <legend class="grupo-titulo">2. Configura tu Experiencia</legend>
+
+                <!-- Autocompletado de Ciudad (datalist) -->
+                <div class="campo-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: <datalist>
+                        Es una lista de opciones predefinidas para un input de texto.
+                        A diferencia de un <select>, el usuario puede ESCRIBIR cualquier valor,
+                        pero el navegador le sugerirá las opciones del datalist que coincidan.
+                        
+                        ¿Cómo se conecta?
+                        El input debe tener el atributo list="id-del-datalist".
+                    -->
+                    <input type="text" id="ciudad" list="lista-ciudades" class="control-input" placeholder=" " required>
+                    <label for="ciudad" class="control-label">Ciudad de Origen</label>
+                    
+                    <datalist id="lista-ciudades">
+                        <option value="Madrid"></option>
+                        <option value="Barcelona"></option>
+                        <option value="Valencia"></option>
+                        <option value="Sevilla"></option>
+                        <option value="Zaragoza"></option>
+                        <option value="Málaga"></option>
+                        <option value="Bilbao"></option>
+                    </datalist>
+                    <span class="error-mensaje">Introduce una ciudad de origen.</span>
+                </div>
+
+                <!-- Selector de Color de Camiseta (type="color") -->
+                <div class="campo-color-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="color"
+                        Abre un selector de color del sistema operativo (color picker).
+                        Devuelve un valor hexadecimal de 7 caracteres (ej. #ff0000).
+                    -->
+                    <label for="color-camiseta" class="color-label">Elige color para tu camiseta de regalo:</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="color-camiseta" value="#6366f1">
+                        <span id="hex-color-val">#6366f1</span>
+                    </div>
+                </div>
+
+                <!-- Selector de Asistentes (type="range" y <output>) -->
+                <div class="campo-rango-contenedor">
+                    <!--
+                        CONCEPTO NUEVO: type="range" y <output>
+                        - type="range": Selector deslizante para un rango numérico aproximado.
+                        - <output>: Elemento semántico específico para inyectar y mostrar
+                                    resultados de cálculos realizados por el usuario (normalmente con JS).
+                    -->
+                    <div class="rango-cabecera">
+                        <label for="pases">Pases adicionales para acompañantes:</label>
+                        <span class="rango-resultado">
+                            <!-- En script.js actualizaremos este output con el valor del range -->
+                            <output id="pases-output" for="pases">0</output> pases
+                        </span>
+                    </div>
+                    <input type="range" id="pases" min="0" max="5" value="0" step="1">
+                    <div class="rango-leyenda">
+                        <span>Ninguno</span>
+                        <span>5 acompañantes máx.</span>
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <!-- SECCIÓN 3: Seguridad y Accesos -->
+            <fieldset class="grupo-campos">
+                <legend class="grupo-titulo">3. Seguridad de la Cuenta</legend>
+
+                <!-- Campo Contraseña con Indicador de Fortaleza -->
+                <div class="campo-contenedor">
+                    <input type="password" id="password" class="control-input" placeholder=" " required minlength="6">
+                    <label for="password" class="control-label">Contraseña</label>
+                    
+                    <!-- ========================================================
+                         CONCEPTO NUEVO: <meter>
+                         ──────────────────────
+                         La etiqueta <meter> representa una medida escalar dentro
+                         de un rango conocido, o un valor fraccionario.
+                         
+                         Atributos clave:
+                         - min / max: Límites inferior y superior (por defecto 0 y 1)
+                         - value: El valor actual medido
+                         - low / high: Definen los rangos para valores "bajos" o "altos"
+                         - optimum: El punto óptimo dentro del rango
+                         
+                         Diferencia con <progress>:
+                         - <progress> es para indicar cuánto falta para acabar algo (carga, tareas).
+                         - <meter> es para mediciones estáticas o rangos cualitativos (disco duro,
+                           temperatura, fuerza de contraseña). El navegador cambia su color nativo
+                           (rojo, amarillo, verde) dependiendo de si el valor está en low, high u optimum.
+                    ======================================================== -->
+                    <div class="medidor-password">
+                        <div class="medidor-cabecera">
+                            <span class="medidor-texto">Seguridad: <span id="fuerza-texto">Muy Débil</span></span>
+                        </div>
+                        <meter id="medidor-fuerza" min="0" max="4" low="2" high="3" optimum="4" value="0"></meter>
+                    </div>
+                    
+                    <span class="error-mensaje">La contraseña debe tener al menos 6 caracteres.</span>
+                </div>
+            </fieldset>
+
+            <!-- Términos y Condiciones -->
+            <div class="campo-checkbox">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="terminos" required>
+                    <span class="custom-checkbox"></span>
+                    Acepto los términos y condiciones de la conferencia.
+                </label>
+            </div>
+
+            <!-- Botón de Envío -->
+            <button type="submit" class="boton-enviar">Registrarse Ahora</button>
+
+        </form>
+
+        <!-- Mensaje de éxito tras registrarse -->
+        <div id="mensaje-exito" class="mensaje-exito oculto">
+            <span class="icono-exito">✓</span>
+            <h2>¡Registro Completado!</h2>
+            <p>Hemos enviado un correo de confirmación a tu dirección.</p>
+            <button id="btn-nuevo-registro" class="boton-secundario">Hacer otro registro</button>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

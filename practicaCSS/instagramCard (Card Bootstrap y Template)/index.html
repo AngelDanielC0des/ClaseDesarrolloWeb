@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Card</title>
+
+    <!-- 
+         CONCEPTO: Bootstrap CSS vía CDN
+         Bootstrap es un framework CSS externo que ofrece clases prefabricadas
+         para crear interfaces rápidamente. Lo cargamos desde una CDN (Content 
+         Delivery Network), es decir, un servidor remoto que aloja la librería.
+         Ventaja: No necesitamos descargar nada; el navegador lo carga automáticamente.
+         Desventaja: Requiere conexión a internet para funcionar.
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 
+         Bootstrap Icons: Librería de iconos vectoriales (SVG) de Bootstrap.
+         Permite usar iconos como si fuesen fuentes, con la clase "bi bi-nombre".
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Nuestra hoja de estilos personalizada (sobrescribe lo que queramos de Bootstrap) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 
+         CONCEPTO: <article>
+         Elemento semántico HTML5 que representa un contenido independiente y
+         autocontenido. Puede ser compartido o distribuido por sí solo sin
+         perder significado (ideal para posts de redes sociales, artículos, etc.).
+    -->
+    <article class="instagram-card">
+
+        <!-- Cabecera del post: Avatar + Nombre de usuario + Botón opciones -->
+        <header class="card-header">
+            <div class="user-info">
+                <img src="https://via.placeholder.com/32" alt="Avatar" class="avatar-small">
+                <strong>alex.anyways18</strong>
+            </div>
+            <!-- 
+                 CONCEPTO: aria-label (Accesibilidad)
+                 Proporciona una etiqueta descriptiva invisible para lectores de pantalla.
+                 El botón no tiene texto visible, solo un icono, así que aria-label
+                 permite a los usuarios con discapacidad visual saber qué hace.
+            -->
+            <button class="options-btn"><i class="bi bi-three-dots"></i></button>
+        </header>
+
+        <!-- 
+             CONCEPTO: <figure>
+             Contenedor semántico para contenido multimedia (imágenes, gráficos, vídeos)
+             que forman parte del flujo del documento pero son autónomos.
+        -->
+        <figure class="card-image">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500&auto=format&fit=crop" alt="Fashion Post">
+        </figure>
+
+        <!-- Barra de acciones (Like, Comment, Share, Bookmark) -->
+        <section class="card-actions">
+            <div class="left-actions">
+                <button aria-label="Me gusta"><i class="bi bi-suit-heart"></i></button>
+                <button aria-label="Comentar"><i class="bi bi-chat"></i></button>
+                <button aria-label="Compartir"><i class="bi bi-send"></i></button> 
+            </div>
+            <button aria-label="Guardar"><i class="bi bi-bookmark"></i></button>
+        </section>
+
+        <!-- Contenido principal: Likes, Comentarios, Fecha -->
+        <section class="card-main-content">
+            <!-- Sección de likes con avatares solapados -->
+            <div class="likes-section">
+                <div class="likes-avatars">
+                    <img src="https://via.placeholder.com/20" alt="User 1" class="avatar-tiny">
+                    <img src="https://via.placeholder.com/20" alt="User 2" class="avatar-tiny">
+                    <img src="https://via.placeholder.com/20" alt="User 3" class="avatar-tiny">
+                </div>
+                <p class="likes-count">Le gusta a <strong>jiho100x</strong> y <strong>35 más</strong></p>
+            </div>
+        
+            <!-- Lista de comentarios visibles inicialmente -->
+            <ul id="comments-list" class="comments-list">
+                <li><strong>alex.anyways18</strong> Good times. Great vibes.</li>
+                <li>
+                    <strong>aimi.allover</strong> Great shot <span class="hashtag">#toocute</span> 
+                    <i class="bi bi-heart small-gray-heart"></i>
+                </li>
+            </ul>
+
+            <!-- 
+                 ================================================================
+                 CONCEPTO CLAVE: <template> (Plantilla HTML Inerte)
+                 ================================================================
+                 
+                 La etiqueta <template> define un fragmento de HTML que el 
+                 navegador parsea pero NO renderiza en pantalla. Su contenido
+                 es "inerte": no se muestra, no ejecuta scripts, no carga 
+                 imágenes ni aplica estilos.
+                 
+                 ¿Para qué sirve?
+                 Para almacenar fragmentos de HTML que clonaremos con JavaScript
+                 cuando los necesitemos. Es mucho más eficiente que construir
+                 elementos con document.createElement() o innerHTML.
+                 
+                 Flujo de trabajo:
+                 1. Definir el template en el HTML (invisible para el usuario).
+                 2. Desde JS, acceder con document.getElementById('id').
+                 3. Clonar su contenido con template.content.cloneNode(true).
+                 4. Insertar el clon en el DOM visible con appendChild().
+                 
+                 DIAGRAMA DEL FLUJO <template>:
+                 
+                 HTML (Inerte)               JavaScript                  DOM (Visible)
+                 +──────────────+             +────────────────+          +──────────────+
+                 | <template>   |  ──────►    | .content       |          |              |
+                 |   <li>...</li>|             | .cloneNode(true)|──────►  | <ul>         |
+                 |   <li>...</li>|             +────────────────+          |   <li>nuevo</li>
+                 | </template>  |                                         | </ul>        |
+                 +──────────────+                                         +──────────────+
+                  No se muestra               Se clona en memoria          Se muestra
+            -->
+            <template id="comment-template">
+                <li><strong>fan_coding</strong> ¡Increíble! 🔥 <i class="bi bi-heart small-gray-heart"></i></li>
+                <li><strong>dev_girl</strong> Pasa el repo porfa. <i class="bi bi-heart small-gray-heart"></i></li>
+                <li><strong>coding_art</strong> Love the colors! <i class="bi bi-heart small-gray-heart"></i></li>
+            </template>
+        
+            <!-- Botón que activa la clonación del template -->
+            <button id="load-comments" class="load-more-btn">
+                Ver los 5 comentarios
+            </button>
+
+            <!-- 
+                 CONCEPTO: <time datetime="...">
+                 Etiqueta semántica que marca una fecha/hora legible por máquinas.
+                 El atributo datetime contiene la fecha en formato ISO 8601 (YYYY-MM-DD)
+                 y el texto visible puede ser cualquier formato humano.
+            -->
+            <time datetime="2024-05-20" class="post-date">HACE 1 DÍA</time>
+        </section>
+    </article>
+
+    <script>
+        // ================================================================
+        // LÓGICA: Carga dinámica de comentarios usando <template>
+        // ================================================================
+        
+        // 1. Escuchamos el evento 'click' en el botón "Ver más comentarios"
+        document.getElementById('load-comments').addEventListener('click', function() {
+            
+            // 2. Obtenemos referencia al <template> (contenido inerte)
+            const template = document.getElementById('comment-template');
+            
+            // 3. Obtenemos referencia a la lista visible de comentarios
+            const list = document.getElementById('comments-list');
+            
+            // 4. Clonamos el contenido del template
+            //    - .content accede al DocumentFragment interno del template
+            //    - .cloneNode(true) hace una copia profunda (incluye todos los hijos)
+            const clone = template.content.cloneNode(true);
+            
+            // 5. Insertamos los comentarios clonados en la lista visible del DOM
+            list.appendChild(clone);
+
+            // 6. Ocultamos el botón "Ver más" porque ya se cargaron los comentarios
+            //    'this' se refiere al propio botón que recibió el click
+            this.style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>

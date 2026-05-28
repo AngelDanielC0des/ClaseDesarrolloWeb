@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es-Es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Formulario de Login Básico</title>
+</head>
+
+<body>
+    <!-- 
+         CONCEPTO: Formulario (<form>)
+         Contenedor para recopilar entradas del usuario.
+         - action: Define el destino al que se envían los datos (vacío = recarga la página actual).
+         - method: Método de envío (GET por defecto si se omite, o POST).
+    -->
+    <form action="">
+        <!-- El elemento <code> resalta semánticamente el título como texto de sistema -->
+        <code><h1>Formulario HTML</h1></code>
+        
+        <!-- Campo de Usuario -->
+        <div class="usuario">
+            <!-- 
+                 CONCEPTO: <label for="id">
+                 Vincula el texto del label con el input que tiene el id correspondiente.
+                 Mejora la accesibilidad y permite hacer clic en el texto para enfocar el input.
+            -->
+            <label for="usuario">Usuario</label>
+            <!-- 
+                 CONCEPTO: input de texto (type="text")
+                 - required: Atributo booleano que hace obligatorio rellenar el campo antes de enviar.
+                 - placeholder: Texto indicativo temporal en color gris que desaparece al escribir.
+                 - name: Nombre del parámetro que se enviará al servidor.
+            -->
+            <input id="usuario" type="text" name="usuario" required placeholder="Angel">
+        </div>
+
+        <!-- Campo de Contraseña -->
+        <div class="pass">
+            <label for="password">Contraseña</label>
+            <!-- 
+                 CONCEPTO: type="password"
+                 Oculta el texto introducido convirtiendo los caracteres en puntos o asteriscos.
+            -->
+            <input id="password" type="password" name="password" placeholder="Secret" required>
+        </div>
+
+        <!-- Confirmación de Contraseña -->
+        <div class="repeatpass">
+            <label for="repeatPassword">Repite tu contraseña</label>
+            <input id="repeatPassword" type="password" name="repeatPassword" placeholder="Secret" required>
+        </div>
+   
+        <!-- 
+             CONCEPTO: <fieldset> y <legend>
+             - <fieldset>: Agrupa visualmente elementos relacionados dibujando un borde a su alrededor.
+             - <legend>: Define el título del fieldset integrado en el propio borde superior.
+        -->
+        <fieldset class="sexo">
+            <legend>Sexo</legend>
+            <!-- Sección vacía originalmente (lista para añadir inputs de tipo radio) -->
+        </fieldset>
+
+        <!-- Aceptación de Condiciones -->
+        <div class="condiciones">
+            <!-- 
+                 CONCEPTO: type="checkbox"
+                 Caja de selección booleana (marcado/desmarcado).
+            -->
+            <input id="privacidad" name="privacidad" type="checkbox" required>
+            <label for="privacidad">Acepto las condiciones</label>
+        </div>
+
+        <!-- Botonera -->
+        <div class="botones">
+            <!-- 
+                 CONCEPTO: Tipos de botones
+                 - type="submit": Envía los datos del formulario al action indicado.
+                 - type="reset": Restablece todos los campos del formulario a sus valores originales.
+            -->
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpiar</button>
+        </div>
+    </form>
+</body>
+
+</html>

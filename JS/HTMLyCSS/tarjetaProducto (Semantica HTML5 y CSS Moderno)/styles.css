@@ -1,0 +1,827 @@
+/* ======================================================================
+   LECCIÓN: Tarjeta de Producto — CSS Moderno
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+   
+   1. Variables CSS (Custom Properties) en profundidad
+   2. transition    → Transiciones suaves entre estados
+   3. transform     → Transformaciones geométricas
+   4. box-shadow    → Sombras para dar profundidad
+   5. ::before / ::after → Pseudo-elementos decorativos
+   6. object-fit    → Cómo la imagen se ajusta a su caja
+   7. backdrop-filter → Efecto de cristal difuminado (glassmorphism)
+   ====================================================================== */
+
+
+/* ======================================================================
+   1. VARIABLES CSS (Custom Properties)
+   ======================================================================
+   
+   Ya vimos variables CSS brevemente en PiedraPapelTijera.
+   Ahora las usamos en profundidad como SISTEMA DE DISEÑO.
+   
+   ¿QUÉ SON?
+   Son valores reutilizables que definimos UNA VEZ y usamos en TODO el CSS.
+   Se declaran con -- y se usan con var().
+   
+   ¿DÓNDE SE DECLARAN?
+   En :root para que sean GLOBALES (accesibles desde cualquier selector).
+   :root es equivalente a <html> pero con mayor especificidad.
+   
+   VENTAJAS:
+   ✅ Si cambias el color primario aquí, se actualiza en TODA la página
+   ✅ Puedes hacer temas (oscuro/claro) cambiando solo las variables
+   ✅ Son heredables: un hijo hereda las variables de su padre
+   ✅ Se pueden modificar desde JavaScript con setProperty()
+   
+   SINTAXIS:
+   Declarar:  --nombre-variable: valor;
+   Usar:      var(--nombre-variable)
+   Fallback:  var(--nombre-variable, valor-por-defecto)
+              Si la variable no existe, usa el valor-por-defecto.
+*/
+:root {
+    /* Paleta de colores */
+    --color-primario: #6c5ce7;
+    /* Violeta principal */
+    --color-primario-hover: #5a4bd1;
+    /* Violeta más oscuro para hover */
+    --color-fondo: #f0f0f5;
+    /* Gris muy claro de fondo */
+    --color-tarjeta: #ffffff;
+    /* Blanco para la tarjeta */
+    --color-texto: #2d3436;
+    /* Gris oscuro para texto */
+    --color-texto-suave: #636e72;
+    /* Gris medio para texto secundario */
+    --color-oferta: #e17055;
+    /* Naranja para el badge de oferta */
+    --color-precio-tachado: #b2bec3;
+    /* Gris claro para precio anterior */
+    --color-exito: #00b894;
+    /* Verde para precio actual */
+
+    /* Tipografía */
+    --fuente-principal: 'Inter', system-ui, sans-serif;
+
+    /* Espaciado (sistema de 8px para consistencia) */
+    --espacio-xs: 4px;
+    --espacio-sm: 8px;
+    --espacio-md: 16px;
+    --espacio-lg: 24px;
+    --espacio-xl: 32px;
+    --espacio-2xl: 48px;
+
+    /* Bordes redondeados */
+    --radio-sm: 8px;
+    --radio-md: 16px;
+    --radio-lg: 24px;
+
+    /* ================================================================
+       CONCEPTO NUEVO: box-shadow (sombras)
+       ================================================================
+       box-shadow añade sombras alrededor de un elemento.
+       
+       SINTAXIS:
+       box-shadow: desplazamiento-X  desplazamiento-Y  difuminado  expansión  color;
+       
+       Ejemplo desglosado:
+       box-shadow: 0px    10px    30px    -5px    rgba(0,0,0,0.1);
+                   ↑      ↑       ↑       ↑       ↑
+                   No se   Baja   Se      Se      Color negro
+                   mueve   10px   difumina contrae con 10% de
+                   en X    abajo  30px    5px     opacidad
+       
+       TRUCOS:
+       - Valores negativos en X/Y → la sombra va hacia arriba/izquierda
+       - Expansión negativa → la sombra es más pequeña que el elemento
+       - Puedes poner VARIAS sombras separadas por coma
+       - rgba() permite sombras semitransparentes (más naturales)
+    */
+    --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+        0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --sombra-elevada: 0 20px 40px -8px rgba(108, 92, 231, 0.25),
+        0 8px 16px -4px rgba(0, 0, 0, 0.1);
+
+    /* ================================================================
+       CONCEPTO NUEVO: transition (transiciones)
+       ================================================================
+       'transition' permite que los cambios de estilo ocurran de forma
+       SUAVE en lugar de instantánea.
+       
+       SINTAXIS CORTA:
+       transition: propiedad  duración  curva  retardo;
+       
+       Ejemplo desglosado:
+       transition: transform  0.3s  ease  0s;
+                   ↑           ↑     ↑     ↑
+                   Qué         Cuánto Cómo  Esperar
+                   animar      tarda  acelera antes
+       
+       PROPIEDADES INDIVIDUALES:
+       transition-property: transform, box-shadow;  (qué animar)
+       transition-duration: 0.3s;                   (cuánto tarda)
+       transition-timing-function: ease;             (curva de velocidad)
+       transition-delay: 0s;                         (retardo antes de empezar)
+       
+       CURVAS DE VELOCIDAD:
+       - ease       → Empieza lento, acelera, termina lento (por defecto)
+       - linear     → Velocidad constante
+       - ease-in    → Empieza lento, termina rápido
+       - ease-out   → Empieza rápido, termina lento
+       - ease-in-out → Empieza y termina lento
+       - cubic-bezier(a,b,c,d) → Curva personalizada
+       
+       TRUCO: transition: all 0.3s ease; anima TODO, pero es menos
+       eficiente. Mejor especificar qué propiedades exactas animar.
+    */
+    --transicion-rapida: all 0.2s ease;
+    --transicion-media: all 0.3s ease;
+    --transicion-lenta: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* ======================================================================
+   2. RESET Y ESTILOS BASE Y MODELO DE CAJA
+   ======================================================================
+   
+   DIAGRAMA DEL MODELO DE CAJA (Box Model):
+   +-------------------------------------------------------------+
+   | MARGIN (Margen exterior) - Espacio fuera del borde          |
+   |   +-----------------------------------------------------+   |
+   |   | BORDER (Borde del elemento) - Línea divisoria       |   |
+   |   |   +---------------------------------------------+   |   |
+   |   |   | PADDING (Relleno interior) - Entre borde    |   |   |
+   |   |   | y el contenido                              |   |   |
+   |   |   |   +-------------------------------------+   |   |   |
+   |   |   |   | CONTENT (Contenido: Texto, Imagen)  |   |   |   |
+   |   |   |   +-------------------------------------+   |   |   |
+   |   |   +---------------------------------------------+   |   |
+   |   +-----------------------------------------------------+   |
+   +-------------------------------------------------------------+
+*/
+
+/* Reset básico para que todos los navegadores partan del mismo punto */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    /* 
+       box-sizing: border-box hace que padding y border
+       se incluyan DENTRO del ancho total del elemento,
+       en vez de sumarse por fuera. Esto simplifica los cálculos.
+       
+       Ejemplo con width: 300px:
+       - content-box (por defecto): 300px + padding + border = más de 300px
+       - border-box: padding + contenido + border = exactamente 300px
+    */
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+    /* Fondo con gradiente sutil para más elegancia */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f0f5 0%, #e8e6f0 50%, #f0f0f5 100%);
+}
+
+
+/* ======================================================================
+   3. CONTENEDOR PRINCIPAL Y TÍTULOS
+   ====================================================================== */
+
+.contenedor-principal {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--espacio-2xl) var(--espacio-md);
+}
+
+.titulo-pagina {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: var(--espacio-xs);
+}
+
+.subtitulo-pagina {
+    text-align: center;
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+    margin-bottom: var(--espacio-xl);
+}
+
+
+/* ======================================================================
+   4. TARJETA DE PRODUCTO — Estilos principales
+   ====================================================================== */
+
+.tarjeta-producto {
+    background-color: var(--color-tarjeta);
+    border-radius: var(--radio-md);
+    overflow: hidden;
+    /* Usamos nuestra variable de sombra suave */
+    box-shadow: var(--sombra-suave);
+    /* Transición para el efecto hover (explicado arriba en las variables) */
+    transition: var(--transicion-lenta);
+
+    /* ================================================================
+       CONCEPTO: position: relative
+       ================================================================
+       Establecemos position: relative en la tarjeta para que los
+       pseudo-elementos (::before) que usen position: absolute
+       se posicionen RELATIVOS A ESTA TARJETA y no a la página.
+       
+       position: relative NO mueve el elemento, solo establece
+       un "punto de referencia" para sus hijos posicionados.
+    */
+    position: relative;
+}
+
+/* ======================================================================
+   CONCEPTO NUEVO: ::before (Pseudo-elementos)
+   ======================================================================
+   
+   ::before y ::after crean elementos VIRTUALES que no existen en el HTML
+   pero se comportan como hijos del elemento al que se aplican.
+   
+   ::before → Se inserta ANTES del contenido del elemento
+   ::after  → Se inserta DESPUÉS del contenido del elemento
+   
+   REGLAS OBLIGATORIAS:
+   1. SIEMPRE deben tener content: "..." (aunque sea vacío: content: "")
+      Sin content, el pseudo-elemento NO se renderiza.
+   2. Por defecto son inline, así que si quieres darles tamaño
+      debes ponerlos en display: block o display: inline-block.
+   3. No son seleccionables con el ratón (no se pueden copiar).
+   
+   USOS COMUNES:
+   - Badges decorativos ("OFERTA", "NUEVO", "GRATIS")
+   - Iconos antes/después del texto
+   - Líneas decorativas o bordes extra
+   - Overlay oscuro sobre imágenes
+   - Contadores CSS
+   
+   En este caso: Creamos un badge "OFERTA" que flota sobre la tarjeta
+   sin necesitar un elemento HTML extra.
+*/
+.tarjeta-producto::before {
+    /* El texto que aparece en el badge */
+    content: "🔥 OFERTA";
+
+    /* Posicionamiento absoluto respecto al .tarjeta-producto (que tiene position: relative) */
+    position: absolute;
+    top: var(--espacio-md);
+    left: 0;
+
+    /* Estilos visuales del badge */
+    background-color: var(--color-oferta);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: var(--espacio-xs) var(--espacio-md);
+    letter-spacing: 0.5px;
+
+    /* Bordes redondeados solo a la derecha (forma de pestaña) */
+    border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+
+    /* z-index controla la capa de apilamiento (mayor = más arriba) */
+    z-index: 10;
+
+    /* Sombra pequeña para dar profundidad al badge */
+    box-shadow: 2px 2px 8px rgba(225, 112, 85, 0.3);
+}
+
+
+/* ======================================================================
+   CONCEPTO NUEVO: transform (hover)
+   ======================================================================
+   
+   transform aplica transformaciones GEOMÉTRICAS a un elemento sin
+   afectar al flujo del documento (no empuja a otros elementos).
+   
+   FUNCIONES DE TRANSFORM:
+   - translateX(px)  / translateY(px)  → Mover horizontalmente/verticalmente
+   - translate(X, Y)                   → Mover en ambos ejes a la vez
+   - scale(factor)                     → Escalar (1 = normal, 1.5 = 150%)
+   - scaleX() / scaleY()              → Escalar un solo eje
+   - rotate(deg)                       → Rotar (90deg, -45deg, 360deg)
+   - skew(deg)                         → Inclinar/sesgar
+   
+   COMBINAR TRANSFORMS:
+   transform: translateY(-8px) scale(1.02);
+   → Se mueve 8px hacia arriba Y se hace un 2% más grande.
+   
+   VENTAJA sobre margin/padding:
+   transform usa la GPU (tarjeta gráfica) para renderizar, así que
+   las animaciones son mucho más FLUIDAS que mover con margin-top.
+   El navegador no necesita recalcular el layout de la página.
+*/
+.tarjeta-producto:hover {
+    /* Sube 8px y crece un 2% */
+    transform: translateY(-8px) scale(1.02);
+    /* Sombra más pronunciada para efecto de "elevación" */
+    box-shadow: var(--sombra-elevada);
+}
+
+
+/* ======================================================================
+   5. IMAGEN DE LA TARJETA
+   ====================================================================== */
+
+.tarjeta-imagen {
+    /* Eliminamos margen por defecto del <figure> */
+    margin: 0;
+    /* El overflow: hidden del padre ya recorta las esquinas */
+}
+
+/* ======================================================================
+   CONCEPTO NUEVO: object-fit
+   ======================================================================
+   
+   object-fit controla CÓMO una imagen (o vídeo) se ajusta dentro
+   de su contenedor cuando las proporciones no coinciden.
+   
+   VALORES:
+   - fill    → Estira/deforma la imagen para llenar todo (por defecto)
+   - contain → La imagen completa visible, puede dejar espacios vacíos
+   - cover   → Llena todo el espacio recortando lo que sobra (ZOOM)
+   - none    → Tamaño original, puede sobresalir o dejar espacio
+   
+   ANALOGÍA:
+   - contain = "Quiero ver TODA la foto" (puede haber barras)
+   - cover   = "Quiero que NO haya espacio vacío" (puede recortar)
+   
+   COMPLEMENTO: object-position
+   Cuando usas cover y se recorta, object-position decide QUÉ PARTE
+   de la imagen se muestra.
+   - object-position: center center; → Centra el recorte (por defecto)
+   - object-position: top center;   → Muestra la parte de arriba
+   - object-position: 20% 80%;      → Posición personalizada
+*/
+.tarjeta-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    /* Transición para el efecto de zoom suave en hover */
+    transition: transform 0.5s ease;
+}
+
+/* Zoom suave al pasar el ratón sobre la imagen */
+.tarjeta-producto:hover .tarjeta-img {
+    transform: scale(1.05);
+}
+
+.tarjeta-figcaption {
+    font-size: 0.7rem;
+    color: var(--color-texto-suave);
+    text-align: center;
+    padding: var(--espacio-xs);
+    background-color: #f8f8fa;
+    border-top: 1px solid #eee;
+}
+
+
+/* ======================================================================
+   6. CONTENIDO TEXTUAL DE LA TARJETA
+   ====================================================================== */
+
+.tarjeta-contenido {
+    padding: var(--espacio-lg);
+}
+
+.tarjeta-nombre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin-bottom: var(--espacio-sm);
+}
+
+/* ======================================================================
+   Estilizando <mark> — Personalizar el subrayado fluorescente
+   ======================================================================
+   Por defecto, <mark> tiene fondo amarillo. Podemos cambiarlo con CSS
+   para que encaje con nuestro diseño.
+*/
+.tarjeta-oferta mark {
+    /* Cambiamos el amarillo por defecto a un gradiente sutil */
+    background: linear-gradient(120deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: var(--color-texto);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.tarjeta-oferta {
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+    margin-bottom: var(--espacio-md);
+}
+
+.tarjeta-precio {
+    margin-bottom: var(--espacio-sm);
+    display: flex;
+    align-items: baseline;
+    /* 
+       CONCEPTO: gap en Flexbox
+       'gap' añade espacio ENTRE los hijos de un contenedor flex/grid
+       sin necesidad de usar margin en cada hijo. Es más limpio.
+       Antes solo funcionaba en Grid, pero ya funciona en Flexbox.
+    */
+    gap: var(--espacio-sm);
+    flex-wrap: wrap;
+}
+
+.precio-tachado {
+    color: var(--color-precio-tachado);
+    /* text-decoration: line-through dibuja una línea horizontal sobre el texto */
+    text-decoration: line-through;
+    font-size: 1rem;
+}
+
+.precio-actual {
+    color: var(--color-exito);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.tarjeta-precio small {
+    color: var(--color-texto-suave);
+    font-size: 0.75rem;
+}
+
+/* Estilo para <abbr> → Subrayado punteado personalizado */
+.tarjeta-precio abbr {
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    cursor: help;
+}
+
+.tarjeta-fecha {
+    font-size: 0.8rem;
+    color: var(--color-texto-suave);
+    margin-bottom: var(--espacio-lg);
+}
+
+/* Estilizamos la etiqueta <time> dentro de la fecha */
+.tarjeta-fecha time {
+    font-weight: 600;
+    color: var(--color-primario);
+}
+
+
+/* ======================================================================
+   7. BOTÓN DE DETALLES
+   ====================================================================== */
+
+.boton-detalles {
+    width: 100%;
+    padding: var(--espacio-md) var(--espacio-lg);
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: var(--radio-sm);
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    /* Transición suave para el hover del botón */
+    transition: var(--transicion-rapida);
+    letter-spacing: 0.5px;
+}
+
+.boton-detalles:hover {
+    background-color: var(--color-primario-hover);
+    /* Subimos ligeramente y añadimos sombra */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+/* Estado activo (cuando el usuario hace click y mantiene) */
+.boton-detalles:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* ======================================================================
+   8. MODAL (<dialog>) — Estilos del diálogo nativo
+   ======================================================================
+   
+   El <dialog> tiene estilos por defecto del navegador.
+   Los sobrescribimos para crear un diseño elegante.
+*/
+
+.modal-detalles {
+    /* Quitamos bordes y fondo por defecto */
+    border: none;
+    padding: 0;
+
+    /* Tamaño del modal */
+    max-width: 500px;
+    width: 90%;
+
+    /* Bordes redondeados */
+    border-radius: var(--radio-md);
+
+    /* Sombra para dar profundidad al modal */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    /* Animación de entrada (se combina con la clase .modal-abierto en JS) */
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    transition: opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* 
+   Cuando el <dialog> tiene el atributo 'open' (se abre con showModal()),
+   animamos la entrada suavemente.
+*/
+.modal-detalles[open] {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* ======================================================================
+   CONCEPTO NUEVO: ::backdrop (pseudo-elemento del <dialog>)
+   ======================================================================
+   
+   ::backdrop es la capa que aparece DETRÁS del modal cuando usamos
+   showModal(). Cubre toda la pantalla.
+   
+   CONCEPTO NUEVO: backdrop-filter (Glassmorphism)
+   ======================================================================
+   
+   backdrop-filter aplica efectos visuales al contenido que hay
+   DETRÁS de un elemento semitransparente. Es la base del estilo
+   "glassmorphism" (efecto cristal difuminado).
+   
+   FUNCIONES:
+   - blur(px)         → Desenfoque gaussiano
+   - brightness(%)    → Brillo (100% = normal)
+   - contrast(%)      → Contraste
+   - grayscale(%)     → Escala de grises
+   - saturate(%)      → Saturación de color
+   
+   IMPORTANTE:
+   Para que se vea el efecto, el elemento DEBE ser semitransparente.
+   Si el fondo es opaco (sin alpha), no se ve lo que hay detrás
+   y el filtro no tiene efecto visible.
+*/
+.modal-detalles::backdrop {
+    /* Fondo oscuro semitransparente (el 0.6 es la opacidad) */
+    background: rgba(0, 0, 0, 0.6);
+    /* Efecto de desenfoque del contenido detrás del overlay */
+    backdrop-filter: blur(8px);
+    /* Prefijo para Safari (compatibilidad) */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-contenido {
+    padding: var(--espacio-xl);
+}
+
+.modal-titulo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: var(--espacio-lg);
+    padding-bottom: var(--espacio-md);
+    border-bottom: 2px solid #f0f0f5;
+}
+
+.modal-lista {
+    list-style: none;
+    margin-bottom: var(--espacio-lg);
+}
+
+.modal-lista li {
+    padding: var(--espacio-sm) 0;
+    border-bottom: 1px solid #f5f5fa;
+    font-size: 0.95rem;
+}
+
+.modal-lista li:last-child {
+    border-bottom: none;
+}
+
+.modal-lista abbr {
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    cursor: help;
+    color: var(--color-primario);
+}
+
+.modal-nota {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f0f8 100%);
+    padding: var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+    margin-bottom: var(--espacio-lg);
+    border-left: 4px solid var(--color-primario);
+}
+
+.modal-nota mark {
+    background: linear-gradient(120deg, #55efc4 0%, #00b894 100%);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Sección donde se muestran los data-* leídos por JavaScript */
+.modal-datos {
+    background-color: #f8f8fa;
+    padding: var(--espacio-md);
+    border-radius: var(--radio-sm);
+    margin-bottom: var(--espacio-lg);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+    border: 1px dashed #ddd;
+}
+
+.modal-datos p {
+    margin-bottom: var(--espacio-xs);
+}
+
+.modal-datos strong {
+    color: var(--color-primario);
+}
+
+/* Botón de cerrar el modal */
+.boton-cerrar {
+    width: 100%;
+    padding: var(--espacio-md);
+    background: linear-gradient(135deg, var(--color-primario) 0%, #a29bfe 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radio-sm);
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+}
+
+.boton-cerrar:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+
+/* ======================================================================
+   9. FOOTER
+   ====================================================================== */
+
+.pie-pagina {
+    text-align: center;
+    padding: var(--espacio-xl) var(--espacio-md);
+    color: var(--color-texto-suave);
+    font-size: 0.8rem;
+    margin-top: var(--espacio-2xl);
+}
+
+.pie-pagina code {
+    background-color: #e8e6f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--color-primario);
+}
+
+.pie-pagina p {
+    margin-bottom: var(--espacio-sm);
+}
+
+
+/*
+==============================================================================
+10. ANEXO: CONCEPTOS DE VANGUARDIA EN CSS
+(Nesting, Container Queries y :has())
+==============================================================================
+
+Este bloque documenta características modernas de CSS utilizadas para crear
+interfaces más modulares, mantenibles y responsive.
+
+==============================================================================
+A) NESTING (ANIDAMIENTO NATIVO)
+==============================================================================
+
+El nesting permite escribir selectores CSS de forma jerárquica, replicando
+la estructura natural del HTML.
+
+Ventajas:
+- Reduce repetición de selectores.
+- Mejora legibilidad.
+- Facilita mantenimiento.
+- Permite arquitectura CSS más limpia.
+
+El símbolo "&" referencia al selector padre actual.
+
+Ejemplo:
+
+.tarjeta-producto {
+
+    background-color: var(--color-tarjeta);
+
+    &:hover {
+        transform: translateY(-8px);
+    }
+
+    .tarjeta-nombre {
+        color: var(--color-primario);
+    }
+}
+
+Explicación:
+- ".tarjeta-producto" representa el componente principal.
+- "&:hover" equivale a ".tarjeta-producto:hover".
+- ".tarjeta-nombre" equivale a
+  ".tarjeta-producto .tarjeta-nombre".
+
+==============================================================================
+B) CONTAINER QUERIES
+==============================================================================
+
+Las container queries permiten crear componentes responsive basados en el
+tamaño del contenedor padre y no del viewport completo.
+
+Diferencias:
+- @media → responde al tamaño de pantalla.
+- @container → responde al tamaño del contenedor.
+
+Esto hace posible crear componentes realmente reutilizables.
+
+Paso 1: Declarar el contenedor.
+
+.contenedor-principal {
+
+    container-type: inline-size;
+
+    container-name: grid-tarjetas;
+}
+
+Explicación:
+- "container-type: inline-size"
+  habilita respuestas basadas en ancho horizontal.
+- "container-name"
+  asigna un identificador reutilizable.
+
+Paso 2: Crear reglas responsive.
+
+@container grid-tarjetas (min-width: 400px) {
+
+    .tarjeta-producto {
+
+        display: flex;
+    }
+}
+
+Explicación:
+- Cuando el contenedor alcanza 400px o más,
+  la tarjeta cambia a layout horizontal.
+
+==============================================================================
+C) SELECTOR RELACIONAL :has()
+==============================================================================
+
+El pseudo-selector ":has()" permite seleccionar un elemento padre dependiendo
+de los elementos hijos que contiene o de sus estados internos.
+
+Antes de ":has()", este comportamiento normalmente requería JavaScript.
+
+Ejemplo 1:
+
+.tarjeta-producto:has(mark) {
+
+    border: 2px solid var(--color-oferta);
+}
+
+Explicación:
+- La tarjeta solo recibe borde si contiene un elemento <mark>.
+- Útil para promociones, badges o estados visuales.
+
+Ejemplo 2:
+
+.campo-contenedor:has(.control-input:focus) {
+
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+Explicación:
+- El contenedor cambia visualmente cuando el input interno
+  recibe foco.
+
+==============================================================================
+FIN DEL ANEXO
+==============================================================================
+*/

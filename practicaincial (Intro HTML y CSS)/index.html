@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!-- 
+     CONCEPTO: lang
+     Indica al navegador y a los motores de búsqueda el idioma principal 
+     del documento (español de España en este caso), lo cual ayuda a la 
+     accesibilidad y traducción automática.
+-->
+<html lang='es-ES'>
+
+<head>
+    <!-- 
+         CONCEPTO: UTF-8
+         Declara la codificación de caracteres. UTF-8 permite representar 
+         correctamente tildes, eñes y caracteres de casi cualquier idioma.
+    -->
+    <meta charset='utf-8'>
+    
+    <!-- Título que se muestra en la pestaña de la ventana del navegador -->
+    <title>Primera práctica curso web</title>
+    
+    <!-- 
+         CONCEPTO: Ruta Relativa
+         Carga la hoja de estilos externa. 'styles/styles.css' indica 
+         que el archivo está en la carpeta 'styles' dentro de este mismo directorio.
+    -->
+    <link rel='stylesheet' href='styles/styles.css'>
+</head>
+
+<body>
+    <!-- 
+         CONCEPTO: <header>
+         Representa el encabezado de la página o sección, normalmente
+         contiene logotipos, títulos o el menú principal.
+    -->
+    <header>
+        <!-- 
+             CONCEPTO: <marquee>
+             Etiqueta antigua e innecesaria (desaconsejada hoy en día) que
+             hace que el texto se desplace horizontalmente por la pantalla.
+             Se prefiere hacer este efecto con animaciones CSS modernas.
+        -->
+        <marquee>
+            <!-- h1 tiene que haber solo uno por página: representa el título principal -->
+            <h1>Curso de HTML y CSS</h1>
+        </marquee>
+        
+        <!-- Párrafo introductorio con clase personalizada para estilos CSS -->
+        <p class="primerParrafo">VAMOS A HACER PÁGINAS WEB CHULAS :)) </p>
+        
+        <!-- 
+             CONCEPTO: <nav>
+             Elemento semántico que engloba los enlaces de navegación del sitio.
+        -->
+        <nav>
+            <h2>Índice de Contenido:</h2>
+            <ul>
+                <!-- 
+                     CONCEPTO: Enlaces Ancla (Anchor links)
+                     El atributo href="#id" redirige directamente a la sección
+                     de esta misma página que tenga el id especificado.
+                -->
+                <li><a href="#seccion-html">1 HTML</a></li>
+                <li><a href="#seccion-css">2 CSS</a></li>
+                <li><a href="#seccion-javascript">3 Javascript</a></li>
+                <li><a href="#seccion-java">4 Java</a></li>
+                <li><a href="#seccion-baseDeDatos">5 Base de Datos</a></li>
+                <li><a href="#seccion-enlaces">Enlaces de Interés</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 
+         CONCEPTO: <main>
+         Define el contenido principal y exclusivo del documento, facilitando
+         que lectores de pantalla salten directamente al bloque de valor de la página.
+    -->
+    <main>
+        
+        <!-- Sección de HTML con ID único para ser apuntada por el nav -->
+        <div id="seccion-html" class="div">
+            <h2>1 HTML</h2>
+            
+            <!-- 
+                 CONCEPTO: <details> y <summary>
+                 Define una sección interactiva colapsable nativa. 
+                 El navegador muestra el título de <summary> al lado de una flecha.
+                 Al hacer clic, el contenido restante dentro del <details> se despliega.
+            -->
+            <details>
+                <summary>Estructura de páginas web</summary>
+                <br>
+                
+                <!-- 
+                     CONCEPTO: Tablas HTML5
+                     - <table>: Contenedor principal de la tabla
+                     - <thead>: Cabecera con títulos de columnas
+                     - <tbody>: Cuerpo que contiene las filas de datos
+                     - <tr>: Fila de la tabla (Table Row)
+                     - <th>: Celda de cabecera en negrita (Table Header)
+                     - <td>: Celda de datos estándar (Table Data)
+                -->
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr> 
+                            <td>1.1</td>
+                            <td>Introducción y etiquetas estructurales</td>
+                        </tr>
+                        <tr>
+                            <td>1.2</td>
+                            <td>Formularios y elementos de interacción</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+
+            <!-- Ruta relativa al archivo SVG dentro de la subcarpeta 'img' -->
+            <img src="img/html.svg" alt="Icono de HTML" />
+        </div>
+
+        <!-- Sección de CSS -->
+        <div id="seccion-css" class="div">
+            <h2>2 CSS</h2>
+            <p>Damos estilo a nuestras páginas</p>
+            <img src="img/css.png" alt="Imagen CSS" />
+        </div>
+
+        <!-- Sección de JavaScript -->
+        <div id="seccion-javascript" class="div">
+            <h2>3 Javascript</h2>
+            <p>Damos dinamismo a nuestras páginas</p>
+            <img src="img/javascript.svg" alt="Imagen Javascript">
+        </div>
+
+        <!-- Sección de Java -->
+        <div id="seccion-java" class="div">
+            <h2>4 Java</h2>
+            <p>Añadimos lógica del servidor a nuestra página</p>
+            <img src="img/Java.svg" alt="Imagen Java">
+        </div>
+
+        <!-- Sección de Base de Datos -->
+        <div id="seccion-baseDeDatos" class="div">
+            <h2>5 Base de Datos</h2>
+            <p>Conectamos los Datos con el servidor</p>
+            <img src="img/basededatos.svg" alt="Imagen Base de Datos">
+        </div>
+
+        <!-- Sección de Enlaces y Recursos Externos -->
+        <div id="seccion-enlaces" class="div">
+            <h2>Enlaces De Interés</h2>
+            <!--
+                 CONCEPTO: Enlaces Absolutos
+                 Apuntan a una dirección URL completa externa a nuestro servidor web.
+            -->
+            <p class="parrafoDeEnlace"><a href="https://www.midu.dev" class="enlace"> Web Principal de midudev</a></p>
+            <p class="parrafoDeEnlace"><a href="https://www.aprendejavascript.dev" class="enlace"> Web de midudev para aprender Javascript</a></p>
+            <p class="parrafoDeEnlace"><a href="https://www.youtube.com/watch?v=niPExbK8lSw" class="enlace"> Video de midudev Curso de Git</a></p>
+            <p class="parrafoDeEnlace"><a href="https://www.jscamp.dev/html-css" class="enlace"> Curso de midudev HTML/CSS</a></p>
+            <p class="parrafoDeEnlace"><a href="https://www.jscamp.dev/sql" class="enlace"> Curso de midudev de SQL</a></p>
+            <p class="parrafoDeEnlace"><a href="https://www.google.com" class="enlace">www.enlaceengañoso.com</a></p>
+        </div>
+    </main>
+
+    <!-- 
+         CONCEPTO: <footer>
+         Pie de página semántico. Contiene información legal, copyrights o autoría.
+    -->
+    <footer> &copy;2026 Ángel</footer>
+</body>
+
+</html>

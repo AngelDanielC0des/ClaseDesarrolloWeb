@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Partido (As.com)</title>
+    <!-- 
+         Enlace a la hoja de estilos externa. 
+         Se encarga de toda la maquetación (Flexbox, CSS Grid) y colores.
+    -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 
+         CONCEPTO: defer
+         El atributo "defer" indica al navegador que no detenga el análisis
+         del HTML mientras descarga el script. El script se ejecutará solo
+         después de que todo el DOM (Document Object Model) esté cargado.
+         Es una alternativa moderna y limpia a poner el <script> al final del <body>.
+    -->
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+
+    <!-- 
+         CONCEPTO: <article>
+         Usamos article porque la tarjeta de estadísticas es un contenido
+         independiente que tiene sentido por sí mismo.
+    -->
+    <article class="as-stat-card">
+
+        <!-- Cabecera de la tarjeta: Escudo Local - Título - Escudo Visitante -->
+        <header class="as-header">
+            <div class="logo-ring">
+                <!-- 
+                     El atributo src y alt están vacíos porque se rellenarán
+                     dinámicamente desde JavaScript.
+                -->
+                <img id="logoLocal" src="" alt="">
+            </div>
+            <h2 class="as-title">REMATES</h2>
+            <div class="logo-ring">
+                <img id="logoVisitante" src="" alt="">
+            </div>
+        </header>
+
+        <!-- Cuerpo principal de la tarjeta -->
+        <div class="as-body">
+            <!-- 
+                 FILA 1: Etiquetas "FUERA" y "A PUERTA"
+                 Usamos CSS Grid (as-grid-row) para dividir exactamente al 50%.
+            -->
+            <div class="as-grid-row labels-row">
+                <div class="team-label local"><span>FUERA</span><span>A PUERTA</span></div>
+                <div class="team-label visitor"><span>A PUERTA</span><span>FUERA</span></div>
+            </div>
+
+            <!-- 
+                 FILA 2: Barras de estadísticas gráficas
+                 Simetría total con Grid. Cada "bar-half" ocupa 1fr (una fracción).
+            -->
+            <div class="as-grid-row bars-row">
+                
+                <!-- Equipo Local (Mitad izquierda) -->
+                <div class="bar-half local">
+                    <!-- 
+                         Caja oscura ("A PUERTA"). Su ancho será modificado 
+                         por JavaScript inyectando un style="width: X%".
+                    -->
+                    <div class="dark-box" style="">
+                        <span id="localApuerta" class="num"></span>
+                    </div>
+                    <!-- Número exterior ("FUERA") -->
+                    <span id="localFuera" class="num num-outside"></span>
+                </div>
+
+                <!-- Equipo Visitante (Mitad derecha) -->
+                <div class="bar-half visitor">
+                    <div class="dark-box" style="">
+                        <span id="visitanteApurta" class="num"></span>
+                    </div>
+                    <span id="visitanteFuera" class="num num-outside"></span>
+                </div>
+            </div>
+
+            <!-- Footer: Bloqueados y barras de progreso inferiores -->
+            <footer class="as-footer">
+                <p class="footer-desc">DISPAROS EFECTUADOS BLOQUEADOS</p>
+                <!-- Datos numéricos que llenará JS -->
+                <div class="footer-vals">
+                    <span id="localBloqueados"></span>
+                    <span id="visitanteBloqueados"></span>
+                </div>
+                
+                <!-- Barras de progreso decorativas (fijas al 50% en HTML) -->
+                <div class="footer-progress">
+                    <div class="track local">
+                        <div class="fill" style="width: 50.0%;"></div>
+                    </div>
+                    <div class="track visitor">
+                        <div class="fill" style="width: 50.0%;"></div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </article>
+
+</body>
+
+</html>

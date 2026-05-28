@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+         CONCEPTO: defer
+         Carga el script en segundo plano sin bloquear el renderizado del HTML.
+         Garantiza que el DOM esté listo antes de que JS intente buscar elementos.
+    -->
+    <script src="index.js" defer></script>
+    <title>Entrando a los bucles</title>
+</head>
+<body>
+    <!-- 
+         ESTRUCTURA DE FORMULARIO BÁSICA
+         Captura de datos de entrada para ser procesados por JavaScript.
+    -->
+    <div>
+        <!-- Etiqueta semántica enlazada al input por su "id" -->
+        <label for="palabra">INTRO Palabra: </label>
+        <input type="text" id="palabra">
+        
+        <label for="letra">INTRO letra: </label>
+        <input type="text" id="letra">
+        
+        <!-- Botón de acción: su evento 'click' será escuchado desde JS -->
+        <button id="btnBuscar">BUSCAR</button> 
+    </div>
+</body>
+</html>

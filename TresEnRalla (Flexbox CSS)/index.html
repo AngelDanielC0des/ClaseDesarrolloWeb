@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3 en raya — Maquetación Flexbox</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- 
+         Contenedor principal (.general)
+         Este div contendrá el tablero completo y lo estructuraremos usando 
+         Flexbox en dirección vertical (column).
+    -->
+    <div class="general">
+        
+        <!-- 
+             Primera Fila:
+             Contiene dos fichas circulares colocadas en los extremos 
+             (utilizando justify-content: space-between en CSS).
+        -->
+        <div class="primeraFila">
+            <div class="circulo impar"></div>
+            <div class="circulo par"></div>
+        </div>
+
+        <!-- 
+             Segunda Fila:
+             Contiene una sola ficha circular colocada exactamente en el centro 
+             (utilizando justify-content: center en CSS).
+        -->
+        <div class="segundaFila">
+            <div class="circulo impar"></div>
+        </div>
+
+        <!-- 
+             Tercera Fila:
+             Contiene dos fichas circulares en los extremos.
+        -->
+        <div class="terceraFila">
+            <div class="circulo par"></div>
+            <div class="circulo impar"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

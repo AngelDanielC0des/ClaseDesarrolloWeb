@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='es-ES'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Juego de Botones - Intro al DOM</title>
+    <!-- Vinculación de estilos externos -->
+    <link rel='stylesheet' href='main.css'>
+    
+    <!-- 
+         CONCEPTO: Vinculación de JavaScript
+         Cargamos nuestro archivo index.js. Idealmente debería llevar el 
+         atributo 'defer' para cargar después del DOM, pero en este ejemplo 
+         funcionará porque usamos atributos 'onclick' en los botones.
+    -->
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <!-- 
+         INTERFAZ DE USUARIO: Botones interactivos
+         Cada botón tiene un atributo 'onclick' que invoca directamente a una
+         función definida en nuestro archivo index.js.
+    -->
+    <div>
+        <button id="btnsaluda" onclick="saludar()">SALUDA</button>
+    </div>
+    
+    <div>
+        <button id="btninfo" onclick="mostrarInfoPantalla()">Mostrar Info Pantalla</button>
+    </div>
+    
+    <div>
+        <button id="btnocultar" onclick="ocultar()">Ocultar</button>
+    </div>
+
+</body>
+
+</html>

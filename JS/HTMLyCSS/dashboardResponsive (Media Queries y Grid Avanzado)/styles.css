@@ -1,0 +1,759 @@
+/* ======================================================================
+   LECCIÓN: Dashboard Responsive — Grid, Media Queries y Multimedia
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+   
+   1. grid-template-areas  → Crear una cuadrícula basada en áreas con nombres.
+   2. Media Queries (@media)→ Modificar el layout según el ancho de pantalla.
+   3. position: sticky     → Fijar la barra de navegación lateral.
+   4. :nth-child() / :not()→ Selectores estructurales y lógicos avanzados.
+   5. filter               → Efectos visuales de desenfoque y color en imágenes.
+   6. aspect-ratio         → Relación de aspecto proporcional para vídeos.
+   7. scroll-snap          → Carruseles táctiles fluidos.
+   8. min() y max()        → Expresiones de dimensionado elástico.
+   ====================================================================== */
+
+/* ----------------------------------------------------------------------
+   Definición de Temas (Variables CSS para Light y Dark Mode)
+   ---------------------------------------------------------------------- */
+:root {
+    --fuente-principal: 'Inter', sans-serif;
+    --fuente-cabeceras: 'Outfit', sans-serif;
+    
+    --radio-borde: 12px;
+    --gap-layout: 20px;
+    
+    /* Variables que no cambian con el tema */
+    --color-exito: #10b981;
+    --color-error: #ef4444;
+    --color-alerta: #f59e0b;
+}
+
+/* Tema Oscuro (Por defecto) */
+body.tema-oscuro {
+    --color-fondo: #0b0f19;        /* Deep Slate 950 */
+    --color-tarjetas: #161d30;     /* Slate 900 */
+    --color-header: #111827;       /* Gray 900 */
+    --color-sidebar: #0f172a;      /* Slate 900 */
+    --color-texto: #f3f4f6;        /* Gray 100 */
+    --color-texto-mutado: #9ca3af; /* Gray 400 */
+    --color-borde: rgba(255, 255, 255, 0.05);
+    --color-codigo: #090d16;
+    --color-acento: #6366f1;       /* Indigo 500 */
+    --color-acento-hover: #4f46e5;
+    --color-fila-zebra: rgba(255, 255, 255, 0.02);
+    --color-fila-hover: rgba(255, 255, 255, 0.05);
+    --sombra: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tema Claro (Se activa mediante JavaScript) */
+body.tema-claro {
+    --color-fondo: #f8fafc;        /* Slate 50 */
+    --color-tarjetas: #ffffff;     /* Blanco */
+    --color-header: #f1f5f9;       /* Slate 100 */
+    --color-sidebar: #ffffff;      /* Blanco */
+    --color-texto: #0f172a;        /* Slate 900 */
+    --color-texto-mutado: #64748b; /* Slate 500 */
+    --color-borde: rgba(0, 0, 0, 0.08);
+    --color-codigo: #1e293b;
+    --color-acento: #4f46e5;       /* Indigo 600 */
+    --color-acento-hover: #3730a3;
+    --color-fila-zebra: rgba(0, 0, 0, 0.02);
+    --color-fila-hover: rgba(0, 0, 0, 0.04);
+    --sombra: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* ----------------------------------------------------------------------
+   Estilos de Reseteo y Estructura Base
+   ---------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Contenedor editable */
+[contenteditable="true"] {
+    outline: none;
+    border-bottom: 2px dashed var(--color-acento);
+    cursor: text;
+}
+
+[contenteditable="true"]:focus {
+    background-color: rgba(99, 102, 241, 0.1);
+    border-bottom-style: solid;
+}
+
+/* ----------------------------------------------------------------------
+   CONCEPTO CLAVE: Grid Layout con grid-template-areas
+   ──────────────────────────────────────────────────
+   El layout define un esqueleto con áreas nombradas.
+   En móviles el flujo es una sola columna vertical.
+   En escritorio el layout se distribuye en rejilla con Sidebar fija.
+
+   DIBUJO DE LA MAQUETACIÓN GRID (DESKTOP vs MÓVIL):
+   
+   ESCRITORIO (grid-template-columns: 240px 1fr):
+   +-------------------------------------------------------------+
+   |                        [header]                             |
+   +-----------------------+-------------------------------------+
+   |                       |                                     |
+   |       [sidebar]       |               [main]                |
+   |       (Sticky)        |             (Contenido)             |
+   |                       |                                     |
+   +-----------------------+-------------------------------------+
+   |                        [footer]                             |
+   +-------------------------------------------------------------+
+
+   MÓVIL (grid-template-columns: 1fr):
+   +-------------------------------------------------------------+
+   |                        [header]                             |
+   +-------------------------------------------------------------+
+   |                        [sidebar]                            |
+   +-------------------------------------------------------------+
+   |                        [main]                               |
+   +-------------------------------------------------------------+
+   |                        [footer]                             |
+   +-------------------------------------------------------------+
+---------------------------------------------------------------------- */
+.dashboard-layout {
+    display: grid;
+    min-height: 100vh;
+    
+    /* Configuración por defecto: Móvil (Layout vertical en 1 columna) */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+        "header"
+        "sidebar"
+        "main"
+        "footer";
+}
+
+/* ----------------------------------------------------------------------
+   Cabecera (Header Area)
+   ---------------------------------------------------------------------- */
+.header-dashboard {
+    grid-area: header;
+    background-color: var(--color-header);
+    border-bottom: 1px solid var(--color-borde);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.header-marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icono {
+    font-size: 1.8rem;
+}
+
+.logo-texto {
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-texto);
+}
+
+.badge-edicion {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--color-acento);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.boton-accion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--color-tarjetas);
+    border: 1px solid var(--color-borde);
+    color: var(--color-texto);
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-accion:hover {
+    border-color: var(--color-acento);
+}
+
+/* ----------------------------------------------------------------------
+   Barra Lateral (Sidebar Area)
+   ---------------------------------------------------------------------- */
+.sidebar-dashboard {
+    grid-area: sidebar;
+    background-color: var(--color-sidebar);
+    border-bottom: 1px solid var(--color-borde);
+    padding: 20px;
+}
+
+/* En móvil, la navegación se pone en horizontal */
+.sidebar-lista {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sidebar-seccion {
+    display: none; /* Ocultamos etiquetas organizativas en móvil */
+}
+
+.sidebar-enlace {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--color-texto-mutado);
+    font-weight: 500;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-enlace:hover, .sidebar-enlace.activo {
+    background-color: var(--color-acento);
+    color: white !important;
+}
+
+.sidebar-banner {
+    display: none; /* Ocultamos banner decorativo en móvil */
+}
+
+/* ----------------------------------------------------------------------
+   Contenido Principal (Main Area)
+   ---------------------------------------------------------------------- */
+.contenido-dashboard {
+    grid-area: main;
+    padding: var(--gap-layout);
+    /* CONCEPTO: min() para asegurar que el contenido no supere los límites */
+    max-width: min(100%, 1400px);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.seccion-titulo {
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.seccion-titulo small {
+    font-size: 0.8rem;
+    color: var(--color-texto-mutado);
+    font-weight: 400;
+}
+
+/* ----------------------------------------------------------------------
+   CONCEPTO NUEVO: Carrusel con Scroll Snap
+   ───────────────────────────────────────
+   Define un contenedor flex de scroll horizontal fluido en móvil.
+   Al deslizar, el scroll se "ajusta" (snaps) a los bordes de las tarjetas.
+---------------------------------------------------------------------- */
+.carrusel-snap {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 15px;
+    
+    /* 
+       scroll-snap-type: [eje] [estilo]
+       - x: eje horizontal
+       - mandatory: obliga a ajustar siempre al detener la inercia
+    */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin; /* Para Firefox */
+}
+
+/* Estilizar la barra de scroll horizontal en Chrome/Safari */
+.carrusel-snap::-webkit-scrollbar {
+    height: 6px;
+}
+.carrusel-snap::-webkit-scrollbar-thumb {
+    background-color: var(--color-borde);
+    border-radius: 3px;
+}
+
+.tarjeta-stat {
+    /* 
+       scroll-snap-align: start
+       Indica que el inicio de la tarjeta debe alinearse con el borde del contenedor
+    */
+    scroll-snap-align: start;
+    flex: 0 0 280px; /* Ancho fijo de tarjeta en móviles para el carrusel */
+    
+    background-color: var(--color-tarjetas);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--sombra);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-texto-mutado);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.stat-numero {
+    display: block;
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.stat-tendencia {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tendencia-sube { color: var(--color-exito); }
+.tendencia-baja { color: var(--color-error); }
+
+.stat-icono {
+    font-size: 2.2rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ----------------------------------------------------------------------
+   Grid de Tarjetas Generales (CSS Grid con auto-fit y minmax)
+   ──────────────────────────────────────────────────────────
+   Usa minmax() con la función min() para crear una distribución elástica
+   100% responsiva sin necesidad de reescribir media queries.
+---------------------------------------------------------------------- */
+.grid-tarjetas {
+    display: grid;
+    gap: var(--gap-layout);
+    margin-top: 30px;
+    
+    /* 
+       minmax(min(320px, 100%), 1fr)
+       - Si hay espacio, las columnas medirán al menos 320px.
+       - Si la pantalla mide menos de 320px, el ancho ocupará el 100% del ancho.
+       - Evita que las tarjetas desborden por el lateral.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+}
+
+.tarjeta-dashboard {
+    background-color: var(--color-tarjetas);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde);
+    padding: 24px;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tarjeta-titulo {
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-texto);
+}
+
+.tarjeta-descripcion {
+    font-size: 0.85rem;
+    color: var(--color-texto-mutado);
+    line-height: 1.4;
+}
+
+/* ----------------------------------------------------------------------
+   A: Reproductor de Vídeo (aspect-ratio)
+   ─────────────────────────────────────
+   En lugar de trucos antiguos de padding porcentual para mantener el vídeo
+   en 16:9, usamos la propiedad directa 'aspect-ratio'.
+---------------------------------------------------------------------- */
+.video-contenedor {
+    width: 100%;
+    /* aspect-ratio: [ancho] / [alto] */
+    aspect-ratio: 16 / 9;
+    background-color: black;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.video-reproductor {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta el vídeo para llenar el contenedor */
+}
+
+.pie-video {
+    font-size: 0.75rem;
+    color: var(--color-texto-mutado);
+}
+
+.pie-video cite a {
+    color: var(--color-acento);
+    text-decoration: none;
+}
+
+/* ----------------------------------------------------------------------
+   B: Audio e Interactividad Details/Summary Nativo
+   ───────────────────────────────────────────────
+   Estilizado moderno para la etiqueta colapsable.
+---------------------------------------------------------------------- */
+.audio-contenedor {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.audio-reproductor {
+    width: 100%;
+}
+
+.acordeon-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.acordeon-item {
+    border: 1px solid var(--color-borde);
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Cabecera del acordeón */
+.acordeon-cabecera {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none; /* Oculta la flecha nativa */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Ocultar flecha nativa en navegadores Webkit (Safari) */
+.acordeon-cabecera::-webkit-details-marker {
+    display: none;
+}
+
+/* Añadimos nuestra propia flecha CSS usando ::after */
+.acordeon-cabecera::after {
+    content: "▼";
+    font-size: 0.7rem;
+    color: var(--color-acento);
+    transition: transform 0.2s ease;
+}
+
+/* Estilo cuando el acordeón se abre [open] */
+.acordeon-item[open] {
+    border-color: var(--color-acento);
+    background-color: rgba(99, 102, 241, 0.02);
+}
+
+.acordeon-item[open] .acordeon-cabecera::after {
+    transform: rotate(180deg); /* Gira la flecha */
+}
+
+/* Contenido interno desplegado */
+.acordeon-contenido {
+    padding: 12px 16px;
+    border-top: 1px solid var(--color-borde);
+    font-size: 0.85rem;
+    color: var(--color-texto-mutado);
+    line-height: 1.5;
+    background-color: rgba(0, 0, 0, 0.1);
+    animation: desplegarContenido 0.25s ease-out;
+}
+
+@keyframes desplegarContenido {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------------
+   C: Código de Depuración y CSS Filters
+   ─────────────────────────────────────
+   Estilo de caja de código y animación/filtro sobre imágenes.
+---------------------------------------------------------------------- */
+.codigo-contenedor {
+    background-color: var(--color-codigo);
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    padding: 14px;
+    overflow-x: auto;
+}
+
+.codigo-bloque {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #38bdf8; /* Light Blue 400 */
+    line-height: 1.5;
+}
+
+.imagen-filtro-contenedor {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+    aspect-ratio: 16 / 5;
+}
+
+.imagen-decorativa {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+    /* 
+       CONCEPTO NUEVO: Filtros en CSS (filter)
+       Podemos encadenar múltiples filtros.
+       Aquí aplicamos escala de grises al 85% y un desenfoque sutil.
+    */
+    filter: grayscale(85%) blur(0.5px);
+    transition: filter 0.4s ease;
+}
+
+/* Al pasar el ratón, restauramos la imagen a su estado original */
+.imagen-filtro-contenedor:hover .imagen-decorativa {
+    filter: grayscale(0%) blur(0) brightness(1.1);
+}
+
+.etiqueta-filtro {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.65rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    font-weight: bold;
+}
+
+/* ----------------------------------------------------------------------
+   D: Tabla de Logs (:nth-child y :not)
+   ──────────────────────────────────
+   Hacemos una tabla elegante y estilizada de forma alterna con zebra striping.
+---------------------------------------------------------------------- */
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--color-borde);
+}
+
+.tabla-logs {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.tabla-logs th, .tabla-logs td {
+    padding: 12px 14px;
+}
+
+.tabla-logs th {
+    background-color: rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    color: var(--color-texto);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+/* 
+   CONCEPTO NUEVO: :nth-child(even/odd)
+   Estiliza las filas pares (even) con un color de fondo para crear filas cebradas.
+*/
+.tabla-logs tbody tr:nth-child(even) {
+    background-color: var(--color-fila-zebra);
+}
+
+/* 
+   CONCEPTO NUEVO: :not()
+   Queremos resaltar al pasar el ratón todas las filas, EXCEPTO la fila destacada de fallo crítico.
+   Usamos :not(.fila-destacada) para excluirlos del hover genérico.
+*/
+.tabla-logs tbody tr:not(.fila-destacada):hover {
+    background-color: var(--color-fila-hover);
+    cursor: pointer;
+}
+
+/* Fila destacada con error crítico */
+.fila-destacada {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    border-left: 3px solid var(--color-error);
+}
+
+/* Badges de estado */
+.status {
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status.ok { background-color: rgba(16, 185, 129, 0.1); color: var(--color-exito); }
+.status.alerta { background-color: rgba(245, 158, 11, 0.1); color: var(--color-alerta); }
+.status.error { background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+
+/* ----------------------------------------------------------------------
+   Pie de Página (Footer Area)
+   ---------------------------------------------------------------------- */
+.footer-dashboard {
+    grid-area: footer;
+    background-color: var(--color-header);
+    border-top: 1px solid var(--color-borde);
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-texto-mutado);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ======================================================================
+   RESPONSIVE DESIGN (Media Queries)
+   ────────────────────────────────
+   Definimos los puntos de ruptura (breakpoints) para ajustar la grilla.
+====================================================================== */
+
+/* 1. DISPOSITIVOS MEDIANOS / TABLETS (ancho >= 768px) */
+@media (min-width: 768px) {
+    .dashboard-layout {
+        /* En tablet, convertimos a dos columnas: Sidebar estrecho y Contenido */
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            "header header"
+            "sidebar main"
+            "footer footer";
+    }
+
+    .sidebar-dashboard {
+        border-bottom: none;
+        border-right: 1px solid var(--color-borde);
+    }
+
+    .sidebar-lista {
+        flex-direction: column; /* Cambiamos a lista vertical */
+        gap: 6px;
+    }
+
+    .sidebar-seccion {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-texto-mutado);
+        letter-spacing: 0.5px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    /* En tablet/PC, las estadísticas se expanden y no necesitan scroll snap */
+    .carrusel-snap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        overflow-x: visible;
+        scroll-snap-type: none;
+        padding-bottom: 0;
+    }
+
+    .tarjeta-stat {
+        flex: auto;
+    }
+}
+
+/* 2. DISPOSITIVOS GRANDES / ESCRITORIO (ancho >= 1024px) */
+@media (min-width: 1024px) {
+    .dashboard-layout {
+        /* Hacemos el sidebar un poco más ancho */
+        grid-template-columns: 240px 1fr;
+    }
+
+    .sidebar-dashboard {
+        padding: 24px;
+        /* 
+           position: sticky
+           La barra lateral se quedará fija a 0px de la pantalla al hacer scroll
+           dentro de la página. (Solo efectivo si sidebar mide menos que el viewport)
+        */
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        z-index: 10;
+    }
+
+    .sidebar-banner {
+        display: block;
+        margin-top: 40px;
+        background-color: var(--color-fondo);
+        border: 1px solid var(--color-borde);
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 0.8rem;
+    }
+
+    .sidebar-banner h4 {
+        margin-bottom: 6px;
+        color: var(--color-acento);
+    }
+
+    .sidebar-banner p {
+        color: var(--color-texto-mutado);
+        line-height: 1.4;
+    }
+
+    /* Modificación de la grilla interna para mayor dinamismo visual */
+    .grid-tarjetas {
+        /* Creamos una cuadrícula de 2 columnas exactas para tarjetas grandes */
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Piedra, Papel, Tijera - Slot Edition</title>
+    <!-- Vinculación de la hoja de estilos externa -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 
+         CONCEPTO: Semántica <header>
+         Contiene la cabecera del juego: Título, marcador y mensaje de estado.
+         Usar etiquetas semánticas mejora la accesibilidad y el SEO.
+    -->
+    <header>
+        <h1>🎰 Piedra, Papel o Tijera 🎰</h1>
+        <div class="marcador">
+            <p>Tú: <span id="RondaJugador">0</span></p>
+            <p>Empates: <span id="RondaEmpates">0</span></p>
+            <p>Máquina: <span id="RondaMaquina">0</span></p>
+        </div>
+        <!-- Este H2 será actualizado dinámicamente por JavaScript -->
+        <h2 id="MensajeEstado">Elige tu opción y gira</h2>
+    </header>
+
+    <!-- 
+         CONCEPTO: Semántica <main>
+         Envuelve el contenido principal de la aplicación.
+    -->
+    <main>
+        <!-- Contenedor flexbox para alinear las dos ranuras (Jugador y Máquina) -->
+        <div class="pantalla-juego">
+            
+            <!-- Ranura Jugador -->
+            <div class="ranura">
+                <h3>TÚ</h3>
+                <div class="carrusel-pantalla">
+                    <!-- 
+                         El carrusel es una lista vertical <ul> movida con CSS.
+                         JS calculará cuánto desplazar esta lista hacia arriba
+                         para mostrar el emoji ganador.
+                    -->
+                    <ul id="CarruselJugador" class="tira-opciones">
+                        <!-- 6 bloques repetidos para crear una cinta larga y fluida -->
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li> <!-- Bloque de parada definitivo -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ranura Máquina -->
+            <div class="ranura">
+                <h3>MÁQUINA</h3>
+                <div class="carrusel-pantalla">
+                    <ul id="CarruselMaquina" class="tira-opciones">
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                        <li>✊</li><li>✋</li><li>✌️</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 
+             FORMULARIO DE SELECCIÓN
+             Agrupa los inputs radio. Al tener el mismo 'name' (opcionJugador),
+             solo se puede seleccionar uno a la vez.
+        -->
+        <form id="FormularioJuego">
+            <div class="opciones-selector">
+                <!-- required: Obliga a elegir una opción antes de poder girar -->
+                <input id="Piedra" type="radio" name="opcionJugador" value="0" required>
+                <label for="Piedra">✊ Piedra</label>
+
+                <input id="Papel" type="radio" name="opcionJugador" value="1">
+                <label for="Papel">✋ Papel</label>
+
+                <input id="Tijera" type="radio" name="opcionJugador" value="2">
+                <label for="Tijera">✌️ Tijera</label>
+            </div>
+            
+            <!-- Botón de envío que activará la lógica en app.js -->
+            <button type="submit" id="BotonGirar">¡GIRAR!</button>
+        </form>
+    </main>
+
+    <!-- Carga del script al final del body para no bloquear el HTML -->
+    <script src="app.js"></script>
+</body>
+</html>

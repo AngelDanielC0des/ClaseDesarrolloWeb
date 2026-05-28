@@ -1,0 +1,115 @@
+/* ======================================================================
+   LECCIÓN: 3 en Raya — Distribución con Flexbox CSS
+   ======================================================================
+   En esta hoja de estilos aprenderás los fundamentos de Flexbox:
+   
+   1. Contenedores Flex (display: flex)
+   2. Ejes de Flexbox: Eje Principal (Main Axis) y Eje Cruzado (Cross Axis)
+   3. Dirección del flujo (flex-direction: column / row)
+   4. Distribución en eje principal (justify-content)
+   5. Alineación en eje secundario (align-items)
+   
+   DIAGRAMA DE EJES FLEXBOX:
+   
+   flex-direction: row (Por defecto)
+   ┌──────────────────────────────────────────────────────────┐
+   │                                  EJE PRINCIPAL (→)       │
+   │                                                          │
+   │  E   [ Item 1 ]        [ Item 2 ]        [ Item 3 ]      │
+   │  J                                                       │
+   │  E  C-R-U-Z-A-D-O  (↓)                                   │
+   └──────────────────────────────────────────────────────────┘
+
+   flex-direction: column
+   ┌──────────────────────────┐
+   │  EJE PRINCIPAL (↓)       │
+   │                          │
+   │  [ Item 1 ]              │
+   │                          │
+   │  [ Item 2 ]        E     │
+   │                    J     │
+   │  [ Item 3 ]        E  C-R-U-Z-A-D-O  (→)
+   └──────────────────────────┘
+   ====================================================================== */
+
+.general {
+  /* Activa Flexbox en el contenedor del tablero */
+  display: flex;
+  
+  /* 
+     Coloca los elementos hijos (las filas) uno debajo del otro.
+     El eje principal ahora es VERTICAL (de arriba a abajo) y el
+     eje secundario/cruzado es HORIZONTAL (de izquierda a derecha).
+  */
+  flex-direction: column;
+  
+  background-color: palevioletred;
+  margin: 0 auto; /* Centra el contenedor horizontalmente en la pantalla */
+  width: 75vw;    /* Ocupa el 75% de la anchura del navegador */
+  height: 100vh;   /* Ocupa el 100% de la altura visible del navegador */
+}
+
+.primeraFila,
+.segundaFila,
+.terceraFila {
+  /* Activa Flexbox en cada fila individual */
+  display: flex;
+  
+  /* 
+     Alinea los elementos hijos (los círculos) verticalmente en el centro
+     de cada fila. Como flex-direction por defecto es 'row', align-items 
+     actúa sobre el eje secundario (que es vertical).
+  */
+  align-items: center;
+  height: 33%; /* Cada una de las 3 filas ocupa un tercio de la altura del tablero */
+}
+
+.primeraFila {
+  margin: 20px 20px;
+  /* 
+     justify-content: space-between
+     Separa los círculos empujándolos a los bordes izquierdo y derecho, 
+     distribuyendo el espacio vacío restante en medio de ellos.
+  */
+  justify-content: space-between;
+}
+
+.segundaFila {
+  margin: 20px 20px;
+  /* 
+     justify-content: center
+     Agrupa los elementos hijos (en este caso el único círculo central) 
+     exactamente en el medio horizontal de la fila.
+  */
+  justify-content: center;
+}
+
+.terceraFila {
+  margin: 20px 20px;
+  /* Separa los dos círculos a las esquinas inferiores */
+  justify-content: space-between;
+}
+
+/* Fichas comunes */
+.circulo {
+  width: 250px;
+  height: 250px;
+  background-color: aqua;
+  /* 
+     border-radius: 50%
+     Transforma una caja cuadrada de 250x250 en un círculo perfecto.
+  */
+  border-radius: 50%;
+}
+
+/* Fichas de jugador par */
+.par {
+  border: 4px solid blue;
+  background-color: white;
+}
+
+/* Fichas de jugador impar */
+.impar {
+  border: 4px solid white;
+  background-color: blue;
+}

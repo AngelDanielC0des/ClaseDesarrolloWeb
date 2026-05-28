@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ======================================================================
+         LECCIÓN: Dashboard Responsive — Grid Avanzado y Multimedia
+         ======================================================================
+         En esta lección aprenderás:
+         
+         HTML5:
+           - <video> y <audio> con <source> → Incorporación de multimedia nativa
+           - <details> & <summary> → Secciones interactivas colapsables sin JS
+           - <code> & <pre>  → Formatear y mostrar bloques de código preformateado
+           - contenteditable → Atributo que permite editar cualquier texto en el navegador
+           - <cite>          → Citas semánticas de fuentes de información
+         
+         CSS:
+           - @media queries  → Estructuración de layouts adaptativos (móvil, tablet, escritorio)
+           - grid-template-areas → Posicionamiento en cuadrículas mediante áreas con nombre
+           - position: sticky → Fijar elementos al hacer scroll de forma contextual
+           - :nth-child()    → Estilizar elementos en base a su orden/patrón en la lista
+           - :not()          → Selector de exclusión (negación en CSS)
+           - filter          → Aplicar efectos de imagen (desenfoque, escala de grises, contraste)
+           - aspect-ratio    → Controlar la proporción de dimensiones (ancho/alto) de elementos
+           - scroll-snap     → Crear carruseles táctiles fluidos que se ajustan al deslizar
+           - min() & max()   → Restricciones dinámicas de tamaño en CSS sin media queries
+           - gap             → Espaciado moderno entre elementos flex o grid
+         ====================================================================== -->
+
+    <title>Dashboard Responsive — HTML5 y CSS Grid</title>
+
+    <!-- Google Fonts: Inter para texto y Outfit para cabeceras y números -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos de la lección -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Script de apoyo (Toggle de tema claro/oscuro) -->
+    <script src="script.js" defer></script>
+</head>
+
+<body class="tema-oscuro">
+
+    <!-- 
+        Estructura Grid del Dashboard:
+        Contenedor global que estructuraremos con grid-template-areas.
+    -->
+    <div class="dashboard-layout">
+
+        <!-- ============================================================
+             CABECERA DEL DASHBOARD (Header)
+             ============================================================ -->
+        <header class="header-dashboard">
+            <div class="header-marca">
+                <!-- 
+                    CONCEPTO NUEVO: contenteditable
+                    Este atributo HTML permite al usuario editar directamente
+                    el texto haciendo clic sobre él en el navegador.
+                    
+                    Prueba a hacer doble clic y cambiar el nombre de tu dashboard.
+                -->
+                <span class="logo-icono">📊</span>
+                <h1 class="logo-texto" contenteditable="true" title="Haz clic para editar el nombre de la app">Panel de Control</h1>
+                <span class="badge-edicion">Editable</span>
+            </div>
+
+            <!-- Controles globales -->
+            <div class="header-controles">
+                <button id="btn-tema" class="boton-accion" aria-label="Cambiar Tema">
+                    <span class="icono-tema">☀️</span>
+                    <span class="texto-tema">Modo Claro</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ============================================================
+             BARRA LATERAL (Sidebar - sticky en pantallas grandes)
+             ============================================================ -->
+        <aside class="sidebar-dashboard">
+            <!-- 
+                CONCEPTO: position: sticky
+                En CSS, el sidebar se quedará fijo en su sitio al hacer scroll
+                hacia abajo, siempre que tenga espacio dentro de su contenedor padre.
+            -->
+            <nav class="sidebar-nav">
+                <p class="sidebar-seccion">Navegación</p>
+                <ul class="sidebar-lista">
+                    <li><a href="#" class="sidebar-enlace activo">🏠 Resumen General</a></li>
+                    <li><a href="#" class="sidebar-enlace">📈 Estadísticas</a></li>
+                    <li><a href="#" class="sidebar-enlace">📁 Documentación</a></li>
+                    <li><a href="#" class="sidebar-enlace">🎵 Media Player</a></li>
+                </ul>
+
+                <div class="sidebar-banner">
+                    <h4>Clase de Desarrollo</h4>
+                    <p>Lección de Grid y Responsive Design avanzado.</p>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ============================================================
+             CONTENIDO PRINCIPAL (Main)
+             ============================================================ -->
+        <main class="contenido-dashboard">
+
+            <!-- Fila 1: Tarjetas de estadísticas (Uso de Scroll Snap y Flex Gap) -->
+            <section class="seccion-resumen">
+                <h2 class="seccion-titulo">Métricas Clave <small>(Arrastra para scroll horizontal en móvil)</small></h2>
+                
+                <!-- 
+                    CONCEPTO NUEVO: Scroll Snap
+                    En móvil, esta lista horizontal se desliza con snap.
+                    Al soltar el dedo, la tarjeta se auto-centra suavemente en pantalla.
+                -->
+                <div class="carrusel-snap">
+                    <!-- Tarjeta 1 -->
+                    <div class="tarjeta-stat">
+                        <div class="stat-info">
+                            <span class="stat-label">Visitas Únicas</span>
+                            <span class="stat-numero">142.8K</span>
+                            <span class="stat-tendencia tendencia-sube">+12.4% este mes</span>
+                        </div>
+                        <div class="stat-icono">👥</div>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="tarjeta-stat">
+                        <div class="stat-info">
+                            <span class="stat-label">Tiempo de Sesión</span>
+                            <span class="stat-numero">4m 32s</span>
+                            <span class="stat-tendencia tendencia-sube">+8.2% vs ayer</span>
+                        </div>
+                        <div class="stat-icono">⏱️</div>
+                    </div>
+
+                    <!-- Tarjeta 3 -->
+                    <div class="tarjeta-stat">
+                        <div class="stat-info">
+                            <span class="stat-label">Tasa de Rebote</span>
+                            <span class="stat-numero">28.4%</span>
+                            <span class="stat-tendencia tendencia-baja">-2.1% esta semana</span>
+                        </div>
+                        <div class="stat-icono">🚪</div>
+                    </div>
+
+                    <!-- Tarjeta 4 -->
+                    <div class="tarjeta-stat">
+                        <div class="stat-info">
+                            <span class="stat-label">Conversiones</span>
+                            <span class="stat-numero">3.48%</span>
+                            <span class="stat-tendencia tendencia-sube">+1.8% vs histórico</span>
+                        </div>
+                        <div class="stat-icono">🎯</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fila 2: Grid de tarjetas avanzadas -->
+            <div class="grid-tarjetas">
+
+                <!-- Tarjeta A: Multimedia Novedosa (<video> y aspect-ratio) -->
+                <article class="tarjeta-dashboard">
+                    <h3 class="tarjeta-titulo">Reproductor de Vídeo Nativo</h3>
+                    <p class="tarjeta-descripcion">Integración multimedia HTML5 con controles y aspect-ratio en CSS.</p>
+                    
+                    <!--
+                        CONCEPTO NUEVO: <video>, <source> y aspect-ratio
+                        - <video controls>: Añade el reproductor de vídeo nativo con controles
+                          (play, pausa, volumen, pantalla completa).
+                        - <source>: Permite proveer el vídeo en múltiples formatos (mp4, webm)
+                          para que el navegador use el que mejor soporte.
+                        - En CSS usaremos 'aspect-ratio: 16 / 9' para mantener la proporción exacta
+                          sin deformar el contenido ni calcular alturas.
+                    -->
+                    <div class="video-contenedor">
+                        <video class="video-reproductor" controls poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80">
+                            <!-- Fuente en MP4 (Public Video de prueba) -->
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                            <!-- Texto alternativo de respaldo por si el navegador no lo soporta -->
+                            Tu navegador no soporta la reproducción de vídeo nativo.
+                        </video>
+                    </div>
+                    
+                    <p class="pie-video">
+                        Vídeo de prueba · Fuente: <cite><a href="https://commondatastorage.googleapis.com/gtv-videos-bucket/" target="_blank">Google Sample Videos</a></cite>
+                    </p>
+                </article>
+
+                <!-- Tarjeta B: Audio y details/summary estilizado -->
+                <article class="tarjeta-dashboard">
+                    <h3 class="tarjeta-titulo">Multimedia y Acordeón Nativos</h3>
+                    <p class="tarjeta-descripcion">A continuación verás un ejemplo de audio nativo y secciones colapsables sin JavaScript.</p>
+                    
+                    <!--
+                        CONCEPTO NUEVO: <audio> con <source>
+                        Integra un reproductor de audio nativo de bajo consumo.
+                    -->
+                    <div class="audio-contenedor">
+                        <audio class="audio-reproductor" controls>
+                            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio nativo.
+                        </audio>
+                    </div>
+
+                    <!--
+                        CONCEPTO NUEVO: <details> y <summary>
+                        ───────────────────────────────────────
+                        Crea una sección colapsable (acordeón) 100% nativa.
+                        
+                        - <details>: El contenedor. Al hacerle clic, añade automáticamente
+                                     el atributo booleano 'open' en el HTML.
+                        - <summary>: La cabecera visible. Al hacer clic en ella, abre o cierra
+                                     el resto del contenido de <details>.
+                        
+                        Es ideal para preguntas frecuentes, detalles técnicos o paneles auxiliares.
+                        Se estiliza fácilmente en CSS, controlando el triángulo indicador y el estado [open].
+                    -->
+                    <div class="acordeon-contenedor">
+                        <details class="acordeon-item">
+                            <summary class="acordeon-cabecera">¿Cómo funciona la propiedad transition?</summary>
+                            <div class="acordeon-contenido">
+                                <p>La transición CSS permite cambiar valores de propiedades de forma suave (durante un tiempo dado), en lugar de que el cambio sea inmediato.</p>
+                            </div>
+                        </details>
+
+                        <details class="acordeon-item">
+                            <summary class="acordeon-cabecera">¿Qué ventajas tiene position: sticky?</summary>
+                            <div class="acordeon-contenido">
+                                <p>Combina <code>relative</code> y <code>fixed</code>. El elemento se comporta como relativo hasta que alcanza un umbral de scroll (ej. <code>top: 0</code>), momento en el cual se fija en la pantalla.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <!-- Tarjeta C: Bloque de Código Semántico (pre, code y filter) -->
+                <article class="tarjeta-dashboard">
+                    <h3 class="tarjeta-titulo">Depuración de Código</h3>
+                    <p class="tarjeta-descripcion">Ejemplo de código formateado semánticamente con variables de color.</p>
+                    
+                    <!--
+                        CONCEPTO NUEVO: <pre> y <code>
+                        - <pre>: Conserva espacios en blanco, tabulaciones y saltos de línea tal
+                                 como se escriben en el código fuente HTML.
+                        - <code>: Define semánticamente texto de código para sistemas y buscadores.
+                    -->
+                    <div class="codigo-contenedor">
+                        <pre class="codigo-bloque"><code>/* Sistema de Colores */
+:root {
+    --primary: #6366f1;
+    --success: #10b981;
+}
+
+function initTheme() {
+    const isDark = checkUserPref();
+    document.body.classList.toggle("dark", isDark);
+}</code></pre>
+                    </div>
+
+                    <!--
+                        CONCEPTO: Filtros en CSS (filter)
+                        Usamos CSS filter para dar un efecto decorativo a una imagen de fondo o decorativa.
+                        En CSS aplicaremos filtros de escala de grises y desenfoque.
+                    -->
+                    <div class="imagen-filtro-contenedor">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=70" 
+                             alt="Fondo abstracto decorativo con filtros CSS" 
+                             class="imagen-decorativa">
+                        <span class="etiqueta-filtro">Imagen con Filtro CSS</span>
+                    </div>
+                </article>
+
+                <!-- Tarjeta D: Tabla de registros (:nth-child y :not) -->
+                <article class="tarjeta-dashboard">
+                    <h3 class="tarjeta-titulo">Logs del Servidor</h3>
+                    <p class="tarjeta-descripcion">Monitoreo del sistema en tiempo real. Filas estilizadas de forma alterna.</p>
+                    
+                    <div class="tabla-contenedor">
+                        <table class="tabla-logs">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Evento</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="log-fila">
+                                    <td><time datetime="2026-05-27T16:40:00">16:40:00</time></td>
+                                    <td>Usuario Login</td>
+                                    <td><span class="status ok">OK</span></td>
+                                </tr>
+                                <tr class="log-fila">
+                                    <td><time datetime="2026-05-27T16:41:12">16:41:12</time></td>
+                                    <td>Carga de Archivo</td>
+                                    <td><span class="status ok">OK</span></td>
+                                </tr>
+                                <tr class="log-fila">
+                                    <td><time datetime="2026-05-27T16:42:05">16:42:05</time></td>
+                                    <td>Fallo de Token</td>
+                                    <td><span class="status alerta">ALERTA</span></td>
+                                </tr>
+                                <tr class="log-fila">
+                                    <td><time datetime="2026-05-27T16:43:55">16:43:55</time></td>
+                                    <td>Consulta DB</td>
+                                    <td><span class="status ok">OK</span></td>
+                                </tr>
+                                <tr class="log-fila fila-destacada">
+                                    <td><time datetime="2026-05-27T16:45:10">16:45:10</time></td>
+                                    <td>Error de Disco</td>
+                                    <td><span class="status error">FALLO</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+            </div>
+
+        </main>
+
+        <!-- ============================================================
+             PIE DE PÁGINA (Footer)
+             ============================================================ -->
+        <footer class="footer-dashboard">
+            <p><strong>Temario Aprendido:</strong> Grid Areas, Sticky Layouts, Media Queries, HTML5 Video & Audio, Details/Summary, contenteditable, CSS Filters y Scroll Snap.</p>
+            <p>&copy; 2026 Panel Educativo de Desarrollo Web</p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

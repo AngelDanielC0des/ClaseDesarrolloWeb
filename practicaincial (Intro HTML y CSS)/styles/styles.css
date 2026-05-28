@@ -1,0 +1,135 @@
+/* ======================================================================
+   LECCIÓN: Introducción a CSS (Estilos Iniciales)
+   ======================================================================
+   En esta primera hoja de estilos aprenderás los fundamentos de:
+   
+   1. Unidades de Medida Relativas (vh, vw, %)
+   2. Alineación y distribución con Flexbox básico
+   3. Modelo de Visualización (block, inline-block, flex)
+   4. Estilización de Tablas y propiedades de borde
+   5. Sombras y Bordes decorativos (box-shadow)
+   
+   DIAGRAMA DEL MODELO DE CAJA EN ACCIÓN:
+   +-------------------------------------------------------------+
+   | MARGIN (margin: 10px auto) - Centrado y separación externa  |
+   |   +-----------------------------------------------------+   |
+   |   | BORDER (border: 1px solid) - Línea del borde        |   |
+   |   |   +---------------------------------------------+   |   |
+   |   |   | PADDING (padding: 8px) - Espacio interior   |   |   |
+   |   |   |   +-------------------------------------+   |   |   |
+   |   |   |   | CONTENT (width: 90%) - Datos/Texto  |   |   |   |
+   |   |   |   +-------------------------------------+   |   |   |
+   |   |   +---------------------------------------------+   |   |
+   |   +-----------------------------------------------------+   |
+   +-------------------------------------------------------------+
+   ====================================================================== */
+
+/* ----------------------------------------------------------------------
+   1. ESTRUCTURA Y ALTURAS DEL VIEWPORT (vh)
+   ─────────────────────────────────────────
+   vh = Viewport Height (1vh representa el 1% de la altura visible del navegador).
+   Tener 25vh + 70vh + 5vh = 100vh asegura que el contenido ocupe exactamente
+   toda la pantalla del navegador sin dejar huecos ni forzar scroll innecesario.
+---------------------------------------------------------------------- */
+
+header {
+    height: 25vh; /* Ocupa el 25% de la altura de la pantalla */
+}
+
+main {
+    height: 70vh; /* Ocupa el 70% de la altura de la pantalla */
+}
+
+footer {
+    height: 5vh;  /* Ocupa el 5% de la altura de la pantalla */
+}
+
+/* ----------------------------------------------------------------------
+   2. MENÚ DE NAVEGACIÓN (Uso inicial de Flexbox)
+---------------------------------------------------------------------- */
+nav ul {
+    display: flex;       /* Activa el contenedor flexible */
+    flex-direction: row; /* Coloca los elementos hijos en fila horizontal */
+    justify-content: center; /* Centra los hijos horizontalmente en el eje principal */
+    list-style: none;    /* Quita los círculos/viñetas por defecto de las listas <ul> */
+    padding: 0;          /* Elimina el espacio interior izquierdo por defecto */
+    background-color: #3333336f; /* Fondo oscuro semitransparente (Hex + canal alfa) */
+}
+
+nav li {
+    width: 150px;
+    height: 50px;
+    /* 
+       Centrado absoluto del texto dentro de cada celda de la lista.
+       Al usar flexbox aquí, los textos se centran vertical y horizontalmente.
+    */
+    display: flex;
+    align-items: center;     /* Centrado vertical en el eje secundario */
+    justify-content: center;  /* Centrado horizontal en el eje principal */
+}
+
+/* Enlaces del menú */
+.enlace {
+    color: blue;
+}
+
+h2 {
+    color: blueviolet;
+}
+
+/* ----------------------------------------------------------------------
+   3. SECCIONES DEL CONTENIDO (.div - Visualización en Bloque en Línea)
+   ───────────────────────────────────────────────────────────────────
+   display: inline-block permite que el elemento se comporte como un bloque
+   (permite definir ancho y alto) pero fluyendo horizontalmente al lado de otros,
+   como si fuesen palabras.
+---------------------------------------------------------------------- */
+.div {
+    display: inline-block;
+    vertical-align: top; /* Evita que se desalineen si tienen alturas de texto distintas */
+    width: 600px;
+    height: 400px;
+    font-size: 16px;
+    background-color: #eee; /* Fondo gris claro */
+    margin-right: 10px;      /* Espacio de separación por el lado derecho */
+    
+    /* 
+       box-shadow: horizontal vertical difuminado extension color;
+       Genera una sombra intensa de color negro para dar efecto de relieve.
+    */
+    box-shadow: 5px 5px 5px 5px black;
+}
+
+/* ----------------------------------------------------------------------
+   4. IMÁGENES RESPONSIVAS
+   ────────────────────────
+   max-width y max-height al 20% limitan el tamaño de la imagen para que
+   nunca sobrepase la quinta parte del tamaño de su contenedor padre (.div).
+---------------------------------------------------------------------- */
+img {
+   max-width: 20%;
+   max-height: 20%;
+}
+
+/* ----------------------------------------------------------------------
+   5. TABLA SEMÁNTICA ESTILIZADA
+---------------------------------------------------------------------- */
+.tabla {
+    margin: 10px auto; /* 10px arriba/abajo y AUTO en los lados centra horizontalmente */
+    width: 90%;        /* Ocupa el 90% del ancho del contenedor padre (540px de 600px) */
+    border-collapse: collapse; /* Fusión de bordes dobles en bordes simples de rejilla */
+    text-align: center; /* Centrado del texto dentro de todas las celdas */
+    background-color: white; /* Contraste con el fondo gris de la tarjeta */
+}
+
+/* Bordes en cabeceras y celdas de la tabla */
+.tabla th, .tabla td {
+    border: 1px solid #333;
+    padding: 8px; /* Espaciado interno de amortiguación del texto */
+}
+
+/* Cabecera específica */
+.tabla th {
+    background-color: blueviolet; /* Color púrpura para identificar la cabecera */
+    color: white;
+}

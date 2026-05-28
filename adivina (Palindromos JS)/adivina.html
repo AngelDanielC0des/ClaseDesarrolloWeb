@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ADIVINA adivinanza - Palíndromos</title>
+    <!--
+      ========================================================================
+      LECCIÓN: Lógica Inversa y Palíndromos
+      ========================================================================
+      
+      El código original planteaba un misterio (¿Qué hace la función?).
+      Ahora que sabemos que verifica si una palabra es un palíndromo 
+      (se lee igual de izquierda a derecha que de derecha a izquierda),
+      hemos documentado el proceso paso a paso.
+
+      Se pedía:
+      1) Adivinar la funcionalidad (Es un comprobador de Palíndromos).
+      2) Aplicar un nombre apropiado (Renombrado a esPalindromo).
+      3) Idear métodos equivalentes (Ver script.js para otras soluciones).
+    -->
+    <script defer>
+
+        // -------------------------------------------------------------------
+        // FUNCIÓN 1: Captura de datos del DOM
+        // -------------------------------------------------------------------
+        // Esta función actúa como "puente" entre el HTML y la lógica de negocio.
+        function cogerpalabra() {
+            // Obtenemos el valor actual escrito en la caja de texto
+            let palabraOriginal = document.getElementById("palabra").value;
+            
+            // Llamamos a la función principal pasándole la palabra capturada
+            esPalindromo(palabraOriginal);
+        }
+      
+        // -------------------------------------------------------------------
+        // FUNCIÓN 2: Lógica Principal (Algoritmo de Inversión)
+        // -------------------------------------------------------------------
+        function esPalindromo(palabraOriginal) {
+            // Variable acumuladora donde guardaremos la palabra al revés
+            let palabraReves = "";
+
+            // BUCLE FOR INVERSO:
+            // 1. Inicio: Empezamos en la última posición de la palabra (length - 1).
+            // 2. Condición: Mientras el índice (i) sea mayor o igual a 0.
+            // 3. Paso: Restamos 1 en cada iteración (i--).
+            for (let i = palabraOriginal.length - 1; i >= 0; i--) {
+                // Extraemos la letra en la posición actual
+                let letraActual = palabraOriginal[i];
+                
+                // Concatenamos la letra extraída a nuestra variable acumuladora
+                palabraReves = palabraReves + letraActual;
+            }
+
+            // COMPROBACIÓN FINAL:
+            // Comparamos la palabra construida al revés con la original
+            if (palabraReves == palabraOriginal) {
+                console.log(`${palabraOriginal} es un palíndromo`);
+            } else { 
+                console.log(`${palabraOriginal} no es un palíndromo`); 
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <!-- Interfaz de usuario básica -->
+    <label for="palabra">PALABRA</label>
+    <input type="text" id="palabra">
+    
+    <!-- 
+         Al hacer clic en el botón, se dispara el evento 'onclick' 
+         que ejecuta la función cogerpalabra()
+    -->
+    <button onclick="cogerpalabra();">Empieza</button>
+    <p id="p1"></p>
+</body>
+
+</html>

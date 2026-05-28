@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vinculación de hoja de estilos externa -->
+    <link rel="stylesheet" href="styles.css">
+    <title>Formulario + Juego</title>
+</head>
+<body>
+
+    <!-- Contenedor principal para centrar el contenido -->
+    <div class="container" id="container">
+        
+        <!-- 
+             CONCEPTO: Formulario HTML5
+             El elemento <form> agrupa controles de entrada. 
+             Por defecto, al hacer 'submit', el navegador intenta enviar
+             los datos a un servidor, recargando la página.
+        -->
+        <form id="registroForm">
+            <h1>Alta de usuario</h1>
+            <p>Completa el siguiente formulario para crear tu cuenta.</p>
+            
+            <!-- 
+                 CONCEPTO: Accesibilidad y 'for'
+                 El atributo 'for' del label debe coincidir con el 'id' del input.
+                 Esto permite que al hacer clic en el texto "Nombre de usuario",
+                 el foco salte automáticamente al input.
+            -->
+            <label for="nombre">Nombre de usuario</label>
+            <!-- required: Validación nativa HTML5 que impide el envío si está vacío -->
+            <input id="nombre" type="text" placeholder="Ingresa tu nombre de usuario" required>
+            
+            <label for="pass">Contraseña</label>
+            <!-- type="password": Oculta los caracteres escritos -->
+            <input id="pass" type="password" placeholder="Ingresa tu contraseña" required>
+            
+            <label for="fecha">Fecha de nacimiento</label>
+            <!-- type="date": Despliega el calendario nativo del navegador -->
+            <input id="fecha" type="date" required>
+            
+            <div class="checkbox-group">
+                <!-- type="checkbox": Selector booleano (marcado/desmarcado) -->
+                <input id="confirm" type="checkbox" required>
+                <label for="confirm">He leído y acepto las <a href="#">condiciones</a></label>
+            </div>
+            
+            <!-- 
+                 type="submit": Botón especial que dispara el evento 'submit' 
+                 en la etiqueta <form> que lo contiene.
+            -->
+            <button type="submit">Dar de alta</button>
+        </form>
+
+        <!-- 
+             CONCEPTO: Contenedor Oculto
+             La clase 'hidden' (definida en CSS como display: none) mantiene 
+             esta imagen oculta al cargar la página. JS quitará esta clase.
+        -->
+        <div id="resultado" class="hidden">
+            <img src="tablero.png" alt="Tablero de colores">
+        </div>
+    </div>
+
+    <!-- 
+         Cargamos el script al final con 'defer' para asegurar que el DOM 
+         esté completamente construido antes de ejecutar la lógica.
+    -->
+    <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* ======================================================================
+   LECCIÓN: Formulario de Login — Estilos e Introducción al Posicionamiento
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+   
+   1. Unidades de medida de pantalla: vh (Viewport Height) y vw (Viewport Width).
+   2. El efecto de sombra en texto (text-shadow).
+   3. Selectores de pseudo-clase de estado (:hover).
+   4. Propiedades básicas de bordes y márgenes.
+   ====================================================================== */
+
+body {
+    /* Color de fondo oscuro grisáceo con opacidad (canal alfa) */
+    background-color: #7777778d; 
+}
+
+form {
+    /* Tamaño de fuente relativo a palabras preestablecidas del navegador */
+    font-size: xx-large;
+    border: 1px solid blue;
+    
+    /* 
+       CONCEPTO: position: absolute
+       Retira el formulario del flujo normal de la página y lo posiciona 
+       respecto al body (o el ancestro posicionado más cercano).
+    */
+    position: absolute;
+    margin-right: 5vw; /* 5% de la anchura de la pantalla */
+    margin-left: 5vw;  /* 5% de la anchura de la pantalla */
+    
+    height: 100vh;     /* Ocupa el 100% de la altura de la pantalla */
+    width: 90vw;       /* Ocupa el 90% de la anchura de la pantalla */
+    text-align: center;
+    color: rgba(7, 57, 210, 0.589);
+}
+
+h1 {
+    color: blueviolet;
+    /* 
+       CONCEPTO: text-shadow
+       Añade sombra al texto. Sintaxis: desplazamiento-X desplazamiento-Y difuminado color;
+    */
+    text-shadow: 3px 3px 3px blueviolet;
+}
+
+/* 
+   Estructuración en bloques para los campos del formulario.
+   display: block obliga a cada campo a empezar en una nueva línea 
+   y ocupar todo el ancho disponible.
+*/
+
+.usuario {
+    border: 1px solid blue;
+    margin: 50px;
+    text-align: center;
+    align-content: center;
+    height: 20vh;
+    width: 75vw;
+    display: block;
+}
+
+/* 
+   CONCEPTO: Selector de Estado (:hover)
+   Aplica estilos solo cuando el puntero del ratón se sitúa sobre el input.
+   outline-color cambia el color del borde exterior de enfoque del navegador.
+*/
+input:hover {
+    outline-color: aqua;
+}
+
+.pass {
+    border: 1px solid blue;
+    margin: 50px;
+    text-align: center;
+    align-content: center;
+    height: 20vh;
+    width: 75vw;
+    display: block;
+}
+
+.repeatpass {
+    border: 1px solid blue;
+    margin: 50px;
+    text-align: center;
+    align-content: center;
+    height: 20vh;
+    width: 75vw;
+    display: block;
+}
+
+.sexo {
+    /* Borde punteado */
+    border: 1px dotted blue;
+    margin: 50px;
+    align-content: center;
+}
+
+.botones {
+    border: 1px solid blue;
+    margin-top: 60px;
+}
+
+input {
+    border: 1px solid blue;
+    align-content: center;
+    color: purple;
+}
+
+button {
+    border: 1px solid blue;
+    align-content: center;
+    
+    /* 
+       border-radius: 50%
+       Redondea el botón al 50% de sus dimensiones, dándole forma circular
+       u ovalada según su relación de aspecto.
+    */
+    border-radius: 50%;
+    min-width: 80px;
+    border-bottom-color: aqua; /* Resalta el borde inferior con color turquesa */
+}

@@ -1,0 +1,217 @@
+/* ======================================================================
+   LECCIÓN: Card de Instagram — Bootstrap, Maquetación CSS y <template>
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+
+   1. Cómo sobrescribir estilos de Bootstrap con CSS personalizado.
+   2. Maquetación de componentes tipo "card" usando Flexbox.
+   3. El truco del margin negativo para solapar avatares.
+   4. La propiedad float y su relación con overflow: hidden.
+   5. Transiciones suaves en botones con transition.
+   6. Uso de object-fit: cover para ajustar imágenes.
+   ====================================================================== */
+
+/* ----------------------------------------------------------------------
+   1. ESTILOS GENERALES DEL BODY
+   ─────────────────────────────
+   Flexbox centrado para colocar la card en el centro de la pantalla.
+---------------------------------------------------------------------- */
+body {
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    /* 
+       Pila de fuentes del sistema (System Font Stack):
+       El navegador usa la primera fuente disponible en el dispositivo del usuario.
+       -apple-system → macOS/iOS, BlinkMacSystemFont → Chrome en macOS,
+       "Segoe UI" → Windows, Roboto → Android, etc.
+    */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ----------------------------------------------------------------------
+   2. CONTENEDOR DE LA CARD
+---------------------------------------------------------------------- */
+.instagram-card {
+    display: flex;
+    flex-direction: column; /* Los hijos se apilan verticalmente */
+    max-width: 500px;
+    width: 100%;
+    margin: 20px auto;      /* Centrado horizontal con auto */
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+}
+
+/* ----------------------------------------------------------------------
+   3. CABECERA: Avatar + Nombre + Botón de Opciones
+---------------------------------------------------------------------- */
+.card-header {
+    display: flex;
+    justify-content: space-between; /* Nombre a la izquierda, opciones a la derecha */
+    align-items: center;
+    padding: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre avatar y nombre */
+}
+
+.avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;  /* Convierte la imagen en un círculo */
+    object-fit: cover;   /* Recorta la imagen para llenar sin deformar */
+}
+
+/* ----------------------------------------------------------------------
+   4. IMAGEN PRINCIPAL DEL POST
+---------------------------------------------------------------------- */
+.card-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;   /* Rellena el contenedor recortando los bordes */
+    display: block;      /* Elimina el espacio inferior que los inline generan */
+}
+
+/* ----------------------------------------------------------------------
+   5. BARRA DE ACCIONES (Like, Comment, Share, Bookmark)
+---------------------------------------------------------------------- */
+.card-actions {
+    display: flex;
+    justify-content: space-between; /* Grupo izquierdo y bookmark a la derecha */
+    padding: 12px 12px 8px;
+}
+
+.left-actions {
+    display: flex;
+    gap: 16px; /* Separación uniforme entre iconos */
+}
+
+/* Reseteo de botones: eliminamos todos los estilos por defecto del navegador */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.2s; /* Transición suave en hover */
+}
+
+button:hover {
+    opacity: 0.6; /* Al pasar el ratón se difumina ligeramente */
+}
+
+/* Tamaño y color base de los iconos de Bootstrap Icons */
+.bi {
+    font-size: 1.5rem;
+    color: #262626;
+}
+
+/* Inclinación del icono de compartir (avión de papel estilo Instagram) */
+.bi-send {
+    /* 
+       transform: rotate(-15deg) gira el icono 15 grados en sentido antihorario
+       para simular la inclinación natural del icono de enviar de Instagram.
+    */
+    transform: rotate(-15deg);
+}
+
+/* ----------------------------------------------------------------------
+   6. CONTENIDO DE TEXTO (Likes, Comentarios, Fecha)
+---------------------------------------------------------------------- */
+.card-main-content {
+    padding: 0 12px 12px;
+}
+
+.comments-list {
+    list-style: none; /* Eliminamos los puntos de viñeta */
+    padding: 0;
+    margin: 0;
+}
+
+.comments-list li {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    /* 
+       overflow: hidden limpia el efecto de float del corazón gris.
+       Sin esto, el contenedor no envolvería correctamente el icono flotante.
+    */
+    overflow: hidden;
+}
+
+/* Corazón gris pequeño alineado a la derecha de cada comentario */
+.small-gray-heart {
+    font-size: 0.8rem !important;  /* !important sobrescribe la regla general de .bi */
+    color: #8e8e8e !important;
+    float: right;      /* Empuja el icono al borde derecho */
+    margin-top: 4px;
+}
+
+/* Botón "Ver más comentarios" */
+.load-more-btn {
+    color: #8e8e8e;
+    font-size: 0.9rem;
+    margin: 8px 0;
+    display: block;
+}
+
+/* Fecha del post estilizada como Instagram (gris, pequeña, mayúsculas) */
+.post-date {
+    font-size: 0.65rem;
+    color: #8e8e8e;
+    text-transform: uppercase; /* Convierte todo el texto a MAYÚSCULAS */
+    margin-top: 8px;
+    display: block;
+}
+
+/* ----------------------------------------------------------------------
+   7. SECCIÓN DE LIKES CON AVATARES SOLAPADOS
+   ─────────────────────────────────────────
+   Truco visual para que los avatares se superpongan ligeramente
+   entre sí, como en la interfaz real de Instagram.
+---------------------------------------------------------------------- */
+.likes-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.likes-avatars {
+    display: flex;
+    /* 
+       flex-direction: row-reverse invierte el orden visual de los elementos.
+       Combinado con margin-right negativo, logra que el solapamiento 
+       sea correcto (el primer avatar queda por encima del segundo).
+    */
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.avatar-tiny {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff; /* Borde blanco para separar visualmente las superposiciones */
+    /* 
+       margin-right: -8px
+       El truco clave: un margen negativo hace que cada avatar se desplace
+       8px hacia la izquierda, superponiéndose parcialmente al siguiente.
+    */
+    margin-right: -8px;
+    object-fit: cover;
+}
+
+.likes-count {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Hashtags en azul (estilo Instagram) */
+.hashtag {
+    color: blue;
+}

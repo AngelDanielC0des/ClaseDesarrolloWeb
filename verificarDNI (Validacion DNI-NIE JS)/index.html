@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es-es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Framework de estilos: Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 
+         Cargamos el script con defer para que se ejecute después 
+         de cargar todo el DOM.
+    -->
+    <script defer src="script.js">
+    </script>
+
+    <title>
+        Verificador DNI / NIE
+    </title>
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <!-- 
+             Formulario de captura
+             onsubmit="verificarDNI(event)" podría usarse si el botón fuera type="submit",
+             pero como es type="button", la función se llama desde el onclick del botón.
+        -->
+        <form class="p-4 border rounded shadow-sm bg-white" onsubmit="event.preventDefault(); verificarDNI();">
+
+            <h2 class="mb-4 text-center">
+                Verificador de DNI / NIE
+            </h2>
+
+            <div class="row g-3">
+
+                <!-- Número DNI / NIE -->
+                <div class="col-md-7">
+
+                    <label for="numeroDNI" class="form-label fw-bold">
+
+                        Número DNI / NIE
+
+                    </label>
+
+                    <!-- 
+                         Atributo pattern: Expresión Regular
+                         Valida que el input tenga:
+                         1. Una X, Y o Z seguida de 7 números (Formato NIE)
+                         2. O bien 8 números seguidos (Formato DNI clásico)
+                    -->
+                    <input type="text" id="numeroDNI" name="numeroDNI" class="form-control text-uppercase" required
+                        placeholder="Ej: 12345678 o X1234567" pattern="([XYZxyz][0-9]{7}|[0-9]{8})"
+                        title="Debe contener 8 números o X/Y/Z + 7 números(NIE)">
+
+                </div>
+
+                <!-- Letra -->
+                <div class="col-md-5">
+
+                    <label for="letraDNI" class="form-label fw-bold">
+
+                        Letra
+
+                    </label>
+
+                    <!-- 
+                         maxlength="1": Impide escribir más de un carácter.
+                         pattern="[A-Za-z]{1}": Obliga a que sea una letra del abecedario.
+                    -->
+                    <input type="text" id="letraDNI" name="letraDNI" class="form-control text-uppercase" required
+                        maxlength="1" placeholder="Ej: Z" pattern="[A-Za-z]{1}" title="Debe contener una única letra">
+
+                </div>
+
+                <!-- Botón -->
+                <div class="col-12">
+
+                    <!-- type="button" evita que el formulario se envíe y recargue la página -->
+                    <button type="button" id="botonVerificar" class="btn btn-primary w-100 fw-bold mt-3"
+                        onclick="verificarDNI()">
+
+
+                        Verificar DNI / NIE
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <!-- Contenedor vacío donde inyectaremos el resultado (Acierto o Fallo) -->
+        <div id="resultadodni" class="mt-4">
+        </div>
+
+    </div>
+
+    <!-- 
+         ====================================================================
+         TEMPLATES (HTML Inerte)
+         ====================================================================
+         Estos fragmentos no se renderizan al cargar la página.
+         JavaScript los clonará y los inyectará en #resultadodni según convenga.
+    -->
+
+    <template id="templateAcierto">
+
+        <div class="alert alert-success text-center fw-bold">
+
+            ✅ Documento verificado correctamente
+
+        </div>
+
+    </template>
+
+    <template id="templateFallo">
+
+        <div class="alert alert-danger text-center fw-bold">
+
+            ❌ Documento incorrecto
+
+        </div>
+
+    </template>
+
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+/* ======================================================================
+   LECCIÓN: Tarjeta de Estadísticas Deportivas — CSS Grid y Variables
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+
+   1. Uso de CSS Custom Properties (Variables) con :root.
+   2. Combinar Flexbox y CSS Grid para layouts de alta precisión.
+   3. Técnicas de posicionamiento absoluto relativo al padre.
+   4. Transformaciones matemáticas (espejado visual con scaleX).
+   ====================================================================== */
+
+/* ----------------------------------------------------------------------
+   1. VARIABLES CSS (Custom Properties)
+   ────────────────────────────────────
+   Definimos colores corporativos que se repiten en varias reglas.
+   Si cambiamos el diseño, solo editamos aquí y se actualiza todo.
+---------------------------------------------------------------------- */
+:root {
+    --as-green: #2e7d32;   /* Verde cabecera */
+    --red-l: #c62828;      /* Rojo claro (Local) */
+    --red-d: #8e0000;      /* Rojo oscuro (Local) */
+    --org-l: #f5a623;      /* Naranja claro (Visitante) */
+    --org-d: #d39e00;      /* Naranja oscuro (Visitante) */
+}
+
+/* ----------------------------------------------------------------------
+   2. CONTENEDOR PRINCIPAL
+---------------------------------------------------------------------- */
+.as-stat-card {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #f5f5f5;
+    font-family: Arial, sans-serif;
+    border-radius: 4px;
+    /* Evita que los bordes de la cabecera sobresalgan del redondeado */
+    overflow: hidden; 
+}
+
+/* ----------------------------------------------------------------------
+   3. CABECERA FLEXBOX (Escudos y Título)
+---------------------------------------------------------------------- */
+.as-header {
+    background: var(--as-green);
+    display: flex;
+    justify-content: space-between; /* Escudos a los lados, título al centro */
+    align-items: center;
+    padding: 8px 15px;
+    color: white;
+}
+
+.logo-ring {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ajuste específico para forzar tamaño a las imágenes (ej. escudos muy grandes) */
+.logo-ring img {
+    width: 50px;
+    /* Empuja la imagen hacia arriba; este margen mágico compensa imágenes raras */
+    margin: -30px 0px 0px 0px; 
+    zoom: 1.2; /* Aumenta tamaño en navegadores compatibles (no estándar) */
+}
+
+/* ----------------------------------------------------------------------
+   4. DISTRIBUCIÓN EN REJILLA (CSS GRID)
+   ─────────────────────────────────────
+   Se usa para garantizar que el área del Local y Visitante ocupen
+   exactamente el 50% y dejen un pequeño hueco central.
+---------------------------------------------------------------------- */
+.as-grid-row {
+    display: grid;
+    /* Crea 2 columnas exactamente iguales */
+    grid-template-columns: 1fr 1fr;
+    /* El hueco entre columnas funciona visualmente como la línea blanca divisoria */
+    gap: 2px;
+}
+
+/* Fila de etiquetas de texto encima de las barras */
+.team-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ----------------------------------------------------------------------
+   5. BARRAS ESTADÍSTICAS (Posicionamiento Absoluto/Relativo)
+   ──────────────────────────────────────────────────────────
+   Cada mitad (bar-half) es el contenedor RELATIVO.
+   El cuadro oscuro interno se posicionará ABSOLUTO respecto a él.
+---------------------------------------------------------------------- */
+.bar-half {
+    height: 110px;
+    position: relative; /* Clave: hace de "ancla" para los elementos hijos absolutos */
+}
+
+/* Fondo principal de la barra (Representa "FUERA") */
+.local.bar-half {
+    background: var(--red-l);
+}
+
+.visitor.bar-half {
+    background: var(--org-l);
+}
+
+/* 
+   Cuadro oscuro que representa "A PUERTA".
+   Crecerá dinámicamente desde el centro hacia afuera gracias a JS.
+*/
+.dark-box {
+    position: absolute; /* Se superpone a su padre .bar-half */
+    bottom: 0;
+    height: 62%;        /* Ocupa solo la parte inferior de la barra */
+    border: 1px solid rgba(255, 255, 255, 0.7); /* Borde blanco sutil */
+    display: flex;
+    align-items: center;
+    /* Asegura que el borde no aumente el tamaño total (Box Model) */
+    box-sizing: border-box; 
+}
+
+/* 
+   Equipos opuestos: El local se pega a la derecha (al centro de la card),
+   el visitante se pega a la izquierda (al centro de la card).
+*/
+.local .dark-box {
+    right: 0; /* Anclado al borde derecho del contenedor izquierdo */
+    background: var(--red-d);
+    justify-content: flex-end; /* Texto alineado a la derecha */
+}
+
+.visitor .dark-box {
+    left: 0;  /* Anclado al borde izquierdo del contenedor derecho */
+    background: var(--org-d);
+    justify-content: flex-start; /* Texto alineado a la izquierda */
+}
+
+/* ----------------------------------------------------------------------
+   6. TIPOGRAFÍA Y NÚMEROS FLOTANTES
+---------------------------------------------------------------------- */
+.num {
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    padding: 0 15px;
+    z-index: 2; /* Asegura que el número quede por encima de todo */
+}
+
+/* Número exterior (para los remates "FUERA") */
+.num-outside {
+    position: absolute;
+    /* Centrado vertical perfecto con transform */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.local .num-outside { left: 0; }
+.visitor .num-outside { right: 0; }
+
+/* ----------------------------------------------------------------------
+   7. FOOTER Y BARRAS DE PROGRESO DECORATIVAS
+---------------------------------------------------------------------- */
+.as-footer {
+    padding: 25px;
+    text-align: center;
+}
+
+.footer-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.footer-vals {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Separación entre números de locales y visitantes */
+}
+
+.footer-progress {
+    display: flex;
+    gap: 20px;
+    width: 80%;
+    margin: auto;
+}
+
+/* La pista base gris */
+.track {
+    flex: 1; /* Ocupa el espacio disponible de forma equitativa */
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden; /* Corta el relleno si se sale del borde redondeado */
+}
+
+/* 
+   TRUCO VISUAL: scaleX(-1)
+   Esta transformación invierte horizontalmente el contenedor local.
+   Al hacerlo, cuando la barra "crece" con un width%, parece crecer 
+   de derecha a izquierda, hacia el centro. ¡Pura magia CSS!
+*/
+.track.local {
+    transform: scaleX(-1);
+}
+
+.fill {
+    height: 100%;
+}
+
+.track.local .fill { background: var(--red-l); }
+.track.visitor .fill { background: var(--org-l); }

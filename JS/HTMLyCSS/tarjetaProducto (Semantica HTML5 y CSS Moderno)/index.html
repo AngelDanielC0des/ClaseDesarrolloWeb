@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ======================================================================
+         LECCIÓN: Tarjeta de Producto — Semántica HTML5 y CSS Moderno
+         ======================================================================
+         En esta lección aprenderás:
+         
+         HTML5:
+           - <dialog>       → Ventanas modales nativas del navegador
+           - <picture>      → Imágenes responsivas con múltiples fuentes
+           - <source>       → Fuentes alternativas para <picture>, <video>, <audio>
+           - <figure>       → Contenedor semántico para contenido visual
+           - <figcaption>   → Pie de foto/descripción del contenido visual
+           - <mark>         → Resaltar texto importante
+           - <abbr>         → Abreviaturas con descripción emergente
+           - <time>         → Fechas legibles para humanos y máquinas
+           - data-*         → Atributos de datos personalizados
+         
+         CSS:
+           - Variables CSS (custom properties) en profundidad
+           - transition     → Transiciones suaves entre estados
+           - transform      → Transformaciones (escala, rotación, desplazamiento)
+           - box-shadow     → Sombras en elementos
+           - ::before / ::after → Pseudo-elementos para contenido decorativo
+           - object-fit     → Ajuste de imágenes a su contenedor
+           - backdrop-filter → Efecto de desenfoque en fondos (glassmorphism)
+         ====================================================================== -->
+
+    <title>Tarjeta de Producto — HTML5 Semántico</title>
+
+    <!-- Google Fonts: Tipografía moderna para la lección -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Nuestra hoja de estilos -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- 
+        CONCEPTO: defer
+        Ya hemos usado 'defer' antes. Recuerda que carga el script en paralelo
+        pero NO lo ejecuta hasta que el HTML esté completamente leído (parseado).
+        Esto evita errores de "elemento no encontrado" al buscar en el DOM.
+    -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ============================================================
+         SECCIÓN PRINCIPAL: Contenedor de tarjetas
+         ============================================================ -->
+    <main class="contenedor-principal">
+
+        <h1 class="titulo-pagina">Tienda de Tecnología</h1>
+        <p class="subtitulo-pagina">Lección: Semántica HTML5 y CSS Moderno</p>
+
+        <!-- ============================================================
+             TARJETA DE PRODUCTO 1
+             ============================================================
+             
+             CONCEPTO NUEVO: Atributos data-*
+             ─────────────────────────────────
+             Los atributos que empiezan por "data-" son PERSONALIZADOS.
+             HTML5 nos permite inventar nuestros propios atributos siempre
+             que empiecen por "data-". Sirven para guardar información
+             extra en un elemento sin que afecte a la presentación.
+             
+             Ejemplo: data-precio="799.99" guarda el precio como dato.
+             Luego desde JavaScript los leemos con: elemento.dataset.precio
+             
+             REGLAS de data-*:
+             1. El nombre SIEMPRE empieza por "data-"
+             2. Solo puede tener letras minúsculas, números y guiones
+             3. En JavaScript, "data-precio-original" se convierte en
+                dataset.precioOriginal (camelCase automático)
+        -->
+        <article class="tarjeta-producto"
+                 data-producto-id="PRD-001"
+                 data-precio="799.99"
+                 data-categoria="auriculares"
+                 data-en-oferta="true">
+
+            <!-- ========================================================
+                 CONCEPTO NUEVO: <figure> y <figcaption>
+                 ────────────────────────────────────────
+                 <figure> es un contenedor SEMÁNTICO para contenido visual
+                 que es referenciado desde el texto principal, pero que
+                 podría moverse a otra posición sin perder su significado.
+                 
+                 Usos típicos:
+                 - Imágenes con pie de foto
+                 - Diagramas o ilustraciones
+                 - Fragmentos de código
+                 - Citas destacadas
+                 
+                 <figcaption> es el PIE DE FIGURA. Describe o da crédito
+                 al contenido del <figure>. Puede ir al principio o al
+                 final del <figure>.
+                 
+                 Diferencia con un simple <div> + <p>:
+                 Los lectores de pantalla y buscadores entienden que
+                 <figcaption> DESCRIBE al <figure>, creando una relación
+                 semántica que un <div> no proporciona.
+            -->
+            <figure class="tarjeta-imagen">
+
+                <!-- ====================================================
+                     CONCEPTO NUEVO: <picture> y <source>
+                     ────────────────────────────────────
+                     <picture> permite servir DIFERENTES imágenes según
+                     las condiciones del dispositivo (tamaño de pantalla,
+                     formato soportado, resolución, etc.)
+                     
+                     ¿Por qué es útil?
+                     - Un móvil no necesita cargar una imagen de 2000px
+                     - Algunos navegadores soportan WebP (más ligero)
+                       pero otros no
+                     - Podemos mostrar una imagen recortada en móvil
+                       y la completa en escritorio
+                     
+                     FUNCIONAMIENTO:
+                     1. El navegador lee los <source> DE ARRIBA A ABAJO
+                     2. Usa el PRIMERO cuya condición 'media' se cumpla
+                        y cuyo formato 'type' soporte
+                     3. Si ningún <source> le vale, usa el <img> del final
+                     4. El <img> es OBLIGATORIO (es el fallback)
+                     
+                     ATRIBUTO 'media':
+                     Funciona igual que las media queries de CSS.
+                     Ejemplo: media="(min-width: 768px)" → solo en pantallas
+                     de 768px o más.
+                     
+                     ATRIBUTO 'type':
+                     Indica el formato de la imagen para que el navegador
+                     sepa si puede mostrarlo.
+                     Ejemplo: type="image/webp" → formato WebP
+                     
+                     NOTA: En este ejemplo usamos la misma URL porque
+                     no tenemos las imágenes recortadas. En un proyecto
+                     real, cada <source> tendría una imagen diferente
+                     optimizada para ese tamaño.
+                -->
+                <picture>
+                    <!-- Pantallas grandes: imagen de alta resolución -->
+                    <source media="(min-width: 768px)"
+                            srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
+                            type="image/jpeg">
+
+                    <!-- Pantallas pequeñas: imagen más ligera (menor ancho) -->
+                    <source media="(max-width: 767px)"
+                            srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=70"
+                            type="image/jpeg">
+
+                    <!-- 
+                        FALLBACK obligatorio: Si ningún <source> funciona,
+                        el navegador usa este <img>.
+                        El atributo 'alt' es SIEMPRE obligatorio para
+                        accesibilidad (lectores de pantalla).
+                    -->
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=75"
+                         alt="Auriculares inalámbricos premium de color negro con almohadillas de cuero"
+                         class="tarjeta-img"
+                         loading="lazy">
+                    <!-- 
+                        CONCEPTO: loading="lazy"
+                        Le dice al navegador que NO cargue esta imagen
+                        hasta que el usuario esté a punto de verla
+                        (al hacer scroll). Mejora la velocidad de carga
+                        de la página cuando hay muchas imágenes.
+                    -->
+                </picture>
+
+                <!-- Pie de figura semántico -->
+                <figcaption class="tarjeta-figcaption">
+                    Imagen cortesía de Unsplash · Uso educativo
+                </figcaption>
+            </figure>
+
+            <!-- Contenido textual de la tarjeta -->
+            <div class="tarjeta-contenido">
+
+                <!-- Nombre del producto -->
+                <h2 class="tarjeta-nombre">Auriculares Pro Max</h2>
+
+                <!-- ====================================================
+                     CONCEPTO NUEVO: <mark>
+                     ────────────────────
+                     <mark> resalta texto que es RELEVANTE en el contexto
+                     actual. Por defecto, el navegador lo pinta con fondo
+                     amarillo (como un subrayador fluorescente).
+                     
+                     Usos correctos:
+                     ✅ Resaltar un resultado de búsqueda dentro de un texto
+                     ✅ Marcar una palabra clave importante
+                     ✅ Destacar una oferta o descuento
+                     
+                     Usos incorrectos:
+                     ❌ Para decorar texto (usa CSS en su lugar)
+                     ❌ Para dar énfasis (usa <em> o <strong>)
+                     
+                     Diferencia con <strong> y <em>:
+                     - <strong> = importancia fuerte (el navegador lo pone en negrita)
+                     - <em>     = énfasis (el navegador lo pone en cursiva)
+                     - <mark>   = relevancia en el contexto (subrayado amarillo)
+                -->
+                <p class="tarjeta-oferta">
+                    <mark>¡30% de descuento!</mark> Oferta por tiempo limitado
+                </p>
+
+                <!-- ====================================================
+                     CONCEPTO NUEVO: <abbr>
+                     ─────────────────────
+                     <abbr> marca una ABREVIATURA o ACRÓNIMO en el texto.
+                     El atributo 'title' muestra la versión completa al
+                     pasar el ratón por encima (tooltip nativo).
+                     
+                     Ejemplos:
+                     - <abbr title="Impuesto sobre el Valor Añadido">IVA</abbr>
+                     - <abbr title="HyperText Markup Language">HTML</abbr>
+                     - <abbr title="Cascading Style Sheets">CSS</abbr>
+                     
+                     Los navegadores suelen mostrar un subrayado punteado
+                     para indicar que hay información adicional disponible.
+                     Los lectores de pantalla pueden leer el title en voz alta.
+                -->
+                <p class="tarjeta-precio">
+                    <span class="precio-tachado">799,99 €</span>
+                    <span class="precio-actual">559,99 €</span>
+                    <small>(<abbr title="Impuesto sobre el Valor Añadido">IVA</abbr> incluido)</small>
+                </p>
+
+                <!-- ====================================================
+                     CONCEPTO NUEVO: <time>
+                     ─────────────────────
+                     Ya vimos <time> brevemente en la tarjeta de Instagram,
+                     pero ahora lo usamos de forma más completa.
+                     
+                     <time> tiene dos partes:
+                     1. El texto visible: Lo que lee el humano ("Hasta el 31 de diciembre")
+                     2. El atributo 'datetime': La fecha en formato máquina (ISO 8601)
+                     
+                     Formato ISO 8601 (datetime):
+                     - Solo fecha:       2026-12-31
+                     - Fecha y hora:     2026-12-31T23:59:59
+                     - Con zona horaria: 2026-12-31T23:59:59+01:00
+                     - Solo hora:        23:59:59
+                     - Duración:         P5D (5 días), PT2H30M (2 horas 30 min)
+                     
+                     ¿Para qué sirve?
+                     - Google puede mostrar fechas de ofertas en los resultados
+                     - Los calendarios pueden detectar y añadir eventos
+                     - Los lectores de pantalla leen la fecha correctamente
+                -->
+                <p class="tarjeta-fecha">
+                    Oferta válida hasta el
+                    <time datetime="2026-12-31T23:59:59+01:00">31 de diciembre de 2026</time>
+                </p>
+
+                <!-- Botón que abre el modal de detalles -->
+                <!-- 
+                    Usamos un botón con un id para que JavaScript pueda
+                    encontrarlo y añadirle el evento de abrir el <dialog>.
+                    
+                    NOTA: No usamos onclick="..." aquí porque en lecciones
+                    anteriores ya aprendimos que es mejor práctica usar
+                    addEventListener() en JavaScript.
+                -->
+                <button id="btn-ver-detalles" class="boton-detalles" type="button">
+                    Ver detalles del producto
+                </button>
+            </div>
+        </article>
+
+
+        <!-- ==============================================================
+             CONCEPTO NUEVO: <dialog>
+             ──────────────────────────
+             <dialog> es una VENTANA MODAL nativa de HTML5.
+             Antes de <dialog>, para hacer un modal necesitábamos:
+             - Un <div> con position: fixed y z-index alto
+             - Un overlay oscuro detrás
+             - JavaScript complejo para abrir/cerrar
+             - Gestionar manualmente el foco del teclado
+             
+             Con <dialog> todo eso viene GRATIS:
+             ✅ Se abre centrado en la pantalla
+             ✅ Crea un overlay oscuro automáticamente (::backdrop)
+             ✅ Atrapa el foco del teclado (no puedes tabular fuera)
+             ✅ Se cierra con la tecla Escape automáticamente
+             ✅ Los lectores de pantalla lo anuncian como "diálogo"
+             
+             MÉTODOS de JavaScript:
+             - dialog.showModal()  → Abre como modal (con overlay y foco atrapado)
+             - dialog.show()      → Abre sin modal (sin overlay, es como un popup)
+             - dialog.close()     → Cierra el diálogo
+             
+             ATRIBUTO 'open':
+             - Si el <dialog> tiene el atributo 'open', se muestra visible
+             - Normalmente NO lo ponemos en el HTML, dejamos que JS lo controle
+             
+             PSEUDO-ELEMENTO ::backdrop:
+             - Es la capa oscura/transparente detrás del modal
+             - Solo aparece cuando usamos showModal() (no con show())
+             - Se puede estilizar con CSS: dialog::backdrop { ... }
+             
+             FORMULARIO con method="dialog":
+             - Si un <form> dentro de un <dialog> tiene method="dialog",
+               al hacer submit el formulario NO se envía a ningún sitio,
+               sino que simplemente CIERRA el diálogo.
+             - Es perfecto para botones de "Cerrar" o "Aceptar".
+        -->
+        <dialog id="modal-producto" class="modal-detalles">
+            
+            <div class="modal-contenido">
+                <h2 class="modal-titulo">Auriculares Pro Max — Especificaciones</h2>
+                
+                <ul class="modal-lista">
+                    <li>🎵 Cancelación de ruido activa (<abbr title="Active Noise Cancellation">ANC</abbr>)</li>
+                    <li>🔋 Hasta 30 horas de batería</li>
+                    <li>📱 Bluetooth 5.3 con codec <abbr title="Low Complexity Communication Codec">LC3</abbr></li>
+                    <li>🎙️ Micrófono con reducción de ruido <abbr title="Inteligencia Artificial">IA</abbr></li>
+                    <li>⚖️ Peso: 250g</li>
+                    <li>📦 Incluye estuche de carga y cable <abbr title="Universal Serial Bus tipo C">USB-C</abbr></li>
+                </ul>
+
+                <p class="modal-nota">
+                    <mark>Envío gratuito</mark> en pedidos superiores a 50 €.
+                    Garantía de <time datetime="P2Y">2 años</time> del fabricante.
+                </p>
+
+                <!-- 
+                    CONCEPTO: Información data-* mostrada dinámicamente
+                    En el script.js leeremos los atributos data-* del <article>
+                    y mostraremos su contenido aquí dentro con JavaScript.
+                -->
+                <div id="info-datos-producto" class="modal-datos">
+                    <!-- Este contenido se rellena desde JavaScript leyendo los data-* -->
+                </div>
+
+                <!-- 
+                    TRUCO: Un <form method="dialog"> dentro de un <dialog>
+                    cierra el modal al hacer submit. Es la forma más limpia
+                    de crear un botón de "Cerrar" sin necesitar JavaScript adicional.
+                -->
+                <form method="dialog">
+                    <button class="boton-cerrar" type="submit">Cerrar ✕</button>
+                </form>
+            </div>
+        </dialog>
+
+    </main>
+
+    <!-- ============================================================
+         FOOTER con resumen de conceptos aprendidos
+         ============================================================ -->
+    <footer class="pie-pagina">
+        <p>
+            Conceptos HTML5 de esta lección:
+            <code>&lt;dialog&gt;</code>,
+            <code>&lt;picture&gt;</code>,
+            <code>&lt;source&gt;</code>,
+            <code>&lt;figure&gt;</code>,
+            <code>&lt;figcaption&gt;</code>,
+            <code>&lt;mark&gt;</code>,
+            <code>&lt;abbr&gt;</code>,
+            <code>&lt;time&gt;</code>,
+            <code>data-*</code>
+        </p>
+        <p>&copy; 2026 Curso de Desarrollo Web</p>
+    </footer>
+
+</body>
+
+</html>

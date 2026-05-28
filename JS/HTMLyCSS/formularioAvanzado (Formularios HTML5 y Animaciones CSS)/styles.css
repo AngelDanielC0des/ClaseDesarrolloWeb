@@ -1,0 +1,664 @@
+/* ======================================================================
+   LECCIÓN: Formulario Avanzado — Hojas de Estilo y Animaciones CSS
+   ======================================================================
+   En esta hoja de estilos aprenderás:
+   
+   1. @keyframes y animation → Cómo definir e iniciar animaciones CSS.
+   2. :valid e :invalid     → Estilización basada en el estado de validación.
+   3. :focus-within          → Detectar si algún elemento dentro del contenedor tiene foco.
+   4. :placeholder-shown     → El truco CSS para crear etiquetas flotantes animadas.
+   5. :checked               → Modificar el aspecto de selectores personalizados.
+   6. clamp() y calc()       → Unidades y funciones matemáticas modernas.
+   7. accent-color           → Cómo tintar controles nativos (ranges, checkboxes).
+   ====================================================================== */
+
+/* ----------------------------------------------------------------------
+   Variables y Sistema de Diseño (CSS Custom Properties)
+   ---------------------------------------------------------------------- */
+:root {
+    /* Paleta de colores vibrantes y modernos */
+    --color-fondo: #0f172a;       /* Slate 900 (Fondo oscuro premium) */
+    --color-tarjeta: #1e293b;     /* Slate 800 (Fondo del formulario) */
+    --color-texto: #f8fafc;       /* Slate 50 (Texto principal claro) */
+    --color-texto-mutado: #94a3b8;/* Slate 400 (Textos secundarios) */
+    
+    --color-primario: #6366f1;    /* Indigo 500 (Color de acento) */
+    --color-primario-hover: #4f46e5; /* Indigo 600 */
+    --color-exito: #10b981;       /* Emerald 500 (Válido) */
+    --color-error: #f43f5e;       /* Rose 500 (Inválido) */
+    --color-alerta: #f59e0b;      /* Amber 500 (Contraseña media) */
+
+    /* Fuentes y tipografía */
+    --fuente-principal: 'Inter', sans-serif;
+    --fuente-cabeceras: 'Outfit', sans-serif;
+
+    /* Bordes y sombras */
+    --radio-borde: 16px;
+    --radio-borde-input: 8px;
+    --sombra-principal: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 
+                        0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --sombra-resplandor: 0 0 15px rgba(99, 102, 241, 0.2);
+}
+
+/* ----------------------------------------------------------------------
+   Estilos de Reseteo y Base
+   ---------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.5;
+    
+    /* Gradiente sutil de fondo */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+}
+
+/* ----------------------------------------------------------------------
+   CONCEPTO NUEVO: accent-color
+   ───────────────────────────
+   Establece el color de acento de los controles nativos generados por el 
+   navegador. Afecta a:
+   - <input type="checkbox">
+   - <input type="radio">
+   - <input type="range">
+   - <progress>
+   ¡Nos permite darles marca de forma nativa sin maquetar desde cero!
+---------------------------------------------------------------------- */
+input, progress {
+    accent-color: var(--color-primario);
+}
+
+/* ----------------------------------------------------------------------
+   Contenedor Principal y Estilos de Animación
+   ---------------------------------------------------------------------- */
+.contenedor-formulario {
+    background-color: var(--color-tarjeta);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radio-borde);
+    padding: clamp(24px, 5vw, 40px); /* CONCEPTO: clamp() para padding adaptativo */
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--sombra-principal);
+    
+    /* 
+       CONCEPTO NUEVO: Animación de entrada
+       Usamos la propiedad 'animation' para aplicar una animación definida abajo en @keyframes.
+       Sintaxis: animation: nombre duracion curva-de-velocidad retardo modo-de-llenado;
+    */
+    animation: deslizarAparecer 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ----------------------------------------------------------------------
+   CONCEPTO NUEVO: @keyframes
+   ─────────────────────────
+   Define los pasos de una animación CSS a lo largo del tiempo (0% a 100%).
+---------------------------------------------------------------------- */
+@keyframes deslizarAparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animación de vibración (shake) usada ante errores de envío */
+@keyframes vibrarError {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* Clase que aplicará JavaScript para hacer que el formulario vibre */
+.formulario-error {
+    animation: vibrarError 0.4s ease-in-out;
+}
+
+/* ----------------------------------------------------------------------
+   Encabezado del Formulario
+   ---------------------------------------------------------------------- */
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-titulo {
+    font-family: var(--fuente-cabeceras);
+    font-weight: 800;
+    /* CONCEPTO: clamp() para tamaño de texto adaptable de 1.8rem a 2.5rem */
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+    /* CONCEPTO NUEVO: text-shadow para dar volumen */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.form-subtitulo {
+    color: var(--color-texto-mutado);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* Estilos de la barra de progreso */
+.progreso-contenedor {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radio-borde-input);
+    padding: 12px 16px;
+}
+
+.progreso-texto {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-texto-mutado);
+    margin-bottom: 8px;
+}
+
+/* Estilo de la barra <progress> */
+progress {
+    display: block;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+}
+
+/* Estilos específicos para los motores de renderizado de la barra de progreso */
+progress::-webkit-progress-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--color-primario);
+    transition: width 0.3s ease; /* Transición suave de progreso */
+}
+
+progress::-moz-progress-bar {
+    background-color: var(--color-primario);
+    transition: width 0.3s ease;
+}
+
+/* ----------------------------------------------------------------------
+   Grupo de Campos (Fieldset)
+   ---------------------------------------------------------------------- */
+.grupo-campos {
+    border: none;
+    margin-bottom: 30px;
+    padding: 0;
+    
+    /* 
+       CONCEPTO NUEVO: :focus-within
+       Se activa si CUALQUIER elemento descendiente (ej. un input) recibe el foco (:focus).
+       Aquí iluminamos sutilmente el panel de la sección actual que el usuario está rellenando.
+    */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.grupo-campos:focus-within {
+    transform: scale(1.005);
+}
+
+.grupo-titulo {
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--color-primario);
+    padding-left: 10px;
+}
+
+/* ----------------------------------------------------------------------
+   Campos de Texto e Inputs con Label Flotante (Efecto Avanzado CSS)
+   ---------------------------------------------------------------------- */
+.campo-contenedor {
+    position: relative;
+    /* CONCEPTO: calc() para restar márgenes */
+    margin-bottom: calc(20px + 4px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Caja de entrada (Input) */
+.control-input {
+    width: 100%;
+    padding: 18px 16px 6px 16px; /* Más padding arriba para dar espacio al label flotante */
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radio-borde-input);
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estilo del label flotante */
+.control-label {
+    position: absolute;
+    left: 16px;
+    top: 15px; /* Centrado vertical inicial */
+    color: var(--color-texto-mutado);
+    pointer-events: none; /* Permite hacer clic a través del label */
+    transition: all 0.2s ease;
+    transform-origin: left top;
+    font-size: 1rem;
+}
+
+/* 
+   CONCEPTO NUEVO: Truco del Label Flotante usando CSS nativo
+   ────────────────────────────────────────────────────────
+   1. El input tiene un placeholder=" " (un espacio en blanco).
+   2. Si el placeholder SE MUESTRA (es decir, el input está vacío y sin foco):
+      :placeholder-shown está activo → El label se queda en su sitio centrado.
+   3. Si el input recibe foco (:focus) O el placeholder ya NO se muestra (:not(:placeholder-shown)):
+      Subimos el label, lo hacemos pequeño y cambiamos su color.
+*/
+.control-input:focus ~ .control-label,
+.control-input:not(:placeholder-shown) ~ .control-label {
+    transform: translateY(-9px) scale(0.75);
+    color: var(--color-primario);
+}
+
+/* Label estático (para el input de tipo date que tiene formato por defecto) */
+.control-label.label-estatico {
+    transform: translateY(-9px) scale(0.75);
+    color: var(--color-texto-mutado);
+}
+
+/* Foco en el input */
+.control-input:focus {
+    border-color: var(--color-primario);
+    background-color: rgba(15, 23, 42, 0.9);
+    box-shadow: var(--sombra-resplandor);
+}
+
+/* ----------------------------------------------------------------------
+   CONCEPTO NUEVO: :valid e :invalid (CSS Validation)
+   ─────────────────────────────────────────────────
+   Damos feedback visual rojo/verde. Usaremos la clase ".was-validated"
+   que añade JavaScript en el envío para no asustar al usuario antes de escribir.
+
+   DIAGRAMA DEL FLUJO DE VALIDACIÓN DE FORMULARIO:
+   +--------------------------------------------------------+
+   | El usuario escribe en un campo (<input>)               |
+   +--------------------------------------------------------+
+                               |
+                               v
+             /───────────────────────────────────\
+            /  ¿Cumple con las restricciones de   \
+            \  validación nativa? (required, etc) /
+             \───────────────────────────────────/
+                       /               \
+                      / SÍ              \ NO
+                     v                   v
+              +──────────────+    +──────────────+
+              | Estado:      |    | Estado:      |
+              | :valid       |    | :invalid     |
+              +──────────────+    +──────────────+
+                     |                   |
+                     v                   v
+              +──────────────+    +──────────────+
+              | Borde Verde  |    | Borde Rojo e |
+              | (Éxito)      |    | ind. de error|
+              +──────────────+    +──────────────+
+---------------------------------------------------------------------- */
+.was-validated .control-input:valid {
+    border-color: var(--color-exito);
+}
+
+.was-validated .control-input:invalid {
+    border-color: var(--color-error);
+    background-color: rgba(244, 63, 94, 0.05);
+}
+
+/* Ocultar/Mostrar Mensajes de Error */
+.error-mensaje {
+    color: var(--color-error);
+    font-size: 0.75rem;
+    margin-top: 5px;
+    margin-left: 4px;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.2s ease;
+    height: 0;
+    overflow: hidden;
+}
+
+/* Si el campo es inválido y se ha validado el formulario, mostramos el error */
+.was-validated .control-input:invalid ~ .error-mensaje {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+}
+
+/* ----------------------------------------------------------------------
+   Color Picker Personalizado (type="color")
+   ---------------------------------------------------------------------- */
+.campo-color-contenedor {
+    background-color: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radio-borde-input);
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.color-label {
+    font-size: 0.95rem;
+    color: var(--color-texto);
+}
+
+.color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estilizando el input de color nativo */
+input[type="color"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 44px;
+    height: 44px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+input[type="color"]::-moz-color-swatch {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+#hex-color-val {
+    font-family: monospace;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* ----------------------------------------------------------------------
+   Input Slider de Rango (type="range" y output)
+   ---------------------------------------------------------------------- */
+.campo-rango-contenedor {
+    background-color: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radio-borde-input);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.rango-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.rango-resultado {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Slider barra */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.rango-leyenda {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--color-texto-mutado);
+}
+
+/* ----------------------------------------------------------------------
+   Contraseña y Medidor de Fuerza (<meter>)
+   ---------------------------------------------------------------------- */
+.medidor-password {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.medidor-cabecera {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--color-texto-mutado);
+    margin-bottom: 6px;
+}
+
+#fuerza-texto {
+    font-weight: 600;
+}
+
+/* Estilo del elemento <meter> */
+meter {
+    display: block;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos de barra para navegadores basados en Webkit (Chrome, Edge, Safari) */
+meter::-webkit-meter-bar {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border: none;
+}
+
+/* Colores dinámicos del medidor según la fortaleza */
+/* Valor muy bajo: rojo */
+meter[value="1"]::-webkit-meter-optimum-value { background-color: var(--color-error); }
+/* Valor bajo: naranja */
+meter[value="2"]::-webkit-meter-optimum-value { background-color: var(--color-alerta); }
+/* Valor medio: verde amarillento */
+meter[value="3"]::-webkit-meter-optimum-value { background-color: #a3e635; }
+/* Valor óptimo: verde esmeralda */
+meter[value="4"]::-webkit-meter-optimum-value { background-color: var(--color-exito); }
+
+/* Soporte para Firefox */
+meter::-moz-meter-bar {
+    border-radius: 4px;
+}
+meter[value="1"]:-moz-meter-sub-optimum::-moz-meter-bar { background-color: var(--color-error); }
+meter[value="2"]:-moz-meter-sub-optimum::-moz-meter-bar { background-color: var(--color-alerta); }
+meter[value="3"]:-moz-meter-sub-optimum::-moz-meter-bar { background-color: #a3e635; }
+meter[value="4"]:-moz-meter-optimum::-moz-meter-bar { background-color: var(--color-exito); }
+
+/* ----------------------------------------------------------------------
+   Custom Checkbox utilizando :checked
+   ---------------------------------------------------------------------- */
+.campo-checkbox {
+    margin-bottom: 30px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 0.9rem;
+    user-select: none;
+    color: var(--color-texto-mutado);
+    gap: 12px;
+}
+
+/* Ocultar checkbox por defecto */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Checkbox personalizado */
+.custom-checkbox {
+    width: 22px;
+    height: 22px;
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Efecto hover */
+.checkbox-container:hover input ~ .custom-checkbox {
+    border-color: var(--color-primario);
+}
+
+/* 
+   CONCEPTO NUEVO: :checked
+   Modificamos el estado visual cuando el input está marcado (:checked).
+*/
+.checkbox-container input:checked ~ .custom-checkbox {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+/* El check interno (visto cuando se marca) */
+.custom-checkbox::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .custom-checkbox::after {
+    display: block;
+}
+
+/* Validación del checkbox en submit */
+.was-validated .checkbox-container input:invalid ~ .custom-checkbox {
+    border-color: var(--color-error);
+}
+
+/* ----------------------------------------------------------------------
+   Botones
+   ---------------------------------------------------------------------- */
+.boton-enviar {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: var(--radio-borde-input);
+    font-family: var(--fuente-cabeceras);
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+}
+
+.boton-enviar:hover {
+    background-color: var(--color-primario-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+.boton-enviar:active {
+    transform: translateY(0);
+}
+
+.boton-secundario {
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-texto);
+    border-radius: var(--radio-borde-input);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-secundario:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----------------------------------------------------------------------
+   Mensaje de Éxito
+   ---------------------------------------------------------------------- */
+.mensaje-exito {
+    text-align: center;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: deslizarAparecer 0.5s ease both;
+}
+
+.icono-exito {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-exito);
+    border: 2px solid var(--color-exito);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.oculto {
+    display: none !important;
+}
