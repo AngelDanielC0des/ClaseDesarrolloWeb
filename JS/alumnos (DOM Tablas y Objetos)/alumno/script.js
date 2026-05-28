@@ -10,6 +10,10 @@ const alumnos = [
 const bodyTabla = document.getElementById('bodytabla');
 const contenedorEstadisticas = document.getElementById('contenedor-estadisticas');
 
+// Vinculación limpia del evento en JavaScript
+document.getElementById('btn-estadisticas').addEventListener('click', calcularEstadisticas);
+
+//Funciones
 function addAlumno() {
     addUnAlumno(alumnos[0]);
 }
@@ -39,17 +43,14 @@ function addUnAlumno(alumno) {
     const botonBorrar = document.createElement('button');
     botonBorrar.textContent = "Borrar";
     
-    // Añadimos estilos mediante clases CSS ya existentes
-    // El CSS aplica estilos a 'td button', pero podemos añadir más estilos con la nueva clase btn-borrar.
+    // Añadimos estilos mediante clases CSS ya existentes. El CSS aplica estilos a 'td button', pero podemos añadir más estilos con la nueva clase btn-borrar.
     botonBorrar.classList.add('btn-borrar'); 
 
     // Asignamos el evento de escucha directamente al nodo del botón
     botonBorrar.addEventListener('click', () => {
         filaNueva.remove(); 
         // Vaciamos el contenedor de estadísticas de forma limpia eliminando sus nodos hijos
-        while (contenedorEstadisticas.firstChild) {
-            contenedorEstadisticas.removeChild(contenedorEstadisticas.firstChild);
-        }
+       calcularEstadisticas();
     });
     columnaBorrar.appendChild(botonBorrar);
 
@@ -88,7 +89,7 @@ function calcularEstadisticas() {
     while (contenedorEstadisticas.firstChild) {
         contenedorEstadisticas.removeChild(contenedorEstadisticas.firstChild);
     }
-
+    
     if (alumnosEnPantalla.length === 0) {
         const parrafoError = document.createElement('p');
         parrafoError.textContent = "No hay alumnos en la tabla para calcular estadísticas.";
@@ -127,6 +128,9 @@ function calcularEstadisticas() {
     // Insertamos todos los párrafos de golpe
     contenedorEstadisticas.append(pMedia, pMayor, pMenor);
 }
-
-// Vinculación limpia del evento en JavaScript
-document.getElementById('btn-estadisticas').addEventListener('click', calcularEstadisticas);
+function borrarTodos(){
+    while (bodyTabla.firstChild) {
+        bodyTabla.removeChild(bodyTabla.firstChild);
+        calcularEstadisticas();
+}}
+document.getElementById('btn-borrarTodo').addEventListener('click', borrarTodos)
