@@ -1,0 +1,500 @@
+    /* ─────────────────────────────────────────
+       RESET Y BASE
+    ───────────────────────────────────────── */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      /* Hace que padding y border se incluyan dentro del ancho/alto declarado, no se sumen por fuera */
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      /* Fuente principal de toda la app; sans-serif es el fallback si Nunito no carga */
+      background: #e8eef7;
+      /* Color de fondo gris-azulado que se ve detrás de la tarjeta del formulario */
+      min-height: 100vh;
+      /* El body ocupa al menos toda la altura visible del navegador */
+    }
+
+    /* ─────────────────────────────────────────
+       GESTIÓN DE PÁGINAS
+       Usamos una clase .app-page con display:none
+       y añadimos .active para mostrar la activa.
+       Prefijo "app-" en todas las clases propias
+       para evitar conflictos con clases de Bootstrap
+       (ej: Bootstrap tiene su propio .form-label, .divider…)
+    ───────────────────────────────────────── */
+
+    .app-page {
+      display: none;
+      /* Por defecto todas las páginas están ocultas */
+    }
+
+    .app-page.active {
+      display: flex;
+      /* Cuando una página es activa se muestra como flex para poder centrar su contenido */
+      align-items: center;
+      /* Centra verticalmente el contenido dentro de la página */
+      justify-content: center;
+      /* Centra horizontalmente el contenido dentro de la página */
+      min-height: 100vh;
+      /* La página activa ocupa siempre toda la altura visible */
+      padding: 2rem 1rem;
+      /* Espaciado interno: 2rem arriba/abajo y 1rem izquierda/derecha para móviles */
+    }
+
+    /* ─────────────────────────────────────────
+       PÁGINA 1 – FORMULARIO
+    ───────────────────────────────────────── */
+
+    #page-form {
+      background: #e8eef7;
+      /* El fondo de la página del formulario es gris-azulado (igual que el body) */
+    }
+
+    .app-form-card {
+      background: #fff;
+      /* La tarjeta tiene fondo blanco para contrastar con el fondo gris */
+      border-radius: 20px;
+      /* Esquinas redondeadas para el estilo de la tarjeta */
+      padding: 2.4rem 2.2rem 2rem;
+      /* Espaciado interno: más arriba que abajo, simétrico izquierda/derecha */
+      width: 100%;
+      /* Ocupa todo el ancho disponible hasta el máximo definido abajo */
+      max-width: 480px;
+      /* Ancho máximo de la tarjeta para pantallas grandes */
+      box-shadow: 0 4px 32px rgba(0,0,0,.08);
+      /* Sombra suave: sin desplazamiento horizontal, 4px vertical, 32px de difusión, muy transparente */
+    }
+
+    .app-form-card__title {
+      font-size: 2rem;
+      /* Tamaño grande para el título principal "Alta de usuario" */
+      font-weight: 800;
+      /* Peso extra-negrita para destacar el título */
+      color: #0d1b3e;
+      /* Azul muy oscuro, casi negro, para el título */
+      text-align: center;
+      /* El título está centrado horizontalmente */
+      margin-bottom: .4rem;
+      /* Pequeño espacio bajo el título antes del subtítulo */
+    }
+
+    .app-form-card__subtitle {
+      text-align: center;
+      /* El subtítulo también va centrado */
+      color: #6b7a99;
+      /* Gris-azulado medio para el subtítulo, menos protagonismo que el título */
+      font-size: .95rem;
+      /* Tamaño ligeramente menor al texto base */
+      margin-bottom: 1.6rem;
+      /* Espacio bajo el subtítulo antes de la línea divisora */
+    }
+
+    .app-divider {
+      border: none;
+      /* Eliminamos el borde por defecto del elemento <hr> */
+      border-top: 1.5px solid #e5e9f0;
+      /* Añadimos solo el borde superior: línea fina de color gris claro */
+      margin-bottom: 1.6rem;
+      /* Espacio bajo la línea divisora antes del primer campo */
+    }
+
+    /* ── Grupos de campo (label + input + error) ── */
+
+    .app-field {
+      margin-bottom: 1.2rem;
+      /* Espacio vertical entre cada grupo de campo */
+    }
+
+    .app-field__label {
+      display: block;
+      /* El label ocupa toda la línea para que el input quede debajo */
+      font-weight: 700;
+      /* Negrita para las etiquetas de campo */
+      color: #0d1b3e;
+      /* Mismo azul oscuro que el título para coherencia */
+      font-size: .95rem;
+      /* Tamaño ligeramente menor al base */
+      margin-bottom: .45rem;
+      /* Pequeño espacio entre el label y el input */
+    }
+
+    .app-field__wrap {
+      position: relative;
+      /* Posición relativa para que los iconos absolutos se posicionen respecto a este contenedor */
+    }
+
+    .app-field__icon-left,
+    .app-field__icon-right {
+      position: absolute;
+      /* Los iconos se posicionan de forma absoluta dentro de .app-field__wrap */
+      top: 50%;
+      /* Empiezan en el centro vertical del contenedor */
+      transform: translateY(-50%);
+      /* Se desplazan hacia arriba la mitad de su altura para quedar perfectamente centrados */
+      color: #8a95b0;
+      /* Color gris-azulado para los iconos decorativos */
+      display: flex;
+      /* Flex para centrar el SVG dentro del span */
+      align-items: center;
+      /* Centra el SVG verticalmente dentro del icono */
+      pointer-events: none;
+      /* Por defecto los iconos no capturan clics del ratón */
+    }
+
+    .app-field__icon-left  { left: 14px;  }
+    /* El icono izquierdo se sitúa a 14px del borde izquierdo del input */
+
+    .app-field__icon-right { right: 14px; }
+    /* El icono derecho se sitúa a 14px del borde derecho del input */
+
+    .app-field__icon-right--clickable {
+      pointer-events: auto;
+      /* Esta variante del icono derecho SÍ captura clics (botón de ojo de contraseña) */
+      cursor: pointer;
+      /* Muestra el cursor de mano para indicar que es interactivo */
+      background: none;
+      /* Elimina el fondo por defecto de <button> */
+      border: none;
+      /* Elimina el borde por defecto de <button> */
+      padding: 0;
+      /* Elimina el padding por defecto de <button> */
+    }
+
+    .app-field__input {
+      width: 100%;
+      /* El input ocupa todo el ancho de su contenedor */
+      border: 1.5px solid #d8dde9;
+      /* Borde gris claro por defecto */
+      border-radius: 12px;
+      /* Esquinas redondeadas para los inputs */
+      padding: .75rem 2.6rem .75rem 2.7rem;
+      /* Espaciado interno: igual arriba/abajo, más a la derecha para el icono derecho,
+         más a la izquierda para el icono izquierdo */
+      font-size: .95rem;
+      /* Tamaño de texto dentro del input */
+      font-family: 'Nunito', sans-serif;
+      /* Forzamos la fuente porque los inputs no heredan font-family por defecto en algunos navegadores */
+      color: #0d1b3e;
+      /* Color del texto que escribe el usuario */
+      background: #fff;
+      /* Fondo blanco del input */
+      outline: none;
+      /* Eliminamos el outline por defecto del navegador al hacer foco */
+      transition: border-color .2s;
+      /* Animación suave al cambiar el borde (foco o error) */
+      -webkit-appearance: none;
+      /* Elimina estilos nativos del navegador en WebKit (Safari, Chrome antiguos) */
+      appearance: none;
+      /* Elimina estilos nativos del navegador en estándar */
+    }
+
+    .app-field__input::placeholder {
+      color: #b0b8cc;
+      /* Color gris claro para el texto de placeholder */
+    }
+
+    .app-field__input:focus {
+      border-color: #2563eb;
+      /* Borde azul cuando el input tiene el foco */
+      box-shadow: none;
+      /* Cancela el box-shadow de foco que añade Bootstrap a algunos elementos */
+    }
+
+    .app-field__input.is-invalid {
+      border-color: #dc3545;
+      /* Borde rojo cuando la validación falla (clase añadida por JS) */
+    }
+
+    /* Oculta el icono nativo del selector de fecha en Chrome/Edge/Safari
+       para usar nuestro icono SVG personalizado en su lugar */
+    .app-field__input[type="date"]::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      /* Hace invisible el icono nativo sin quitarlo, para que siga siendo clicable */
+      position: absolute;
+      /* Posición absoluta para que no ocupe espacio en el flujo */
+      right: 0;
+      /* Alineado al borde derecho del input */
+      width: 40px;
+      /* Área clicable amplia para abrir el picker */
+      height: 100%;
+      /* Ocupa toda la altura del input */
+      cursor: pointer;
+      /* Cursor de mano sobre el área del icono */
+    }
+
+    .app-field__error {
+      display: none;
+      /* Los mensajes de error están ocultos por defecto */
+      color: #dc3545;
+      /* Rojo Bootstrap para mensajes de error */
+      font-size: .82rem;
+      /* Texto pequeño para el mensaje de error */
+      margin-top: .3rem;
+      /* Pequeño espacio entre el input y el mensaje de error */
+    }
+
+    .app-field__error.show {
+      display: block;
+      /* Cuando JS añade la clase .show, el mensaje de error se hace visible */
+    }
+
+    /* ── Fila del checkbox de términos ── */
+
+    .app-check-row {
+      display: flex;
+      /* Flex para alinear el checkbox y su label en la misma línea */
+      align-items: center;
+      /* Centra verticalmente el checkbox con el texto del label */
+      gap: .6rem;
+      /* Espacio entre el checkbox y el label */
+      margin-bottom: .4rem;
+      /* Pequeño espacio bajo la fila antes del posible error */
+    }
+
+    .app-check-row__input {
+      width: 18px;
+      /* Ancho del checkbox */
+      height: 18px;
+      /* Alto del checkbox */
+      border: 1.5px solid #c0c8dc;
+      /* Borde gris azulado para el checkbox */
+      border-radius: 4px;
+      /* Esquinas ligeramente redondeadas */
+      accent-color: #2563eb;
+      /* Color de la marca cuando está marcado (azul de la app) */
+      cursor: pointer;
+      /* Cursor de mano sobre el checkbox */
+      flex-shrink: 0;
+      /* Evita que el checkbox se encoja si el texto del label es largo */
+    }
+
+    .app-check-row__label {
+      font-size: .93rem;
+      /* Tamaño del texto del label del checkbox */
+      color: #3a4560;
+      /* Color oscuro para el texto */
+      cursor: pointer;
+      /* Cursor de mano: al hacer clic en el label también se activa el checkbox */
+      margin: 0;
+      /* Elimina el margen por defecto de los labels */
+    }
+
+    .app-check-row__label a {
+      color: #2563eb;
+      /* El enlace "condiciones" en azul de la app */
+      text-decoration: none;
+      /* Sin subrayado por defecto */
+      font-weight: 600;
+      /* Semi-negrita para destacar el enlace */
+    }
+
+    /* ── Botón principal del formulario ── */
+
+    .app-btn-submit {
+      width: 100%;
+      /* El botón ocupa todo el ancho de la tarjeta */
+      background: #2563eb;
+      /* Fondo azul de la marca */
+      color: #fff;
+      /* Texto blanco sobre fondo azul */
+      border: none;
+      /* Sin borde */
+      border-radius: 14px;
+      /* Esquinas muy redondeadas para el botón */
+      padding: .9rem;
+      /* Espaciado interno generoso para un botón grande */
+      font-size: 1.05rem;
+      /* Tamaño de texto ligeramente mayor al base */
+      font-weight: 700;
+      /* Negrita para el texto del botón */
+      font-family: 'Nunito', sans-serif;
+      /* Forzamos la fuente (los botones no heredan font-family en algunos navegadores) */
+      cursor: pointer;
+      /* Cursor de mano */
+      transition: background .2s, transform .1s;
+      /* Animación suave al cambiar el color de fondo y al escalar */
+      display: block;
+      /* Bloque para que ocupe todo el ancho */
+      margin-top: 1.2rem;
+      /* Espacio sobre el botón separándolo del error de términos */
+    }
+
+    .app-btn-submit:hover {
+      background: #1d4ed8;
+      /* Azul más oscuro al pasar el ratón por encima */
+    }
+
+    .app-btn-submit:active {
+      transform: scale(.98);
+      /* Efecto de "pulsación": el botón se encoge levemente al hacer clic */
+    }
+
+    /* ─────────────────────────────────────────
+       PÁGINA 2 – TABLERO
+    ───────────────────────────────────────── */
+
+    #page-board {
+      background: #1a1a2e;
+      /* Fondo azul muy oscuro, casi negro, para la página del tablero */
+      flex-direction: column;
+      /* Los hijos se apilan verticalmente (título arriba, grid abajo) */
+      gap: 1.6rem;
+      /* Espacio entre el encabezado y el grid */
+    }
+
+    .app-board-header {
+      text-align: center;
+      /* Centra el título y subtítulo del tablero */
+    }
+
+    .app-board-header__title {
+      color: #fff;
+      /* Título en blanco sobre el fondo oscuro */
+      font-weight: 800;
+      /* Extra-negrita para el título del tablero */
+      font-size: 1.7rem;
+      /* Tamaño grande para el título */
+      letter-spacing: .5px;
+      /* Ligero espaciado entre letras */
+      margin: 0 0 .3rem;
+      /* Sin margen arriba, pequeño margen abajo */
+    }
+
+    .app-board-header__subtitle {
+      color: #8a9ab8;
+      /* Gris azulado claro para el subtítulo sobre fondo oscuro */
+      font-size: .95rem;
+      /* Tamaño normal para el subtítulo */
+      margin: 0;
+      /* Sin margen por defecto */
+    }
+
+    /* ── Grid de 3×3 ── */
+
+    .app-grid {
+      display: grid;
+      /* CSS Grid para la cuadrícula */
+      grid-template-columns: repeat(3, 1fr);
+      /* 3 columnas de igual ancho (1 fracción cada una) */
+      gap: 6px;
+      /* Espacio de 6px entre celdas */
+      border: 3px solid #111;
+      /* Borde exterior negro grueso alrededor del tablero */
+      border-radius: 4px;
+      /* Pequeño redondeo en las esquinas del tablero */
+      overflow: hidden;
+      /* Las esquinas de las celdas de los bordes quedan recortadas por el border-radius */
+      width: min(90vw, 420px);
+      /* El tablero ocupa el 90% del ancho de pantalla, máximo 420px */
+    }
+
+    .app-grid__cell {
+      aspect-ratio: 1;
+      /* Cada celda es un cuadrado perfecto (ratio ancho:alto = 1:1) */
+      cursor: pointer;
+      /* Cursor de mano: las celdas son clicables */
+      transition: background-color .35s ease, transform .15s, filter .15s;
+      /* Animaciones suaves para el cambio de color, escala y brillo */
+      border: 2px solid #111;
+      /* Borde negro entre celdas para separarlas visualmente */
+    }
+
+    .app-grid__cell:hover {
+      transform: scale(.96);
+      /* La celda se encoge levemente al pasar el ratón por encima */
+      filter: brightness(1.1);
+      /* La celda se ilumina ligeramente al hacer hover */
+    }
+
+    .app-grid__cell--black {
+      background-color: #111 !important;
+      /* Negro absoluto cuando la celda ha sido tocada; !important para sobreescribir el inline style del color */
+      cursor: default;
+      /* Cursor normal: la celda negra ya no es clicable */
+      transform: none !important;
+      /* Cancela el efecto hover de escala */
+      filter: none !important;
+      /* Cancela el efecto hover de brillo */
+    }
+
+    /* ─────────────────────────────────────────
+       MODAL "FIN DE JUEGO" (componente Bootstrap)
+       Usamos el modal de Bootstrap en vez de uno
+       custom para aprovechar la librería que ya
+       importamos. Solo sobreescribimos lo visual.
+    ───────────────────────────────────────── */
+
+    .app-modal-body {
+      text-align: center;
+      /* Centra todo el contenido del modal */
+      padding: 2.5rem 2rem;
+      /* Espaciado generoso dentro del modal */
+    }
+
+    .app-modal-trophy {
+      font-size: 3.5rem;
+      /* Tamaño grande para el emoji del trofeo */
+      line-height: 1;
+      /* Evita que el line-height del emoji añada espacio extra */
+      margin-bottom: .8rem;
+      /* Espacio bajo el trofeo */
+      display: block;
+      /* Ocupa su propia línea */
+    }
+
+    .app-modal-title {
+      font-size: 2rem;
+      /* Título grande en el modal */
+      font-weight: 800;
+      /* Extra-negrita */
+      color: #0d1b3e;
+      /* Azul oscuro coherente con el formulario */
+      margin-bottom: .5rem;
+      /* Espacio bajo el título */
+    }
+
+    .app-btn-replay {
+      background: #2563eb;
+      /* Mismo azul que el botón del formulario para coherencia visual */
+      color: #fff;
+      /* Texto blanco */
+      border: none;
+      /* Sin borde */
+      border-radius: 12px;
+      /* Esquinas redondeadas */
+      padding: .8rem 2rem;
+      /* Espaciado interno del botón */
+      font-family: 'Nunito', sans-serif;
+      /* Forzamos la fuente */
+      font-size: 1rem;
+      /* Tamaño normal */
+      font-weight: 700;
+      /* Negrita */
+      cursor: pointer;
+      /* Cursor de mano */
+      transition: background .2s;
+      /* Animación suave al cambiar el color */
+      margin-top: 1rem;
+      /* Espacio sobre el botón separándolo del texto */
+    }
+
+    .app-btn-replay:hover {
+      background: #1d4ed8;
+      /* Azul más oscuro al hacer hover */
+    }
+
+    /* Sobreescribe la animación de entrada del modal de Bootstrap:
+       en vez del fade estándar usamos un efecto de zoom (pop-in) */
+    .modal.fade .modal-dialog {
+      transform: scale(.7);
+      /* Empieza pequeño */
+      transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+      /* Animación con rebote al final (cubic-bezier personalizado) */
+    }
+
+    .modal.show .modal-dialog {
+      transform: scale(1);
+      /* Llega a su tamaño normal con la animación pop-in */
+    }

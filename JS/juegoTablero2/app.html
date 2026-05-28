@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!-- Declaración del tipo de documento: indica al navegador que es HTML5 -->
+<html lang="es">
+<!-- Atributo lang="es" para accesibilidad y SEO: el idioma del documento es español -->
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- UTF-8: codificación de caracteres que soporta tildes, ñ y otros símbolos -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Hace que el diseño sea responsivo: adapta el ancho al dispositivo y escala 1:1 -->
+
+  <title>Alta de Usuario</title>
+  <!-- Título que aparece en la pestaña del navegador -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Importa Bootstrap 5.3.3 desde CDN: aporta reset de estilos base, utilidades y componentes (usaremos su Modal JS) -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <!-- Importa la fuente Nunito en pesos 400, 600, 700 y 800 desde Google Fonts -->
+  <!-- display=swap: el texto se muestra con fuente del sistema mientras carga Nunito, sin bloquear el render -->
+   <script src="script.js" defer></script>
+
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════
+       PÁGINA 1: FORMULARIO DE ALTA
+  ════════════════════════════════════════ -->
+  <div id="page-form" class="app-page active">
+  <!-- id="page-form": referenciado por JS para cambiar de página -->
+  <!-- class="app-page active": es la página visible al cargar la app -->
+
+    <div class="app-form-card">
+    <!-- Tarjeta blanca que contiene todo el formulario -->
+
+      <h1 class="app-form-card__title">Alta de usuario</h1>
+      <!-- Título principal de la tarjeta -->
+
+      <p class="app-form-card__subtitle">Completa el siguiente formulario para crear tu cuenta.</p>
+      <!-- Texto descriptivo bajo el título -->
+
+      <hr class="app-divider"/>
+      <!-- Línea horizontal separadora entre el encabezado y los campos -->
+
+      <!-- ── CAMPO: Nombre de usuario ── -->
+      <div class="app-field">
+      <!-- Contenedor del grupo completo: label + input + error -->
+
+        <label class="app-field__label" for="inp-username">Nombre de usuario</label>
+        <!-- for="inp-username" vincula el label al input; al clicar el label, el input recibe el foco -->
+
+        <div class="app-field__wrap">
+        <!-- Contenedor relativo para posicionar los iconos absolutos -->
+
+          <span class="app-field__icon-left" aria-hidden="true">
+          <!-- Icono decorativo izquierdo; aria-hidden="true" lo oculta a lectores de pantalla (es decorativo) -->
+            <!-- SVG de persona/usuario (Heroicons outline) -->
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </span>
+
+          <input
+            class="app-field__input"
+            type="text"
+            id="inp-username"
+            autocomplete="username"
+            placeholder="Ingresa tu nombre de usuario"
+          />
+          <!-- type="text": campo de texto libre -->
+          <!-- autocomplete="username": permite al navegador autocompletar con nombres guardados -->
+          <!-- placeholder: texto de ayuda visible cuando el campo está vacío -->
+
+        </div><!-- /.app-field__wrap -->
+
+        <span class="app-field__error" id="err-username" role="alert">
+          El nombre de usuario es obligatorio.
+        </span>
+        <!-- Mensaje de error; role="alert" hace que los lectores de pantalla lo anuncien al aparecer -->
+        <!-- Empieza oculto (display:none en CSS); JS le añade la clase .show para mostrarlo -->
+
+      </div><!-- /.app-field -->
+
+      <!-- ── CAMPO: Contraseña ── -->
+      <div class="app-field">
+
+        <label class="app-field__label" for="inp-password">Contraseña</label>
+
+        <div class="app-field__wrap">
+
+          <span class="app-field__icon-left" aria-hidden="true">
+            <!-- SVG de candado (Heroicons outline) -->
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+            </svg>
+          </span>
+
+          <input
+            class="app-field__input"
+            type="password"
+            id="inp-password"
+            autocomplete="new-password"
+            placeholder="Ingresa tu contraseña"
+          />
+          <!-- type="password": oculta los caracteres con puntos -->
+          <!-- autocomplete="new-password": indica al navegador que es contraseña nueva (no autocompletar con guardadas) -->
+
+          <!-- Botón para mostrar/ocultar la contraseña -->
+          <!-- Es un <button type="button"> y NO un <span> para:
+               1) capturar clics de forma semántica y accesible
+               2) ser activable con teclado (Enter/Space) sin JS extra
+               3) no tener que usar pointer-events en CSS para capturar el clic -->
+          <button
+            type="button"
+            class="app-field__icon-right app-field__icon-right--clickable"
+            id="btn-toggle-pwd"
+            aria-label="Mostrar contraseña"
+          >
+          <!-- aria-label: texto descriptivo para lectores de pantalla (se actualiza por JS al hacer clic) -->
+
+            <!-- Icono de OJO ABIERTO: visible cuando la contraseña está oculta (type="password") -->
+            <svg id="icon-eye-open" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+
+            <!-- Icono de OJO TACHADO: oculto por defecto; JS lo muestra cuando la contraseña es visible (type="text") -->
+            <svg id="icon-eye-slash" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display:none;">
+            <!-- style="display:none" inicio: este icono empieza oculto porque la contraseña empieza tapada -->
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/>
+            </svg>
+
+          </button><!-- /#btn-toggle-pwd -->
+
+        </div><!-- /.app-field__wrap -->
+
+        <span class="app-field__error" id="err-password" role="alert">
+          La contraseña debe tener más de 6 caracteres, al menos una mayúscula,
+          una minúscula, un número y un carácter especial.
+        </span>
+        <!-- Mensaje que detalla exactamente los requisitos de una contraseña fuerte -->
+
+      </div><!-- /.app-field -->
+
+      <!-- ── CAMPO: Fecha de nacimiento ── -->
+      <div class="app-field">
+
+        <label class="app-field__label" for="inp-birthdate">Fecha de nacimiento</label>
+
+        <div class="app-field__wrap">
+
+          <span class="app-field__icon-left" aria-hidden="true">
+            <!-- SVG de calendario (Heroicons outline) -->
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+            </svg>
+          </span>
+
+          <input
+            class="app-field__input"
+            type="date"
+            id="inp-birthdate"
+            autocomplete="bday"
+          />
+          <!-- type="date": input nativo de fecha con selector de calendario del navegador -->
+          <!-- autocomplete="bday": sugiere al navegador autocompletar con la fecha de nacimiento guardada -->
+          <!-- Nota: type="date" no soporta el atributo placeholder en los navegadores modernos;
+               el formato de la fecha lo gestiona el propio navegador según la configuración regional -->
+
+          <span class="app-field__icon-right" aria-hidden="true">
+          <!-- Icono decorativo derecho (calendario); pointer-events:none en CSS, no captura clics -->
+          <!-- El clic real sobre este área lo captura el input nativo oculto con opacity:0 -->
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+            </svg>
+          </span>
+
+        </div><!-- /.app-field__wrap -->
+
+        <span class="app-field__error" id="err-birthdate" role="alert">
+          Debes ser mayor de 18 años para registrarte.
+        </span>
+        <!-- Error específico que explica el motivo del bloqueo por edad -->
+
+      </div><!-- /.app-field -->
+
+      <!-- ── CHECKBOX: Aceptar términos y condiciones ── -->
+      <div class="app-check-row">
+
+        <input type="checkbox" class="app-check-row__input" id="inp-terms"/>
+        <!-- type="checkbox": casilla de verificación -->
+        <!-- id="inp-terms": vinculado al label de abajo mediante el atributo for -->
+
+        <label class="app-check-row__label" for="inp-terms">
+          He leído y acepto las <a href="#">condiciones</a>
+          <!-- El enlace "condiciones" en azul es clickable; el href="#" es placeholder -->
+        </label>
+
+      </div><!-- /.app-check-row -->
+
+      <span class="app-field__error" id="err-terms" role="alert">
+        Debes aceptar las condiciones para continuar.
+      </span>
+      <!-- Error del checkbox; fuera del app-check-row para que quede bajo la fila -->
+
+      <!-- ── BOTÓN DE ENVÍO ── -->
+      <button type="button" class="app-btn-submit" id="btn-submit">Dar de alta</button>
+      <!-- type="button": previene el submit nativo del formulario (no usamos <form>) -->
+      <!-- id="btn-submit": referenciado por JS para añadir el listener de clic -->
+
+    </div><!-- /.app-form-card -->
+  </div><!-- /#page-form -->
+
+
+  <!-- ════════════════════════════════════════
+       PÁGINA 2: TABLERO DE COLORES
+  ════════════════════════════════════════ -->
+  <div id="page-board" class="app-page">
+  <!-- Sin clase .active: esta página empieza oculta; JS la activa tras validar el formulario -->
+
+    <div class="app-board-header">
+    <!-- Encabezado del tablero con título y subtítulo -->
+
+      <h2 class="app-board-header__title">🎨 Tablero de Colores</h2>
+      <!-- Título de la página del juego -->
+
+      <p class="app-board-header__subtitle">Toca cada cuadrado para convertirlo en negro</p>
+      <!-- Instrucción breve del juego -->
+
+    </div><!-- /.app-board-header -->
+
+    <div class="app-grid" id="grid" role="grid" aria-label="Tablero de colores"></div>
+    <!-- Contenedor vacío del grid 3×3; JS inyecta las 9 celdas de colores -->
+    <!-- role="grid" + aria-label: semántica accesible para lectores de pantalla -->
+
+  </div><!-- /#page-board -->
+
+
+  <!-- ════════════════════════════════════════
+       MODAL "FIN DE JUEGO"
+       Usamos el componente Modal de Bootstrap para:
+       - aprovechar la librería JS ya importada
+       - obtener el backdrop y el foco gestionados automáticamente
+       - evitar código custom de posicionamiento/z-index
+  ════════════════════════════════════════ -->
+  <div
+    class="modal fade"
+    id="modal-fin"
+    tabindex="-1"
+    aria-labelledby="modal-fin-title"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+  <!-- class="modal fade": clases de Bootstrap para el componente modal con animación -->
+  <!-- tabindex="-1": permite que Bootstrap mueva el foco al modal al abrirlo -->
+  <!-- aria-labelledby: vincula el modal a su título para accesibilidad -->
+  <!-- aria-hidden="true": Bootstrap lo gestiona dinámicamente al abrir/cerrar -->
+  <!-- data-bs-backdrop="static": el modal NO se cierra al hacer clic fuera de él -->
+  <!-- data-bs-keyboard="false": el modal NO se cierra con la tecla Escape -->
+
+    <div class="modal-dialog modal-dialog-centered">
+    <!-- modal-dialog: clase Bootstrap que contiene y posiciona el cuadro del modal -->
+    <!-- modal-dialog-centered: centra el modal verticalmente en la pantalla -->
+
+      <div class="modal-content border-0 rounded-4">
+      <!-- modal-content: el cuadro blanco visual del modal -->
+      <!-- border-0: elimina el borde por defecto de Bootstrap -->
+      <!-- rounded-4: esquinas muy redondeadas (clase utilitaria de Bootstrap 5) -->
+
+        <div class="app-modal-body">
+        <!-- Cuerpo del modal con nuestros estilos personalizados -->
+
+          <span class="app-modal-trophy" aria-hidden="true">🏆</span>
+          <!-- Emoji de trofeo decorativo; aria-hidden para no leerlo en lectores de pantalla -->
+
+          <h3 class="app-modal-title" id="modal-fin-title">¡Fin de Juego!</h3>
+          <!-- id="modal-fin-title": referenciado por aria-labelledby del modal para accesibilidad -->
+
+          <p class="text-muted my-3">
+            Has convertido todos los cuadrados a negro.<br/>¡Enhorabuena!
+            <!-- text-muted: clase utilitaria de Bootstrap para color gris -->
+            <!-- my-3: clase utilitaria de Bootstrap para margen vertical de tamaño 3 -->
+          </p>
+
+          <button type="button" class="app-btn-replay" id="btn-replay">Jugar de nuevo</button>
+          <!-- Botón para reiniciar el tablero; JS cierra el modal y regenera las celdas -->
+
+        </div><!-- /.app-modal-body -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /#modal-fin -->
+
+
+  <!-- Bootstrap Bundle JS (incluye Popper.js): necesario para el componente Modal -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
