@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas - LocalStorage y JSON</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>✅ Lista de Tareas Persistente</h1>
+        <p>Aprende: <code>localStorage</code>, <code>sessionStorage</code>, <code>JSON.parse()</code>, <code>JSON.stringify()</code>, <code>setInterval()</code></p>
+    </header>
+
+    <main>
+        <section class="controles">
+            <div class="nueva-tarea">
+                <input type="text" id="inputTarea" placeholder="Escribe una nueva tarea...">
+                <select id="selectPrioridad">
+                    <option value="baja">Baja</option>
+                    <option value="media" selected>Media</option>
+                    <option value="alta">Alta</option>
+                </select>
+                <button id="btnAgregar">Agregar</button>
+            </div>
+            <div class="filtros">
+                <button class="filtro-btn activo" data-filtro="todas">Todas</button>
+                <button class="filtro-btn" data-filtro="pendientes">Pendientes</button>
+                <button class="filtro-btn" data-filtro="completadas">Completadas</button>
+            </div>
+        </section>
+
+        <section class="tareas">
+            <div class="cabecera-tareas">
+                <h2>Mis Tareas</h2>
+                <div class="estadisticas">
+                    <span id="contadorTotal">0</span> total |
+                    <span id="contadorPendientes">0</span> pendientes |
+                    <span id="contadorCompletadas">0</span> completadas
+                </div>
+            </div>
+            <ul id="listaTareas"></ul>
+            <div class="acciones-masivas">
+                <button id="btnCompletarTodas">Completar todas</button>
+                <button id="btnEliminarCompletadas">Eliminar completadas</button>
+                <button id="btnEliminarTodas">Eliminar todas</button>
+            </div>
+        </section>
+
+        <section class="info-storage">
+            <h2>💾 Estado del Almacenamiento</h2>
+            <div class="storage-info">
+                <div class="storage-item">
+                    <h3>localStorage</h3>
+                    <p>Las tareas se guardan aquí y <strong>persisten</strong> al cerrar el navegador.</p>
+                    <div class="storage-datos">
+                        <label>Clave:</label>
+                        <code>tareas_app</code>
+                    </div>
+                    <div class="storage-datos">
+                        <label>Tamaño:</label>
+                        <span id="tamanoStorage">0 bytes</span>
+                    </div>
+                    <div class="storage-datos">
+                        <label>Último guardado:</label>
+                        <span id="ultimoGuardado">Nunca</span>
+                    </div>
+                </div>
+                <div class="storage-item">
+                    <h3>sessionStorage</h3>
+                    <p>El filtro seleccionado se guarda aquí y se <strong>borra</strong> al cerrar la pestaña.</p>
+                    <div class="storage-datos">
+                        <label>Clave:</label>
+                        <code>filtro_activo</code>
+                    </div>
+                    <div class="storage-datos">
+                        <label>Valor actual:</label>
+                        <span id="filtroGuardado">todas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="auto-guardado">
+                <span class="indicador" id="indicadorGuardado">💾</span>
+                <span id="estadoGuardado">Auto-guardado activo (cada 5 segundos)</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

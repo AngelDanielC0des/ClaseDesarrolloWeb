@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes Nativos - HTML y CSS Moderno</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎨 Componentes Nativos Modernos</h1>
+        <p>Features: <code>Popover API</code>, <code>CSS :has()</code>, <code>Container Queries</code>, <code>CSS Nesting</code></p>
+    </header>
+
+    <main>
+        <!-- =========================================================================
+             SECCIÓN 1: POPOVER API (HTML Nativo)
+             =========================================================================
+             La Popover API permite crear popovers/modales SIN JavaScript.
+             Solo necesitas:
+             - Un elemento con atributo popover
+             - Un botón con popovertarget apuntando al ID del popover
+        -->
+        <section class="popover-section">
+            <h2>1. Popover API (Sin JavaScript)</h2>
+            <p class="hint">Estos popovers funcionan SOLO con HTML, sin una línea de JS</p>
+
+            <div class="popover-demos">
+                <!-- Popover automático (se cierra al hacer clic fuera) -->
+                <button popovertarget="popover-auto">Popover Automático</button>
+                <div id="popover-auto" popover>
+                    <h3>Popover Automático</h3>
+                    <p>Este popover se cierra automáticamente al hacer clic fuera o presionar Escape.</p>
+                    <p><strong>Atributo:</strong> <code>popover</code> (sin valor = automático)</p>
+                </div>
+
+                <!-- Popover manual (solo se cierra con botón) -->
+                <button popovertarget="popover-manual">Popover Manual</button>
+                <div id="popover-manual" popover="manual">
+                    <h3>Popover Manual</h3>
+                    <p>Este popover SOLO se cierra con el botón de cerrar.</p>
+                    <p><strong>Atributo:</strong> <code>popover="manual"</code></p>
+                    <button popovertarget="popover-manual" popovertargetaction="hide">Cerrar</button>
+                </div>
+
+                <!-- Popover con acción toggle -->
+                <button popovertarget="popover-toggle" popovertargetaction="toggle">Toggle Popover</button>
+                <div id="popover-toggle" popover>
+                    <h3>Popover Toggle</h3>
+                    <p>El botón alterna entre mostrar y ocultar.</p>
+                    <p><strong>Atributo:</strong> <code>popovertargetaction="toggle"</code></p>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <h3>Código HTML:</h3>
+                <pre><code>&lt;button popovertarget="mi-popover"&gt;Abrir&lt;/button&gt;
+&lt;div id="mi-popover" popover&gt;
+    &lt;p&gt;Contenido del popover&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             SECCIÓN 2: CSS :has() - El "Parent Selector"
+             =========================================================================
+             :has() permite seleccionar un elemento PADRE basándose en sus HIJOS.
+             Es el selector más pedido en 20 años de CSS.
+        -->
+        <section class="has-section">
+            <h2>2. CSS :has() - Parent Selector</h2>
+            <p class="hint">Selecciona elementos PADRE basándose en sus HIJOS</p>
+
+            <div class="cards-container">
+                <!-- Tarjeta SIN imagen -->
+                <div class="card">
+                    <h3>Tarjeta sin imagen</h3>
+                    <p>Esta tarjeta no tiene imagen, así que tiene un estilo diferente.</p>
+                    <button>Leer más</button>
+                </div>
+
+                <!-- Tarjeta CON imagen -->
+                <div class="card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect fill='%23667eea' width='200' height='120'/%3E%3Ctext fill='white' font-size='16' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EImagen%3C/text%3E%3C/svg%3E" alt="Imagen de ejemplo">
+                    <h3>Tarjeta con imagen</h3>
+                    <p>Esta tarjeta tiene imagen, así que el padding es mayor y el borde es azul.</p>
+                    <button>Leer más</button>
+                </div>
+
+                <!-- Tarjeta con botón deshabilitado -->
+                <div class="card">
+                    <h3>Tarjeta con botón deshabilitado</h3>
+                    <p>El botón está deshabilitado, así que la tarjeta tiene opacidad reducida.</p>
+                    <button disabled>No disponible</button>
+                </div>
+
+                <!-- Tarjeta con enlace -->
+                <div class="card">
+                    <h3>Tarjeta con enlace externo</h3>
+                    <p>Esta tarjeta tiene un enlace externo, así que tiene un icono especial.</p>
+                    <a href="https://example.com" target="_blank">Visitar sitio ↗</a>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <h3>Código CSS con :has():</h3>
+                <pre><code>/* Tarjeta que CONTIENE una imagen */
+.card:has(img) {
+    border-color: #667eea;
+    padding: 30px;
+}
+
+/* Tarjeta que CONTIENE un botón deshabilitado */
+.card:has(button:disabled) {
+    opacity: 0.6;
+}
+
+/* Formulario que CONTIENE un input inválido */
+form:has(input:invalid) {
+    border-color: red;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             SECCIÓN 3: CONTAINER QUERIES
+             =========================================================================
+             Las Container Queries permiten aplicar estilos basándose en el TAMAÑO
+             DEL CONTENEDOR padre, no en el tamaño de la ventana.
+        -->
+        <section class="container-section">
+            <h2>3. Container Queries</h2>
+            <p class="hint">Responsive basado en el CONTENEDOR, no en la ventana</p>
+
+            <div class="resize-container">
+                <p>↔️ Redimensiona este contenedor arrastrando la esquina:</p>
+                <div class="resizable">
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3>Smartphone Pro</h3>
+                            <p>El mejor teléfono del mercado</p>
+                            <div class="product-price">999€</div>
+                            <button>Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-comparison">
+                <div class="container-small">
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3>Contenedor Pequeño</h3>
+                            <p>Layout vertical</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-large">
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3>Contenedor Grande</h3>
+                            <p>Layout horizontal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <h3>Código CSS:</h3>
+                <pre><code>/* Definir el contenedor */
+.card-container {
+    container-type: inline-size;
+    container-name: card;
+}
+
+/* Estilos basados en el tamaño del CONTENEDOR */
+@container card (min-width: 400px) {
+    .product-card {
+        flex-direction: row;  /* Horizontal si el contenedor es ancho */
+    }
+}
+
+@container card (max-width: 399px) {
+    .product-card {
+        flex-direction: column;  /* Vertical si el contenedor es estrecho */
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             SECCIÓN 4: CSS NESTING (Anidamiento Nativo)
+             =========================================================================
+             CSS ahora soporta anidamiento nativo, como SASS/LESS.
+             Ya no necesitas preprocesadores para esto.
+        -->
+        <section class="nesting-section">
+            <h2>4. CSS Nesting (Anidamiento Nativo)</h2>
+            <p class="hint">Anida selectores CSS sin preprocesadores</p>
+
+            <nav class="nav-demo">
+                <ul>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="code-example">
+                <h3>Código CSS con Nesting:</h3>
+                <pre><code>/* ANTES (sin nesting) */
+.nav { background: #333; }
+.nav ul { list-style: none; }
+.nav ul li { display: inline; }
+.nav ul li a { color: white; }
+.nav ul li a:hover { color: #667eea; }
+.nav ul li a.active { font-weight: bold; }
+
+/* AHORA (con nesting nativo) */
+.nav {
+    background: #333;
+    
+    ul {
+        list-style: none;
+        
+        li {
+            display: inline;
+            
+            a {
+                color: white;
+                
+                &:hover {
+                    color: #667eea;
+                }
+                
+                &.active {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             SECCIÓN 5: RESUMEN COMPARATIVO
+             ========================================================================= -->
+        <section class="summary-section">
+            <h2>📊 Resumen de Features Modernas</h2>
+            
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Popover API</h3>
+                    <p class="year">HTML 2023</p>
+                    <p>Crea popovers/modales sin JavaScript</p>
+                    <ul>
+                        <li><code>popover</code> - Popover automático</li>
+                        <li><code>popover="manual"</code> - Solo se cierra con botón</li>
+                        <li><code>popovertarget</code> - Botón que abre el popover</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>CSS :has()</h3>
+                    <p class="year">CSS 2023</p>
+                    <p>El "parent selector" más esperado</p>
+                    <ul>
+                        <li>Selecciona padres según sus hijos</li>
+                        <li>Funciona con cualquier selector</li>
+                        <li>Reemplaza mucho JavaScript</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Container Queries</h3>
+                    <p class="year">CSS 2023</p>
+                    <p>Responsive basado en contenedor</p>
+                    <ul>
+                        <li><code>container-type: inline-size</code></li>
+                        <li><code>@container (min-width: X)</code></li>
+                        <li>Componentes verdaderamente reutilizables</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>CSS Nesting</h3>
+                    <p class="year">CSS 2024</p>
+                    <p>Anidamiento nativo sin preprocesadores</p>
+                    <ul>
+                        <li>Usa <code>&</code> para referenciar al padre</li>
+                        <li>Mejora la legibilidad</li>
+                        <li>Ya no necesitas SASS/LESS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

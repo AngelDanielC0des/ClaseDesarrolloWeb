@@ -24,4 +24,55 @@ IMPORTANT
 Revisión del Plan ¿Qué te parecen estas 4 temáticas? Cubren prácticamente todo lo necesario para saltar a frameworks modernos (como React o Angular). Si das tu aprobación, comenzaré a generar las carpetas, el código comentado y sus respectivos README.md explicativos.
 
 
-Aun falta más cosas para añadir al plan de expansión js para que el curso este completo. Identifica todo lo que falta y si quieres añade 2 ejercicios más al plan, necesito que el curso este completo. Si necesitas modificar algo del plan anterior, hazlo, pero recuerda que no puedes modificar los archivos existentes solo crear nuevos dentro de la carpeta JS. 
+5. JS/tiendaPersistente (LocalStorage, SessionStorage y JSON)
+Conceptos JS Moderno: Persistencia de datos en el navegador con localStorage y sessionStorage, serialización con JSON.parse() y JSON.stringify(), y temporizadores repetitivos con setInterval().
+Práctica: Una lista de tareas (To-Do List) que guarde los datos en el navegador para que persistan al recargar la página, con auto-guardado cada X segundos usando setInterval.
+
+6. JS/vehiculosPOO (Clases y Programación Orientada a Objetos)
+Conceptos JS Moderno: Clases ES6 (class, constructor, extends, super), métodos de instancia y estáticos, el objeto this, herencia de clases, y el operador instanceof.
+Práctica: Un catálogo de vehículos (coche, moto, camión) usando herencia de clases, con métodos para calcular autonomía, comparar precios y renderizar fichas en el DOM.
+
+7. JS/configDashboard (ES2021-2022 Features)
+Conceptos JS Moderno: Logical Assignment Operators (||=, &&=, ??=), Array.at() con índices negativos, structuredClone() para clonación profunda, y Object.entries/values/keys para iterar objetos.
+Práctica: Un dashboard de configuración que demuestra todas estas features modernas con ejemplos interactivos y comparaciones visuales.
+
+8. JS/rankingInmutable (Array Methods ES2023-2024)
+Conceptos JS Moderno: Métodos inmutables de arrays (toSorted, toReversed, toSpliced, with), findLast/findLastIndex para búsqueda desde el final, y Object.groupBy() para agrupación nativa.
+Práctica: Un sistema de ranking de jugadores que demuestra la importancia de la inmutabilidad en programación funcional y frameworks como React.
+
+9. JS/componentesNativos (HTML y CSS Moderno)
+Conceptos HTML/CSS Moderno: Popover API (popovers nativos sin JavaScript), CSS :has() (parent selector), Container Queries (responsive por contenedor), y CSS Nesting (anidamiento nativo).
+Práctica: Componentes modernos que funcionan sin JavaScript, demostrando las features más recientes de HTML y CSS (2023-2024).
+
+✅ Plan Completo y Actualizado
+Con estos 9 ejercicios nuevos, sumados a los 7 ejercicios originales del curso, el temario de JavaScript queda COMPLETO y ACTUALIZADO con las últimas features de ECMAScript (hasta ES2024) y HTML/CSS moderno. El curso cubre:
+
+**Fundamentos (Ejercicios originales):**
+- Variables, tipos de datos, operadores
+- DOM básico y avanzado
+- Eventos y formularios
+- Arrays y objetos
+- Bucles y condicionales
+- Temporizadores
+
+**JavaScript Moderno ES6+ (Ejercicios nuevos):**
+- Arrow functions, template literals, destructuring
+- Spread/Rest operators, optional chaining, nullish coalescing
+- Métodos avanzados de arrays (map, filter, reduce, find, etc.)
+- Promesas, async/await, fetch API
+- Módulos ES6 (import/export)
+- Clases y POO moderna
+- LocalStorage, sessionStorage, JSON
+- Features ES2021-2022 (logical assignment, Array.at, structuredClone)
+- Features ES2023-2024 (métodos inmutables, findLast, Object.groupBy)
+
+**HTML/CSS Moderno:**
+- Semántica HTML5
+- CSS Grid y Flexbox
+- Animaciones y transiciones
+- Popover API (HTML nativo)
+- CSS :has() (parent selector)
+- Container Queries
+- CSS Nesting nativo
+
+Este curso prepara a los estudiantes para trabajar con frameworks modernos como React, Vue o Angular, y les da las herramientas necesarias para el mercado laboral actual.

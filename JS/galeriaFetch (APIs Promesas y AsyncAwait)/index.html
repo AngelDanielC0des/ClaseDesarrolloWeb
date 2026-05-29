@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Fetch - APIs, Promesas y Async/Await</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎮 Pokédex - Galería con Fetch API</h1>
+        <p>Aprende: <code>fetch()</code>, <code>Promises</code>, <code>async/await</code>, <code>try/catch</code></p>
+    </header>
+
+    <main>
+        <section class="controles">
+            <div class="buscador">
+                <input type="text" id="inputBusqueda" placeholder="Buscar Pokémon por nombre o ID...">
+                <button id="btnBuscar">Buscar</button>
+                <button id="btnAleatorio">Aleatorio</button>
+            </div>
+            <div class="paginacion">
+                <button id="btnAnterior">← Anterior</button>
+                <span id="paginaActual">Página 1</span>
+                <button id="btnSiguiente">Siguiente →</button>
+            </div>
+        </section>
+
+        <section class="galeria">
+            <div id="estadoCarga" class="loading">
+                <div class="spinner"></div>
+                <p>Cargando Pokémon...</p>
+            </div>
+            <div id="estadoError" class="error hidden">
+                <p>❌ Error al cargar los datos. Intenta de nuevo.</p>
+            </div>
+            <div id="galeriaGrid" class="grid"></div>
+        </section>
+
+        <section class="detalle">
+            <div id="modalDetalle" class="modal hidden">
+                <div class="modal-contenido">
+                    <button class="cerrar" id="btnCerrar">&times;</button>
+                    <div id="detalleContenido"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

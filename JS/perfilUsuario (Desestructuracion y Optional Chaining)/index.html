@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - Desestructuración y Optional Chaining</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>👤 Perfil de Usuario</h1>
+        <p>Aprende: <code>Destructuring</code>, <code>Optional Chaining ?.</code>, <code>Nullish Coalescing ??</code></p>
+    </header>
+
+    <main>
+        <section class="controles">
+            <h2>Selecciona un usuario</h2>
+            <div class="botones-usuario">
+                <button onclick="cargarUsuario('completo')">Usuario Completo</button>
+                <button onclick="cargarUsuario('incompleto')">Usuario Incompleto</button>
+                <button onclick="cargarUsuario('minimo')">Usuario Mínimo</button>
+                <button onclick="cargarUsuario('nulo')">Usuario Nulo</button>
+            </div>
+        </section>
+
+        <section class="tarjeta-perfil">
+            <div id="perfilContenido">
+                <p class="placeholder">Haz clic en un botón para cargar un usuario</p>
+            </div>
+        </section>
+
+        <section class="info-tecnica">
+            <h2>📊 Datos extraídos (Consola)</h2>
+            <p>Abre la consola (F12) para ver cómo se extraen los datos con destructuring</p>
+            <div id="logExtraccion"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

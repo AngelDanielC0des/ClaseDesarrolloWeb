@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Arrays Avanzados y Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🛒 Mini Carrito de Compras</h1>
+        <p>Aprende: <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, Arrow Functions y Spread Operator</p>
+    </header>
+
+    <main>
+        <section class="productos">
+            <h2>Catálogo de Productos</h2>
+            <div id="catalogo"></div>
+        </section>
+
+        <section class="filtros">
+            <h2>Filtros</h2>
+            <div class="filtro-precio">
+                <label for="precioMax">Precio máximo: <span id="precioValor">100</span>€</label>
+                <input type="range" id="precioMax" min="10" max="100" value="100">
+            </div>
+            <button id="btnFiltrar">Filtrar por precio</button>
+            <button id="btnMostrarTodos">Mostrar todos</button>
+        </section>
+
+        <section class="carrito">
+            <h2>Tu Carrito</h2>
+            <ul id="listaCarrito"></ul>
+            <div class="total">
+                <strong>Total: <span id="totalPrecio">0.00</span>€</strong>
+            </div>
+            <button id="btnVaciar">Vaciar carrito</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

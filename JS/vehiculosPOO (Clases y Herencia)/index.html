@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Vehículos - Clases y Herencia POO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🚗 Catálogo de Vehículos - POO</h1>
+        <p>Aprende: <code>class</code>, <code>constructor</code>, <code>extends</code>, <code>super</code>, <code>this</code>, <code>static</code>, <code>instanceof</code></p>
+    </header>
+
+    <main>
+        <section class="controles">
+            <h2>Añadir Vehículo</h2>
+            <div class="formulario">
+                <select id="tipoVehiculo">
+                    <option value="coche">🚗 Coche</option>
+                    <option value="moto">🏍️ Moto</option>
+                    <option value="camion">🚛 Camión</option>
+                </select>
+                <input type="text" id="marca" placeholder="Marca">
+                <input type="text" id="modelo" placeholder="Modelo">
+                <input type="number" id="anio" placeholder="Año" min="1900" max="2030">
+                <input type="number" id="precio" placeholder="Precio (€)" min="0">
+                <input type="number" id="combustible" placeholder="Combustible (L)">
+                <input type="number" id="consumo" placeholder="Consumo (L/100km)" step="0.1">
+                <button id="btnAgregar">Añadir al catálogo</button>
+            </div>
+            <div class="campos-extra" id="camposExtra"></div>
+        </section>
+
+        <section class="catalogo">
+            <div class="cabecera-catalogo">
+                <h2>Catálogo</h2>
+                <div class="filtros-tipo">
+                    <button class="filtro-tipo activo" data-tipo="todos">Todos</button>
+                    <button class="filtro-tipo" data-tipo="coche">🚗 Coches</button>
+                    <button class="filtro-tipo" data-tipo="moto">🏍️ Motos</button>
+                    <button class="filtro-tipo" data-tipo="camion">🚛 Camiones</button>
+                </div>
+            </div>
+            <div id="gridCatalogo" class="grid"></div>
+        </section>
+
+        <section class="estadisticas">
+            <h2>📊 Estadísticas del Catálogo</h2>
+            <div id="statsContenido" class="stats-grid"></div>
+        </section>
+
+        <section class="info-poo">
+            <h2>🏗️ Jerarquía de Clases</h2>
+            <div class="jerarquia">
+                <div class="clase clase-base">
+                    <h3>class Vehiculo</h3>
+                    <p>Clase base (padre)</p>
+                    <ul>
+                        <li>marca, modelo, anio, precio</li>
+                        <li>combustible, consumo</li>
+                        <li>calcularAutonomia()</li>
+                        <li>calcularCostePorKm()</li>
+                        <li>toString()</li>
+                        <li>static compararPrecios()</li>
+                    </ul>
+                </div>
+                <div class="flecha-jerarquia">↓ extends</div>
+                <div class="clases-hijas">
+                    <div class="clase clase-hija">
+                        <h3>class Coche</h3>
+                        <p>+ puertas, aireAcondicionado</p>
+                        <ul>
+                            <li>super() → llama al constructor padre</li>
+                            <li>toString() → sobrescribe al padre</li>
+                            <li>esFamiliar()</li>
+                        </ul>
+                    </div>
+                    <div class="clase clase-hija">
+                        <h3>class Moto</h3>
+                        <p>+ cilindrada, tipo</p>
+                        <ul>
+                            <li>super() → llama al constructor padre</li>
+                            <li>toString() → sobrescribe al padre</li>
+                            <li>esDeportiva()</li>
+                        </ul>
+                    </div>
+                    <div class="clase clase-hija">
+                        <h3>class Camion</h3>
+                        <p>+ cargaMaxima, ejes</p>
+                        <ul>
+                            <li>super() → llama al constructor padre</li>
+                            <li>toString() → sobrescribe al padre</li>
+                            <li>esPesado()</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

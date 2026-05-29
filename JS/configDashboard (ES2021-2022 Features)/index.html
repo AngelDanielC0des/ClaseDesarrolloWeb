@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Configuración - ES2021-2022 Features</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>⚙️ Dashboard de Configuración</h1>
+        <p>Features modernas: <code>||=</code>, <code>&&=</code>, <code>??=</code>, <code>.at()</code>, <code>structuredClone()</code>, <code>Object.entries()</code></p>
+    </header>
+
+    <main>
+        <section class="config-panel">
+            <h2>Configuración de Usuario</h2>
+            <div id="configDisplay"></div>
+            <div class="actions">
+                <button id="btnLoadDefaults">Cargar valores por defecto</button>
+                <button id="btnApplyPartial">Aplicar configuración parcial</button>
+                <button id="btnReset">Resetear</button>
+            </div>
+        </section>
+
+        <section class="history-panel">
+            <h2>Historial de Cambios</h2>
+            <div id="historyList"></div>
+        </section>
+
+        <section class="stats-panel">
+            <h2>Estadísticas de Configuración</h2>
+            <div id="statsDisplay"></div>
+        </section>
+
+        <section class="examples-panel">
+            <h2>Ejemplos Interactivos</h2>
+            <div class="example-group">
+                <h3>Logical Assignment (||=, &&=, ??=)</h3>
+                <button id="btnLogicalExamples">Ver ejemplos en consola</button>
+            </div>
+            <div class="example-group">
+                <h3>Array.at() - Índices negativos</h3>
+                <button id="btnAtExamples">Ver ejemplos en consola</button>
+            </div>
+            <div class="example-group">
+                <h3>structuredClone() - Clonación profunda</h3>
+                <button id="btnCloneExamples">Ver ejemplos en consola</button>
+            </div>
+            <div class="example-group">
+                <h3>Object.entries/values/keys</h3>
+                <button id="btnObjectExamples">Ver ejemplos en consola</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

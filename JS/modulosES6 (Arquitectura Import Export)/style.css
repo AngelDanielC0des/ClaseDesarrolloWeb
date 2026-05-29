@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+section h2 {
+    color: #11998e;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #11998e;
+    padding-bottom: 8px;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.campo input {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #11998e;
+}
+
+#btnCalcular {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: fit-content;
+}
+
+#btnCalcular:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+}
+
+.resultados {
+    min-height: 150px;
+}
+
+.placeholder {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+    font-style: italic;
+}
+
+.resultado-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.resultado-item {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border-left: 4px solid #11998e;
+}
+
+.resultado-item label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.resultado-item span {
+    font-size: 1.5rem;
+    color: #11998e;
+    font-weight: bold;
+}
+
+.historial ul {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.historial li {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 3px solid #11998e;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.historial li .fecha {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+#btnLimpiar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+#btnLimpiar:hover {
+    background: #c0392b;
+}
+
+.info-modulos {
+    background: #2d2d2d;
+    color: #f8f8f2;
+}
+
+.info-modulos h2 {
+    color: #38ef7d;
+    border-bottom-color: #38ef7d;
+}
+
+.diagrama {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.modulo {
+    background: #3d3d3d;
+    border: 2px solid #555;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 200px;
+    text-align: center;
+}
+
+.modulo h3 {
+    color: #38ef7d;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.modulo p {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.modulo ul {
+    list-style: none;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #f8f8f2;
+}
+
+.modulo ul li {
+    padding: 3px 0;
+}
+
+.modulo ul li::before {
+    content: "▸ ";
+    color: #38ef7d;
+}
+
+.modulo-principal {
+    border-color: #38ef7d;
+    background: #2a4a3a;
+}
+
+.flecha {
+    font-size: 2rem;
+    color: #38ef7d;
+}
+
+@media (max-width: 768px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+    
+    .diagrama {
+        flex-direction: column;
+    }
+    
+    .flecha {
+        transform: rotate(90deg);
+    }
+}

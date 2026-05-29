@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking de Jugadores - Array Methods ES2023-2024</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🏆 Ranking de Jugadores</h1>
+        <p>Métodos inmutables: <code>toSorted()</code>, <code>toReversed()</code>, <code>with()</code>, <code>toSpliced()</code>, <code>findLast()</code>, <code>Object.groupBy()</code></p>
+    </header>
+
+    <main>
+        <section class="ranking-panel">
+            <h2>Ranking Original</h2>
+            <p class="hint">Este array NUNCA se modifica (inmutabilidad)</p>
+            <div id="originalRanking"></div>
+        </section>
+
+        <section class="actions-panel">
+            <h2>Acciones (sin mutar el original)</h2>
+            <div class="actions-grid">
+                <button id="btnSortByScore">Ordenar por puntuación (toSorted)</button>
+                <button id="btnSortByName">Ordenar por nombre (toSorted)</button>
+                <button id="btnReverse">Invertir orden (toReversed)</button>
+                <button id="btnUpdateFirst">Actualizar 1º jugador (with)</button>
+                <button id="btnRemoveLast">Eliminar último (toSpliced)</button>
+                <button id="btnAddNew">Añadir jugador (toSpliced)</button>
+                <button id="btnFindLast">Buscar último oro (findLast)</button>
+                <button id="btnGroupByCategory">Agrupar por categoría (groupBy)</button>
+            </div>
+        </section>
+
+        <section class="result-panel">
+            <h2>Resultado de la última acción</h2>
+            <div id="actionDescription"></div>
+            <div id="resultRanking"></div>
+        </section>
+
+        <section class="comparison-panel">
+            <h2>Comparación: Mutable vs Inmutable</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>❌ Métodos mutables (antiguos)</h3>
+                    <pre><code>const arr = [3, 1, 2];
+arr.sort();
+// arr ahora es [1, 2, 3]
+// ¡El original se perdió!</code></pre>
+                </div>
+                <div class="comparison-card">
+                    <h3>✅ Métodos inmutables (ES2023)</h3>
+                    <pre><code>const arr = [3, 1, 2];
+const sorted = arr.toSorted();
+// arr sigue siendo [3, 1, 2]
+// sorted es [1, 2, 3]</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="groups-panel">
+            <h2>Agrupación por Categoría</h2>
+            <div id="groupsDisplay"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
