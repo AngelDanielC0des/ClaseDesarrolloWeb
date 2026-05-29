@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging y Manejo de Errores - DevTools</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Debugging y Errores</h1>
+        <p>Aprende: <code>console.*</code>, <code>try/catch</code>, <code>debugger</code>, <code>Error</code>, <code>DevTools</code></p>
+    </header>
+
+    <main>
+        <section class="console-panel">
+            <h2>1. Console Master</h2>
+            <p class="hint">Pulsa cada botón y observa la consola del navegador (F12)</p>
+            <div class="actions-grid">
+                <button id="btnLog">console.log</button>
+                <button id="btnTable">console.table</button>
+                <button id="btnGroup">console.group</button>
+                <button id="btnTime">console.time</button>
+                <button id="btnTrace">console.trace</button>
+                <button id="btnCount">console.count</button>
+                <button id="btnAssert">console.assert</button>
+            </div>
+        </section>
+
+        <section class="trycatch-panel">
+            <h2>2. Try/Catch Lab</h2>
+            <p class="hint">Provoca diferentes tipos de errores y observa cómo try/catch los captura</p>
+            <div class="actions-grid">
+                <button id="btnSyntaxError">JSON inválido</button>
+                <button id="btnReferenceError">Variable inexistente</button>
+                <button id="btnTypeError">Método en null</button>
+                <button id="btnRangeError">Array infinito</button>
+                <button id="btnFinally">Ver finally en acción</button>
+            </div>
+            <div id="errorOutput" class="error-output"></div>
+        </section>
+
+        <section class="custom-error-panel">
+            <h2>3. Error Factory</h2>
+            <p class="hint">Crea errores personalizados con clases que extienden de Error</p>
+            <div class="form-row">
+                <input type="text" id="inputNombre" placeholder="Nombre (mín. 2 caracteres)">
+                <input type="email" id="inputEmail" placeholder="Email válido">
+                <input type="number" id="inputEdad" placeholder="Edad (18-120)" min="0" max="150">
+                <button id="btnValidate">Validar</button>
+            </div>
+            <div id="validationOutput" class="error-output"></div>
+        </section>
+
+        <section class="async-panel">
+            <h2>4. Async Error Handler</h2>
+            <p class="hint">Errores en código asíncrono: fetch, promesas y async/await</p>
+            <div class="actions-grid">
+                <button id="btnFetchOk">Fetch exitoso</button>
+                <button id="btnFetch404">Fetch 404</button>
+                <button id="btnFetchTimeout">Fetch con timeout</button>
+                <button id="btnRetry">Fetch con retry (3 intentos)</button>
+            </div>
+            <div id="asyncOutput" class="error-output"></div>
+        </section>
+
+        <section class="global-panel">
+            <h2>5. Global Error Net</h2>
+            <p class="hint">Captura errores que NO fueron manejados por try/catch</p>
+            <div class="actions-grid">
+                <button id="btnUncaughtError">Lanzar error sin catch</button>
+                <button id="btnUnhandledPromise">Promesa sin catch</button>
+            </div>
+            <div id="globalOutput" class="error-output"></div>
+        </section>
+
+        <section class="debug-panel">
+            <h2>6. Debug Challenge</h2>
+            <p class="hint">Este código tiene bugs. Abre DevTools (F12), ve a Sources, pon un breakpoint y depura paso a paso.</p>
+            <div class="actions-grid">
+                <button id="btnDebugCalc">Calcular descuento (con bugs)</button>
+                <button id="btnDebugFilter">Filtrar usuarios (con bugs)</button>
+            </div>
+            <div id="debugOutput" class="error-output"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite + npm - Herramientas Modernas</title>
+</head>
+<body>
+    <header>
+        <h1>Vite + npm</h1>
+        <p>Herramientas de desarrollo modernas: <code>npm</code>, <code>Vite</code>, <code>HMR</code>, <code>ES Modules</code>, <code>Build</code></p>
+    </header>
+
+    <main>
+        <section class="info-panel">
+            <h2>Entorno del Proyecto</h2>
+            <div id="envInfo"></div>
+        </section>
+
+        <section class="time-panel">
+            <h2>Paquete npm: dayjs</h2>
+            <p class="hint">Este reloj usa el paquete <code>dayjs</code> instalado desde npm</p>
+            <div id="clockDisplay" class="clock"></div>
+            <div id="relativeTime"></div>
+        </section>
+
+        <section class="posts-panel">
+            <h2>Posts desde API</h2>
+            <p class="hint">Datos obtenidos de <code>jsonplaceholder</code> usando la URL de <code>.env</code></p>
+            <div class="actions">
+                <button id="btnLoadPosts">Cargar Posts</button>
+                <button id="btnClearPosts">Limpiar</button>
+            </div>
+            <div id="postsContainer" class="posts-grid"></div>
+        </section>
+
+        <section class="hmr-panel">
+            <h2>Prueba de HMR (Hot Module Replacement)</h2>
+            <p class="hint">Modifica <code>src/utils.js</code> o <code>src/style.css</code> mientras el servidor está activo y observa cómo los cambios se reflejan al instante sin recargar la página.</p>
+            <div id="hmrDemo" class="hmr-demo"></div>
+        </section>
+
+        <section class="build-panel">
+            <h2>Comandos del Proyecto</h2>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <h3>npm install</h3>
+                    <p>Instala todas las dependencias listadas en <code>package.json</code> dentro de <code>node_modules/</code></p>
+                </div>
+                <div class="command-card">
+                    <h3>npm run dev</h3>
+                    <p>Inicia el servidor de desarrollo de Vite con HMR (recarga instantánea)</p>
+                </div>
+                <div class="command-card">
+                    <h3>npm run build</h3>
+                    <p>Genera la versión optimizada para producción en la carpeta <code>dist/</code></p>
+                </div>
+                <div class="command-card">
+                    <h3>npm run preview</h3>
+                    <p>Sirve localmente la versión de producción para verificar antes de desplegar</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web APIs Modernas - APIs del Navegador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Web APIs Modernas</h1>
+        <p>Aprende: <code>IntersectionObserver</code>, <code>Clipboard</code>, <code>Page Visibility</code>, <code>Notifications</code>, <code>Fullscreen</code></p>
+    </header>
+
+    <main>
+        <section class="visibility-panel">
+            <h2>1. Page Visibility API</h2>
+            <p class="hint">Cambia a otra pestaña y vuelve. El estado se detecta automáticamente.</p>
+            <div id="visibilityStatus" class="status-card">
+                <div class="status-indicator visible"></div>
+                <span>Pestaña visible</span>
+            </div>
+            <div id="visibilityLog" class="log-container"></div>
+        </section>
+
+        <section class="clipboard-panel">
+            <h2>2. Clipboard API</h2>
+            <p class="hint">Copia y pega texto usando el portapapeles del sistema</p>
+            <div class="clipboard-demo">
+                <div class="clipboard-row">
+                    <input type="text" id="clipboardInput" placeholder="Escribe algo para copiar..." value="Hola desde la Clipboard API!">
+                    <button id="btnCopy">Copiar</button>
+                </div>
+                <div class="clipboard-row">
+                    <textarea id="clipboardOutput" placeholder="Pega aquí para ver el contenido del portapapeles..." rows="3"></textarea>
+                    <button id="btnPaste">Pegar</button>
+                </div>
+                <div id="clipboardStatus" class="status-message"></div>
+            </div>
+        </section>
+
+        <section class="notifications-panel">
+            <h2>3. Web Notifications API</h2>
+            <p class="hint">Muestra notificaciones del sistema operativo desde el navegador</p>
+            <div class="actions">
+                <button id="btnRequestPermission">Solicitar Permiso</button>
+                <button id="btnSendNotification">Enviar Notificación</button>
+                <button id="btnTimedNotification">Notificación en 5s</button>
+            </div>
+            <div id="notificationStatus" class="status-message"></div>
+        </section>
+
+        <section class="fullscreen-panel">
+            <h2>4. Fullscreen API</h2>
+            <p class="hint">Pon elementos en pantalla completa</p>
+            <div id="fullscreenTarget" class="fullscreen-target">
+                <p>Este elemento puede ponerse en pantalla completa</p>
+                <div class="fullscreen-content">
+                    <span class="big-number">42</span>
+                    <p>El sentido de la vida, el universo y todo lo demás</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="btnFullscreen">Pantalla Completa</button>
+                <button id="btnExitFullscreen">Salir</button>
+            </div>
+        </section>
+
+        <section class="observer-panel">
+            <h2>5. IntersectionObserver - Animaciones al Scroll</h2>
+            <p class="hint">Haz scroll hacia abajo. Las tarjetas se animarán al entrar en el viewport.</p>
+            <div id="scrollContainer" class="scroll-container">
+                <div class="scroll-card" data-delay="0">
+                    <div class="card-icon">1</div>
+                    <h3>Lazy Loading</h3>
+                    <p>Cargar imágenes solo cuando el usuario las ve. Ahorra ancho de banda y mejora el rendimiento.</p>
+                </div>
+                <div class="scroll-card" data-delay="100">
+                    <div class="card-icon">2</div>
+                    <h3>Infinite Scroll</h3>
+                    <p>Cargar más contenido automáticamente al llegar al final de la página.</p>
+                </div>
+                <div class="scroll-card" data-delay="200">
+                    <div class="card-icon">3</div>
+                    <h3>Animaciones</h3>
+                    <p>Activar animaciones CSS cuando un elemento entra en el viewport del usuario.</p>
+                </div>
+                <div class="scroll-card" data-delay="300">
+                    <div class="card-icon">4</div>
+                    <h3>Tracking</h3>
+                    <p>Detectar si un anuncio o elemento fue realmente visto por el usuario.</p>
+                </div>
+                <div class="scroll-card" data-delay="400">
+                    <div class="card-icon">5</div>
+                    <h3>Auto-pause</h3>
+                    <p>Pausar vídeos o animaciones cuando salen del viewport visible.</p>
+                </div>
+                <div class="scroll-card" data-delay="500">
+                    <div class="card-icon">6</div>
+                    <h3>Progressive Load</h3>
+                    <p>Cargar datos de forma progresiva según el usuario hace scroll.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="observer-info-panel">
+            <h2>6. IntersectionObserver - Datos en Tiempo Real</h2>
+            <p class="hint">Observa cómo cambian los datos al hacer scroll sobre las tarjetas de arriba</p>
+            <div id="observerData" class="observer-data">
+                <div class="data-item">
+                    <span class="data-label">Elementos observados:</span>
+                    <span id="observedCount" class="data-value">0</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Visibles ahora:</span>
+                    <span id="visibleCount" class="data-value">0</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Total entradas detectadas:</span>
+                    <span id="totalEntries" class="data-value">0</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
