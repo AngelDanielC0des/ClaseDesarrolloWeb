@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Adivina un número</title>
+    <!-- <link rel='stylesheet' href='main.css'> -->
+    <script src="adivinanumero.js"></script>
+</head>
+<body>
+    <h1>BUSCA EL NÚMERO OCULTO Y PRUEBA</h1>
+    <div>
+        <p>Adivina un número entre 1 y 100. Tienes <span id="numintentos">5</span> intentos</p>
+    </div>
+    <div>
+        <label for="numusuario">INTRO NUMERO</label>
+        <input type="number" id="numusuario">
+        <button onclick="probar()">PROBAR</button>
+    </div>
+    <div>
+        <img id="imgresultado">
+        <button id="reiniciar" style="display:none;" onclick="reiniciar()">REINICIAR</button>
+    </div>
+    
+</body>
+</html>
