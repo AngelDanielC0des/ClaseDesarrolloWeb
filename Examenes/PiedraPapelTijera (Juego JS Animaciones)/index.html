@@ -3,98 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 Piedra, Papel, Tijera - Slot Edition</title>
-    <!-- Vinculación de la hoja de estilos externa -->
+    <title>Piedra, Papel, Tijera - Slot Edition</title>
+    <meta name="description" content="Juego de Piedra, Papel o Tijera interactivo...">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎰</text></svg>">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
-    <!-- 
-         CONCEPTO: Semántica <header>
-         Contiene la cabecera del juego: Título, marcador y mensaje de estado.
-         Usar etiquetas semánticas mejora la accesibilidad y el SEO.
-    -->
-    <header>
-        <h1>🎰 Piedra, Papel o Tijera 🎰</h1>
-        <div class="marcador">
-            <p>Tú: <span id="RondaJugador">0</span></p>
-            <p>Empates: <span id="RondaEmpates">0</span></p>
-            <p>Máquina: <span id="RondaMaquina">0</span></p>
-        </div>
-        <!-- Este H2 será actualizado dinámicamente por JavaScript -->
-        <h2 id="MensajeEstado">Elige tu opción y gira</h2>
-    </header>
-
-    <!-- 
-         CONCEPTO: Semántica <main>
-         Envuelve el contenido principal de la aplicación.
-    -->
-    <main>
-        <!-- Contenedor flexbox para alinear las dos ranuras (Jugador y Máquina) -->
-        <div class="pantalla-juego">
+    <main class="juego-ppt" aria-labelledby="titulo-juego">
+        
+        <header class="juego-ppt__cabecera">
+            <h1 id="titulo-juego" class="juego-ppt__titulo">
+                <span aria-hidden="true">🎰</span> Piedra, Papel o Tijera <span aria-hidden="true">🎰</span>
+            </h1>
             
-            <!-- Ranura Jugador -->
-            <div class="ranura">
-                <h3>TÚ</h3>
-                <div class="carrusel-pantalla">
-                    <!-- 
-                         El carrusel es una lista vertical <ul> movida con CSS.
-                         JS calculará cuánto desplazar esta lista hacia arriba
-                         para mostrar el emoji ganador.
-                    -->
-                    <ul id="CarruselJugador" class="tira-opciones">
-                        <!-- 6 bloques repetidos para crear una cinta larga y fluida -->
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li> <!-- Bloque de parada definitivo -->
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Ranura Máquina -->
-            <div class="ranura">
-                <h3>MÁQUINA</h3>
-                <div class="carrusel-pantalla">
-                    <ul id="CarruselMaquina" class="tira-opciones">
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                        <li>✊</li><li>✋</li><li>✌️</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- 
-             FORMULARIO DE SELECCIÓN
-             Agrupa los inputs radio. Al tener el mismo 'name' (opcionJugador),
-             solo se puede seleccionar uno a la vez.
-        -->
-        <form id="FormularioJuego">
-            <div class="opciones-selector">
-                <!-- required: Obliga a elegir una opción antes de poder girar -->
-                <input id="Piedra" type="radio" name="opcionJugador" value="0" required>
-                <label for="Piedra">✊ Piedra</label>
-
-                <input id="Papel" type="radio" name="opcionJugador" value="1">
-                <label for="Papel">✋ Papel</label>
-
-                <input id="Tijera" type="radio" name="opcionJugador" value="2">
-                <label for="Tijera">✌️ Tijera</label>
+            <div class="juego-ppt__marcador" role="group" aria-label="Marcador actual">
+                <p class="juego-ppt__puntuacion">Tú: <span id="marcador-puntos-jugador" class="juego-ppt__puntuacion-valor">0</span></p>
+                <p class="juego-ppt__puntuacion">Empates: <span id="marcador-puntos-empates" class="juego-ppt__puntuacion-valor">0</span></p>
+                <p class="juego-ppt__puntuacion">Máquina: <span id="marcador-puntos-maquina" class="juego-ppt__puntuacion-valor">0</span></p>
             </div>
             
-            <!-- Botón de envío que activará la lógica en app.js -->
-            <button type="submit" id="BotonGirar">¡GIRAR!</button>
-        </form>
+            <p
+                id="mensaje-estado-partida"
+                class="juego-ppt__estado"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true">
+                Elige tu opción y gira
+            </p>
+        </header>
+
+        <section class="juego-ppt__zona-principal" aria-label="Área de juego">
+            <div class="juego-ppt__contenedor-ruletas">
+                
+                <div class="juego-ppt__modulo-ruleta">
+                    <h2 class="juego-ppt__subtitulo-ruleta">Jugador</h2>
+                    <div class="juego-ppt__ventana-visualizacion" role="img" aria-label="Ruleta del Jugador">
+                        <ul id="carrusel-opciones-jugador" class="juego-ppt__carrusel-tira" aria-hidden="true"></ul>
+                    </div>
+                </div>
+
+                <div class="juego-ppt__modulo-ruleta">
+                    <h2 class="juego-ppt__subtitulo-ruleta">Máquina</h2>
+                    <div class="juego-ppt__ventana-visualizacion" role="img" aria-label="Ruleta de la Máquina">
+                        <ul id="carrusel-opciones-maquina" class="juego-ppt__carrusel-tira" aria-hidden="true"></ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <form id="formulario-control-juego" class="juego-ppt__formulario" novalidate>
+                <fieldset class="juego-ppt__selector-opciones" role="radiogroup">
+                    <legend class="sr-only">Selecciona tu jugada para esta ronda</legend>
+
+                    <input id="opcion-piedra" class="juego-ppt__radio" type="radio" name="opcionSeleccionadaJugador" value="0" required aria-keyshortcuts="1">
+                    <label for="opcion-piedra" class="juego-ppt__etiqueta">✊ Piedra <kbd>1</kbd></label>
+
+                    <input id="opcion-papel" class="juego-ppt__radio" type="radio" name="opcionSeleccionadaJugador" value="1" aria-keyshortcuts="2">
+                    <label for="opcion-papel" class="juego-ppt__etiqueta">✋ Papel <kbd>2</kbd></label>
+
+                    <input id="opcion-tijera" class="juego-ppt__radio" type="radio" name="opcionSeleccionadaJugador" value="2" aria-keyshortcuts="3">
+                    <label for="opcion-tijera" class="juego-ppt__etiqueta">✌️ Tijera <kbd>3</kbd></label>
+                </fieldset>
+                
+                <div class="juego-ppt__zona-boton">
+                    <span id="palanca-tragaperras" class="juego-ppt__palanca" aria-hidden="true">
+                        <span class="juego-ppt__palanca-bola"></span>
+                    </span>
+                    <button type="submit" id="boton-iniciar-giro" class="juego-ppt__boton-accion">¡GIRAR!</button>
+                </div>
+            </form>
+        </section>
+        
     </main>
 
-    <!-- Carga del script al final del body para no bloquear el HTML -->
-    <script src="app.js"></script>
 </body>
 </html>
