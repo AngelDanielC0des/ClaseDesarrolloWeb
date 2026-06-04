@@ -3,23 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de iTunes API</title>
+    <title>Song Catcher Pro</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="main.js"></script>
 </head>
 <body>
-    <div class="itunes">&#9835;</div>
-    <div class="contenedor-principal">
-        <h1>Buscador de Música (iTunes)</h1>
-        
-        <div class="caja-de-busqueda">
-            <input type="text" id="entradaDeBusqueda" placeholder="Busca un artista, canción o álbum...">
-            <button id="botonBuscar">Buscar</button>
-        </div>
 
-        <div id="contenedorDeResultados" class="cuadricula-de-resultados">
-            </div>
-    </div>
+    <div class="itunes" aria-hidden="true">&#9835;</div>
+
+    <main class="song-catcher">
+        <h1 class="song-catcher__titulo">Buscador de Música (iTunes)</h1>
+        
+        <search class="song-catcher__search-box">
+            <label for="entradaDeBusqueda" class="sr-only">Buscar canciones, artistas o álbumes</label>
+            <input 
+                type="text" 
+                id="entradaDeBusqueda" 
+                class="song-catcher__input" 
+                placeholder="Busca un artista, canción o álbum..."
+                aria-controls="contenedorDeResultados"
+            >
+            <button type="button" id="botonBuscar" class="song-catcher__button-search">Buscar</button>
+        </search>
+
+        <section 
+            id="contenedorDeResultados" 
+            class="song-catcher__results" 
+            aria-live="polite"
+            aria-label="Resultados de la búsqueda"
+        >
+            </section>
+
+        <nav id="bloquePaginacion" class="song-catcher__pagination" style="display: none;" aria-label="Paginación de resultados">
+            <button id="botonAnterior" class="song-catcher__pagination-btn" aria-label="Ir a la página anterior">Anterior</button>
+            <span id="indicadorPagina" class="song-catcher__page-indicator" aria-current="page">Página 1</span>
+            <button id="botonSiguiente" class="song-catcher__pagination-btn" aria-label="Ir a la página siguiente">Siguiente</button>
+        </nav>
+    </main>
 
 </body>
 </html>
