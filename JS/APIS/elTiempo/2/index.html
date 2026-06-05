@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="claro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoWeather Pro | Clima de precisión</title>
+    <meta name="description" content="Aplicación meteorológica precisa. Busca ciudades o usa tu ubicación actual para obtener el clima al instante.">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="contenedor-notificaciones" class="notificaciones" aria-live="polite"></div>
+
+    <main class="aplicacion">
+        <header class="aplicacion__cabecera">
+            <div class="aplicacion__titulo-contenedor">
+                <h1 class="aplicacion__titulo">🌤️ GeoWeather Pro</h1>
+                <button id="boton-tema" class="boton boton--icono" aria-label="Alternar modo oscuro o claro">🌙</button>
+            </div>
+            <p class="aplicacion__subtitulo">Busca una ciudad, mueve el marcador o usa tu GPS.</p>
+        </header>
+
+        <section class="controles" aria-labelledby="titulo-controles">
+            <h2 id="titulo-controles" class="utilidad-oculto-visualmente">Controles de Búsqueda</h2>
+            
+            <form id="formulario-buscador" class="buscador">
+                <input type="text" id="entrada-busqueda" class="buscador__entrada" placeholder="Ej: Madrid, Bogotá..." aria-label="Escribe el nombre de la ciudad" required>
+                <button type="submit" id="boton-buscar" class="boton boton--primario buscador__accion">Buscar</button>
+            </form>
+            
+            <button type="button" id="boton-gps" class="boton boton--secundario controles__accion-gps">
+                <span aria-hidden="true">📍</span> Usar mi ubicación actual
+            </button>
+        </section>
+
+        <section class="seccion-mapa" aria-labelledby="titulo-mapa">
+            <h2 id="titulo-mapa" class="utilidad-oculto-visualmente">Mapa interactivo</h2>
+            <div id="mapa-interactivo" class="seccion-mapa__contenedor" aria-label="Mapa para seleccionar ubicación exacta"></div>
+            <button type="button" id="boton-obtener-clima" class="boton boton--destacado seccion-mapa__accion">Obtener clima del punto seleccionado</button>
+        </section>
+
+        <article id="tarjeta-clima" class="tarjeta-clima tarjeta-clima--oculta" aria-live="polite" aria-busy="false">
+            
+            <div id="cargador-esqueleto" class="esqueleto-carga esqueleto-carga--oculto" aria-hidden="true">
+                <div class="esqueleto esqueleto--titulo"></div>
+                <div class="esqueleto esqueleto--temperatura"></div>
+                <div class="esqueleto esqueleto--texto"></div>
+                <div class="esqueleto esqueleto--caja"></div>
+            </div>
+
+            <div id="datos-clima" class="tarjeta-clima__datos tarjeta-clima__datos--ocultos">
+                <header class="tarjeta-clima__cabecera">
+                    <h3 id="texto-ciudad" class="tarjeta-clima__ciudad">Ciudad, País</h3>
+                    <img id="icono-clima" class="tarjeta-clima__icono" src="" alt="Icono representativo del estado del clima">
+                </header>
+                
+                <div class="tarjeta-clima__cuerpo">
+                    <p class="tarjeta-clima__temperatura-principal">
+                        <span id="texto-temperatura">--</span>°C
+                    </p>
+                    <p id="texto-descripcion" class="tarjeta-clima__descripcion">--</p>
+                    <hr class="tarjeta-clima__separador">
+                    
+                    <div class="tarjeta-clima__detalles">
+                        <p class="tarjeta-clima__detalle">💧 Humedad: <strong id="texto-humedad">--</strong>%</p>
+                        <p class="tarjeta-clima__detalle">💨 Viento: <strong id="texto-viento">--</strong> m/s</p>
+                    </div>
+                </div>
+
+                <section class="pronostico">
+                    <h4 class="pronostico__titulo">Pronóstico próximos días</h4>
+                    <div id="contenedor-pronostico" class="pronostico__carrusel" role="list">
+                        </div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="app.js" defer></script>
+</body>
+</html>

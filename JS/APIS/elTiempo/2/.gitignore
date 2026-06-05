@@ -1,0 +1,5 @@
+# Variables de entorno locales
+.env
+
+# Carpetas de Vercel (generadas automáticamente al testear en local)
+.vercel/
