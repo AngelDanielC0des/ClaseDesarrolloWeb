@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clima y Geolocalización</title>
+    <title>Clima con MapLibre</title>
+    
+    <link href="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js" defer></script>
+    
     <script src="ubicacion.js" defer></script>
 </head>
 <body>
 
-    <button id="obtenerUbicacion">Obtener mi ubicación</button>
-    <p id="resultado"></p>
+    <div class="controles">
+        <button id="btn-mapa">Consultar este punto del mapa</button>
+        <button id="btn-gps">Usar mi ubicación actual (GPS)</button>
+    </div>
+
+    <div id="resultado">Esperando acción...</div>
+    
+    <div id="map"></div>
 
 </body>
 </html>

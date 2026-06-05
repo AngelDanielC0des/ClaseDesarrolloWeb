@@ -1,0 +1,134 @@
+:root {
+    --color-primario: #2563eb;
+    --color-secundario: #10b981;
+    --color-fondo: #f8fafc;
+    --color-texto: #1e293b;
+    --color-blanco: #ffffff;
+    --radio-borde: 12px;
+    --sombra: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.controles {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radio-borde);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    color: white;
+}
+
+button:active { transform: scale(0.98); }
+
+#btn-mapa { background-color: var(--color-primario); }
+#btn-mapa:hover { background-color: #1d4ed8; }
+
+#btn-gps { background-color: var(--color-secundario); }
+#btn-gps:hover { background-color: #059669; }
+
+#resultado {
+    background: var(--color-blanco);
+    padding: 20px;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--color-primario);
+    box-sizing: border-box;
+}
+
+#map {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra);
+    border: 1px solid #e2e8f0;
+}
+
+/* Contenedor del Clima e Icono */
+.clima-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.clima-icono {
+    width: 60px;
+    height: 60px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+}
+
+.clima-texto {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+/* Marcador Circular estilo GPS */
+.marcador-gps {
+    width: 16px;
+    height: 16px;
+    background-color: #2563eb;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    position: relative;
+}
+
+/* Efecto de Onda de Pulso */
+.marcador-gps::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #2563eb;
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulsarOnda 2s infinite ease-out;
+}
+
+@keyframes pulsarOnda {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    #map { height: 350px; }
+    .controles { flex-direction: column; width: 100%; }
+    button { width: 100%; }
+}
