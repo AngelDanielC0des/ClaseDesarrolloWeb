@@ -4,7 +4,6 @@
  * Sigue el principio de responsabilidad única: no sabe cómo se pinta la UI ni cómo funciona el mapa.
  */
 
-// CREDENCIAL CORREGIDA: Restauramos tu clave de OpenWeatherMap activa
 const API_KEY = "bccb26b8d12744d0eceb1b3af07256c1"; 
 
 /**
