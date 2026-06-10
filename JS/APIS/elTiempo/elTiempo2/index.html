@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima | MapLibre</title>
+    <link href="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <div class="controles">
+            <button id="btn-mapa">Consultar este punto</button>
+            <button id="btn-gps">Usar mi ubicación</button>
+        </div>
+
+        <section id="resultado" aria-live="polite" aria-atomic="true">
+            Esperando acción...
+        </section>
+        
+        <div id="map"></div>
+    </main>
+
+    <script src="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
