@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Registro de Usuario | Mi Web</title> 
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a nuestra plataforma</h1> 
+        <p id="page-context" class="intro-text">
+            Regístrate rellenando el siguiente formulario para acceder a tu panel personalizado. 
+            Asegúrate de incluir tu nombre completo.
+        </p>
+    </header>
+
+    <main>
+        <img src="imagen.jpg" alt="Ilustración de bienvenida al usuario" class="hero-image">
+
+        <section class="form-section">
+            <form id="contact-form" class="contact-form" aria-describedby="page-context" novalidate>
+                <div class="form-group">
+                    <label for="user-name">Nombre completo:</label>
+                    
+                    <input 
+                        type="text" 
+                        id="user-name" 
+                        name="userName" 
+                        autocomplete="name"
+                        required 
+                        aria-required="true" 
+                        aria-invalid="false"
+                        aria-describedby="name-error"
+                        placeholder="Ej. Jane Doe"
+                    >
+                    <div id="name-error" class="error-feedback" aria-live="polite" aria-atomic="true"></div>
+                </div>
+                
+                <button type="submit" class="btn-primary">Registrarse</button>
+            </form>
+
+            <!-- Región viva dedicada a confirmaciones. Se mantiene separada del nodo de
+                 error para no mezclar semánticas opuestas (éxito vs. fallo) en un mismo
+                 contenedor: role="status" implica aria-live="polite", de modo que el
+                 lector anuncia el resultado sin interrumpir al usuario. -->
+            <div id="success-status" class="success-feedback" role="status"></div>
+        </section>
+
+        <div class="link-container">
+            <a href="#" 
+               id="services-link"
+               class="info-link disabled" 
+               aria-disabled="true" 
+               aria-describedby="tooltip-status">
+               Descubrir nuestros servicios
+            </a>
+            <span id="tooltip-status" class="tooltip-text" role="tooltip">Sección no disponible actualmente</span>
+        </div>
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

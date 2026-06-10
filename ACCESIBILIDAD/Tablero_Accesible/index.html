@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    lang="es-ES": declarar el idioma del documento es lo PRIMERO en accesibilidad.
+    Los lectores de pantalla eligen el motor de voz (sintetizador) según este
+    atributo: sin él, un texto en español puede leerse con fonética inglesa
+    y volverse ininteligible. También lo usan los traductores automáticos
+    y los correctores ortográficos del navegador.
+-->
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+
+    <!--
+        El viewport con initial-scale=1.0 garantiza que el zoom del usuario
+        funcione (WCAG 1.4.4 Cambio de tamaño del texto). Nunca añadir
+        user-scalable=no ni maximum-scale=1: bloquear el zoom es una de las
+        barreras de accesibilidad más graves en móvil.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Juego interactivo de tablero de colores, totalmente accesible para teclado y lectores de pantalla.">
+
+    <title>Tablero de Colores Accesible</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!--
+        defer descarga el script en paralelo pero lo ejecuta SOLO cuando el
+        DOM está completamente parseado. Esto permite que script.js arranque
+        el juego directamente, sin necesidad de escuchar DOMContentLoaded:
+        el navegador ya nos da esa garantía de orden.
+    -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!--
+        REGIÓN VIVA (live region): el canal de comunicación con el lector
+        de pantalla. Debe existir en el DOM desde la carga inicial; si se
+        crease dinámicamente justo antes de anunciar, muchos lectores de
+        pantalla la ignorarían (necesitan "registrarla" primero).
+
+        aria-live="polite" (y no "assertive"): polite espera a que el lector
+        termine la frase en curso antes de anunciar; assertive interrumpe
+        bruscamente y se reserva para avisos críticos (errores de formulario,
+        tiempo agotándose). El feedback de un juego no justifica interrumpir.
+
+        Está visualmente oculta con la clase .juego-lector-pantalla, pero
+        NUNCA con display:none o hidden: eso la sacaría también del árbol
+        de accesibilidad y los anuncios dejarían de funcionar.
+    -->
+    <div aria-live="polite" class="juego-lector-pantalla" id="juego-anunciador"></div>
+
+    <!--
+        Texto de ayuda referenciado por aria-describedby desde cada botón.
+        Patrón "descripción compartida": un único nodo de texto sirve a los
+        9 botones, en lugar de repetir la frase 9 veces en el DOM.
+        aria-label = QUÉ es el control; aria-describedby = CÓMO se usa.
+        El lector de pantalla lee primero el nombre y después, tras una
+        pausa, la descripción.
+    -->
+    <span id="juego-info-boton" class="juego-lector-pantalla">Presiona este cuadro para volverlo negro e inactivo.</span>
+
+    <!--
+        <main> define el landmark de contenido principal: permite a los
+        usuarios de lector de pantalla saltar directamente al contenido
+        con un solo atajo, sin recorrer toda la página.
+    -->
+    <main class="juego">
+        <!--
+            El h1 da nombre a la página Y al tablero (vía aria-labelledby).
+            Reutilizar el encabezado como etiqueta evita textos duplicados
+            que luego se desincronizan al editar uno y olvidar el otro.
+        -->
+        <h1 class="juego__titulo" id="juego-titulo">Juego del Tablero de Colores</h1>
+
+        <!--
+            Las instrucciones van en texto visible, no escondidas en ARIA:
+            benefician también a usuarios videntes de solo-teclado, a
+            personas con dificultades cognitivas y a cualquiera que llegue
+            por primera vez. Regla de oro: ARIA es el último recurso;
+            si algo puede ser HTML visible, mejor.
+        -->
+        <p class="juego__instrucciones">
+            Usa las <strong>flechas de dirección</strong> para moverte por el tablero y la <strong>barra espaciadora</strong> o <strong>Enter</strong> para pintar un cuadro de negro.
+        </p>
+
+        <!--
+            role="grid": widget compuesto bidimensional. Implica un contrato
+            con el usuario de lector de pantalla: navegación interna con
+            flechas (no con Tab) y UN solo tabstop para todo el conjunto
+            (patrón roving tabindex, gestionado en script.js).
+            La jerarquía obligatoria grid > row > gridcell se construye
+            dinámicamente; romperla haría que el lector anunciase mal las
+            coordenadas de fila/columna.
+        -->
+        <div class="juego__tablero"
+             role="grid"
+             aria-labelledby="juego-titulo"
+             id="juego-tablero">
+        </div>
+
+        <!--
+            Mensaje de victoria VISIBLE en la página, en lugar de alert():
+            alert() roba el foco, no se puede estilar, desaparece sin dejar
+            rastro y en algunos navegadores móviles se muestra de forma
+            inconsistente. Un elemento en el documento beneficia a todos:
+            los usuarios videntes lo ven, y el lector de pantalla lo
+            anuncia a través de la región viva (no automáticamente al
+            quitar hidden: cambiar la visibilidad de un nodo normal no
+            dispara anuncios, por eso el JS también llama a anunciar()).
+        -->
+        <p class="juego__resultado" id="juego-resultado" hidden>
+            🎉 ¡Fin del juego! Todos los cuadros están en negro.
+        </p>
+
+        <!--
+            Mejora progresiva: el tablero se genera por JavaScript, así que
+            sin JS la página quedaría en silencio con un hueco vacío.
+            <noscript> convierte ese fallo invisible en un mensaje claro.
+        -->
+        <noscript>
+            <p class="juego__aviso-js">
+                Este juego necesita JavaScript para funcionar. Actívalo en tu navegador para ver el tablero.
+            </p>
+        </noscript>
+    </main>
+
+</body>
+</html>

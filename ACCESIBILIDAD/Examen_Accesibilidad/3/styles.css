@@ -1,0 +1,166 @@
+:root {
+    --color-primary: #0056b3;
+    --color-primary-hover: #004494;
+    --color-disabled: #767676; /* Gris con contraste accesible 4.5:1 (WCAG AA) */
+    --color-focus: #ffaa00;
+    --color-text: #333333;
+    --color-bg: #fdfdfd;
+    --color-error: #d32f2f;
+    --color-success: #2e7d32; /* Verde con contraste >= 4.5:1 sobre --color-bg (WCAG AA) */
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+*:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+.intro-text {
+    font-size: 1.125rem;
+    color: #444444;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input[aria-invalid="true"] {
+    border-color: var(--color-error);
+    background-color: #fffaf9;
+}
+
+.error-feedback {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Confirmación de éxito. El color vive en la hoja de estilos (no se inyecta desde
+   JS) para mantener una única fuente de verdad visual y dejar al script solo la
+   responsabilidad de escribir el texto en la región viva. */
+.success-feedback {
+    color: var(--color-success);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* --- ESTILOS DEL ENLACE DESACTIVADO Y TOOLTIP --- */
+
+.link-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+.info-link {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* UX/a11y: Estilo gris desactivado sin romper eventos de ratón (no usar pointer-events: none) */
+.info-link.disabled {
+    color: var(--color-disabled);
+    cursor: not-allowed;
+    text-decoration: line-through; /* Ayuda visual extra para daltonismo */
+}
+
+/* Estructura base oculta del Tooltip */
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #222222;
+    color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.813rem;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+/* Flecha estética del tooltip */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #222222 transparent transparent transparent;
+}
+
+/* UX/a11y: Activación del tooltip por HOVER (ratón) y por FOCUS (teclado/lector de pantalla) */
+.info-link.disabled:hover + .tooltip-text,
+.info-link.disabled:focus-visible + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* a11y: Respeta la preferencia del sistema de movimiento reducido (WCAG 2.3.3).
+   El tooltip sigue mostrándose, pero sin transición ni desplazamiento vertical
+   animado: aparece de forma instantánea en su posición de reposo. */
+@media (prefers-reduced-motion: reduce) {
+    .tooltip-text {
+        transition: none;
+    }
+
+    .info-link.disabled:hover + .tooltip-text,
+    .info-link.disabled:focus-visible + .tooltip-text {
+        transform: translateX(-50%);
+    }
+}

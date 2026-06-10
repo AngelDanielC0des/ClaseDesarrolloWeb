@@ -1,0 +1,227 @@
+/* ============================================================
+   ESTILOS DEL JUEGO DEL TABLERO DE COLORES
+   Metodología BEM: .juego (bloque), .juego__x (elemento),
+   .juego__x--y (modificador). La especificidad se mantiene
+   plana (una clase = (0,1,0)), lo que hace el orden en cascada
+   predecible y evita la escalada de !important.
+   ============================================================ */
+
+/* --- Layout base --- */
+body {
+    margin: 0;
+    padding: 0;
+
+    /*
+       min-height (no height): una altura FIJA recorta el contenido
+       cuando no cabe (pantallas pequeñas en horizontal, zoom 200%
+       exigido por WCAG 1.4.4); min-height deja crecer la página y
+       aparece scroll de forma natural.
+
+       100svh (small viewport height) mide el viewport REAL en móvil
+       descontando la barra de URL dinámica; 100vh queda en la línea
+       anterior como fallback para navegadores antiguos (la cascada
+       descarta la unidad que no entiende y conserva la última válida).
+    */
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+
+    /*
+       system-ui usa la tipografía nativa del sistema operativo: es la
+       que el usuario ya conoce, está optimizada para su pantalla y
+       respeta sus ajustes de legibilidad.
+    */
+    font-family: system-ui, sans-serif;
+}
+
+/* --- Bloque principal: .juego --- */
+.juego {
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.juego__titulo {
+    font-size: 1.5rem; /* rem y no px: escala con el tamaño de fuente que el usuario configure en su navegador */
+    color: #333;       /* Contraste ~12.6:1 sobre #f9f9f9 — supera AAA (7:1) */
+    margin: 0 0 10px 0;
+}
+
+.juego__instrucciones {
+    font-size: 0.95rem;
+    color: #555;       /* Contraste ~7.5:1 sobre #fff — supera AA (4.5:1) y AAA */
+    line-height: 1.4;
+    margin: 0 0 25px 0;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.juego__tablero {
+    display: grid;
+
+    /*
+       FUENTE ÚNICA DE VERDAD para el tamaño de las celdas: solo el
+       grid define los 100px. Los botones miden 100% de su celda
+       (ver .juego__cuadrito), de modo que cambiar el tamaño del
+       tablero exige tocar UNA sola regla, no dos que pueden
+       desincronizarse.
+    */
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 8px;
+    justify-content: center;
+}
+
+.juego__fila {
+    /*
+       display: contents hace que el navegador trate los hijos de la
+       fila (las celdas) como hijos directos del grid para el LAYOUT,
+       sin eliminar el elemento del DOM ni del árbol de accesibilidad.
+       Así conservamos la jerarquía ARIA obligatoria grid > row >
+       gridcell y a la vez CSS Grid coloca las 9 celdas en la
+       cuadrícula 3x3 como si las filas no existieran.
+    */
+    display: contents;
+}
+
+.juego__cuadrito {
+    /*
+       100% en lugar de 100px: el botón llena su gridcell, que es
+       quien tiene el tamaño real. Ver comentario en .juego__tablero.
+    */
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+    border: 4px solid #000000;
+    border-radius: 8px;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 0;
+    transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+/* --- Modificadores de estado y color --- */
+.juego__cuadrito--blanco {
+    background-color: #ffffff;
+    color: #000000; /* Contraste 21:1 — el máximo posible */
+}
+
+.juego__cuadrito--rosa {
+    background-color: #ffb6c1; /* LightPink: contraste ~12:1 con texto negro, supera AAA */
+    color: #000000;
+}
+
+.juego__cuadrito--azul {
+    background-color: #0044cc; /* Contraste ~6.8:1 con texto blanco — supera AA (4.5:1) */
+    color: #ffffff;
+}
+
+/*
+   INDICADOR DE FOCO DE TECLADO (WCAG 2.4.7 Foco visible).
+   :focus-visible (y no :focus) muestra el anillo solo cuando el foco
+   llega por teclado, evitando el outline "fantasma" tras un clic de
+   ratón — que es justo el motivo por el que tantos desarrolladores
+   acaban escribiendo el catastrófico outline: none.
+*/
+.juego__cuadrito:focus-visible {
+    outline: 5px solid #0056b3; /* Contraste ~5.6:1 contra el fondo #f9f9f9 — supera el mínimo 3:1 que WCAG exige a los indicadores de foco */
+    outline-offset: 3px;
+    transform: scale(1.05);
+
+    /*
+       z-index SOLO funciona en elementos posicionados (o en ítems
+       directos de flex/grid). Este botón vive DENTRO de la gridcell,
+       no es ítem del grid, así que sin position: relative el z-index
+       se ignoraría en silencio y el cuadro ampliado podría quedar
+       pintado por debajo de sus vecinos posteriores en el DOM.
+    */
+    position: relative;
+    z-index: 2;
+}
+
+/*
+   ESTADO INACTIVO.
+   El selector .clase[atributo] suma (0,2,0) de especificidad: gana a
+   cualquier modificador de color (0,1,0) por cascada pura, sin
+   necesidad de !important. Usar el atributo ARIA como selector tiene
+   además un beneficio de robustez: el estilo visual y el estado
+   accesible no pueden desincronizarse jamás, porque son literalmente
+   el mismo dato.
+*/
+.juego__cuadrito[aria-disabled="true"] {
+    cursor: not-allowed;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* --- Mensajes de estado visibles --- */
+.juego__resultado {
+    margin: 20px 0 0 0;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #e6f4ea;
+    border-left: 4px solid #1e7e34;
+    color: #14532d; /* Contraste ~9:1 sobre #e6f4ea */
+    font-weight: bold;
+}
+
+.juego__aviso-js {
+    margin: 20px 0 0 0;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #fdecea;
+    border-left: 4px solid #b02a37;
+    color: #842029; /* Contraste ~8:1 sobre #fdecea */
+}
+
+/*
+   RESPETO A prefers-reduced-motion TAMBIÉN EN CSS.
+   El JavaScript ya desactiva el ciclo automático de colores, pero la
+   preferencia del usuario aplica a TODO movimiento: la escala del
+   foco y las transiciones también cuentan. Personas con trastornos
+   vestibulares pueden marearse incluso con micro-animaciones.
+   El foco sigue siendo perfectamente visible: el outline de 5px no
+   es una animación y se conserva intacto.
+*/
+@media (prefers-reduced-motion: reduce) {
+    .juego__cuadrito {
+        transition: none;
+    }
+
+    .juego__cuadrito:focus-visible {
+        transform: none;
+    }
+}
+
+/* --- Utilidad: ocultación visual accesible --- */
+/*
+   Patrón "visually hidden": el elemento desaparece de la pantalla
+   pero PERMANECE en el árbol de accesibilidad, al contrario que
+   display:none o visibility:hidden, que lo eliminan también para
+   los lectores de pantalla. Cada propiedad tiene su porqué:
+   - 1x1px + overflow/clip: lo reduce a un punto invisible.
+   - margin: -1px: compensa el píxel residual para que no afecte al layout.
+   - white-space: nowrap: evita que el texto se trocee en fragmentos
+     de 1px de ancho, lo que haría que algunos lectores de pantalla
+     leyeran las palabras separadas sin espacios.
+   - position: absolute: lo saca del flujo para que no deje hueco.
+*/
+.juego-lector-pantalla {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
