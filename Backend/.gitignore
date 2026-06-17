@@ -1,0 +1,36 @@
+# Workspace STS / Eclipse
+.metadata/
+
+# Compilados Java / Maven
+target/
+bin/
+
+#PROYECTOS excluidos
+documentos/
+gestoriaprofe/
+Servers/
+
+#Ejecutables java bytecodes
+*.class
+
+# Eclipse / STS dentro de proyectos
+.classpath
+.project
+.settings/
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Configuración local / secretos
+.env
+application-local.properties
+application-dev.properties
