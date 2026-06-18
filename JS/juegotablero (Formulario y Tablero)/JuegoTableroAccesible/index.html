@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>Tablero de colores</title>
+</head>
+
+<body>
+    <header>
+        <h1>Tablero de Colores</h1>
+        <p id="instrucciones">
+            Instrucciones: Pulsa sobre un cuadro para cambiarlo de su color original al negro
+        </p>
+    </header>
+    <main>
+        <div id="tablero" aria-label="Tablero de juego de 3 por 3 cuadros" aria-describedby="instrucciones">
+        </div>
+        <p id="estadoTablero" aria-live="polite">
+            <!-- <em>El tablero tiene 0 cuadros negros de 9</em> -->
+            El tablero tiene <em><span id="contador">0</span></em>cuadros negros de 9
+        </p>
+    </main>
+</body>
+
+</html>

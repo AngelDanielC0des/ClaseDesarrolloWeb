@@ -1,0 +1,88 @@
+/* Estilos base para centrar el juego en pantalla */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    text-align: center
+}
+
+/* Tarjeta contenedora principal */
+main {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+}
+
+h1 {
+    margin-top: 0;
+    color: #1a1a1a;
+    font-size: 1.6rem;
+}
+
+#instrucciones {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* 🧩 EL TABLERO (Transformamos los botones en un bloque bidimensional) */
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 12px;                            /* Espaciado elegante entre cuadros */
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+/* 🎴 LOS CUADRADOS INDIVIDULES */
+.cuadrito {
+    aspect-ratio: 1 / 1;                  /* Fuerza a que siempre sea un cuadrado perfecto */
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+/* Animación sutil al pasar el mouse por encima */
+.cuadrito:hover {
+    transform: scale(1.04);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 6px 12px rgba(0,0,0,0.1);
+}
+.cuadrito:focus {
+    outline: none; 
+}
+
+.cuadrito:focus-visible {
+    outline: 4px solid #ff9800;          /* Anillo naranja de alta visibilidad */
+    outline-offset: 3px;                 /* Separación del borde para que se note más */
+}
+
+/* Texto de estado inferior (aria-live) */
+#estadoTablero {
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 25px;
+    color: #222;
+}
+
+/* Resalte visual para el número de cuadros negros */
+#contador {
+    background-color: #222;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    font-variant-numeric: tabular-nums; /* Evita que el texto baile al cambiar de número */
+}
