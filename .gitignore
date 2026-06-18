@@ -1,16 +1,23 @@
 # Workspace STS / Eclipse
 .metadata/
 
-# Compilados Java / Maven
+# Compilados Java / Maven / Gradle
 target/
 bin/
+build/
 
-#PROYECTOS excluidos
+# PROYECTOS excluidos
 documentos/
 gestoriaprofe/
+Servidores/
 Servers/
 
-#Ejecutables java bytecodes
+# Node.js y Frontend
+node_modules/
+npm-debug.log
+pnpm-debug.log
+
+# Ejecutables java bytecodes
 *.class
 
 # Eclipse / STS dentro de proyectos
