@@ -1,5 +1,6 @@
 
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,6 +29,14 @@ public class servletIMC extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//  actualizar la cuenta del contexto de cuántas veces han llamado a sevletIMC
+		ServletContext servletContext = getServletContext();
+		Object  nveces =  servletContext.getAttribute("numero_veces");
+		int numveces = (int) nveces;
+		numveces ++;
+		System.out.println("Se ha invocado a CalculoIMV" + numveces + "veces.");
+		servletContext.setAttribute("numero_veces", nveces);
+		
 		
 		String peso = request.getParameter("peso");
 		String altura = request.getParameter("altura");
@@ -66,7 +75,7 @@ public class servletIMC extends HttpServlet {
 				// OBESO
 				imc_nominal = "OBESO";
 				response.setContentType("text/plain");
-				ImcRespuataNueva imcRespuestaNueva = new ImcRespuataNueva(pesoParseado,alturaParseada, imc_nominal, imc_numerico); 
+				ImcRespuataNueva imcRespuestaNueva = new ImcRespuataNueva (pesoParseado,alturaParseada, imc_nominal, imc_numerico); 
 				response.getWriter().append("Usted esta " + imc_nominal);
 				}
 			// INFORMAR
