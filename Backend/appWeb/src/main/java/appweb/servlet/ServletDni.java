@@ -7,61 +7,66 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class ServletDni
- */
-
 @WebServlet("/ServletDni")
 public class ServletDni extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ServletDni() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		String tipoDni = request.getParameter("tipoDocumento");
 		String numeroDni = request.getParameter("numeroDni");
-		if (numeroDni != null) {
-			char letraDevuelta = ' ';
-			final String SECUENCIA_LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
-			int numeroDniparseado = 0;
+
+		response.setContentType("text/plain;charset=UTF-8");
+
+		// Validar que el parámetro no venga vacío
+		if (numeroDni == null || numeroDni.trim().isEmpty()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().append("Se esperaba un parámetro numeroDni");
+			return; // Terminamos la ejecución aquí
+		}
+
+		// CORRECCIÓN: Separamos la lógica usando .equals()
+		if ("Nie".equals(tipoDni)) {
 			try {
-				numeroDniparseado = Integer.parseInt(numeroDni);
-				int resto = numeroDniparseado % 23;
-				letraDevuelta = SECUENCIA_LETRAS_DNI.charAt(resto);
-				response.getWriter().append("Su DNI con letra es:" + numeroDni + "-" + letraDevuelta);
+				// Suponemos que el input es completo, ej: "Y1234567"
+				char prefijo = Character.toUpperCase(numeroDni.charAt(0));
+				int numero = Integer.parseInt(numeroDni.substring(1));
+
+				// Instanciamos y asignamos los valores requeridos por la clase Nie
+				Nie nie = new Nie();
+				nie.prefijo = prefijo;
+				nie.numero = numero;
+
+				char letraCalculada = nie.calcularLetra();
+				response.getWriter().append("Su NIE con letra es: " + numeroDni.toUpperCase() + "-" + letraCalculada);
+
+			} catch (Exception e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().append("Formato de NIE incorrecto. Debe ser una letra seguida de números (Ej: Y1234567).");
+			}
+		} else {
+			// Caso por defecto: DNI tradicional
+			try {
+				int numeroDniparseado = Integer.parseInt(numeroDni);
+				
+				// Aprovechamos la propia clase Dni que ya calcula la letra en su lógica
+				Dni dni = new Dni(numeroDniparseado);
+				response.getWriter().append("Su DNI con letra es: " + numeroDniparseado + "-" + dni.calcularLetra());
 
 			} catch (NumberFormatException e) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().append("No ha introduccido un número");
-			
+				response.getWriter().append("No ha introducido un número de DNI válido.");
 			}
-
-		} else {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().append("Se esperaba un parámetro numero");
 		}
-		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
