@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #eef2f7;
+    color: #222222;
+}
+
+.contenedor-login {
+    width: 100%;
+    padding: 20px;
+}
+
+.tarjeta-login {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+
+    padding: 32px;
+
+    background-color: white;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta-login h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+
+    text-align: center;
+    font-size: 28px;
+}
+
+.descripcion {
+    margin-top: 0;
+    margin-bottom: 28px;
+
+    text-align: center;
+    color: #666666;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+.campo input {
+    width: 100%;
+    padding: 12px;
+
+    font-size: 16px;
+
+    border: 1px solid #bbbbbb;
+    border-radius: 6px;
+}
+
+.campo input:focus {
+    outline: 3px solid rgba(41, 98, 255, 0.25);
+    border-color: #2962ff;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: white;
+    background-color: #2962ff;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1746c7;
+}
+
+button:focus {
+    outline: 3px solid rgba(41, 98, 255, 0.35);
+}
+
+.mensaje-error {
+    padding: 10px;
+    margin-bottom: 18px;
+
+    color: #8b0000;
+    background-color: #ffe3e3;
+
+    border: 1px solid #d00000;
+    border-radius: 6px;
+}
+
+.oculto {
+    display: none;
+}
