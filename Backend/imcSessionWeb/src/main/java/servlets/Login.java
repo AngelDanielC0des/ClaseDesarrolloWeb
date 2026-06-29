@@ -1,15 +1,16 @@
 package servlets;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modelo.Usuario;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Servlet implementation class Login
@@ -18,52 +19,51 @@ import java.util.Map;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	// Declaramos el mapa de usuarios
-	private Map<String, String> usuarios = new HashMap<>();
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Login() {
-		super();
-		
-		usuarios.put("angel", "danieldc");
-		
-	}
-	
-	private boolean existeUsuario(String usuario, String password) {
-		
-		boolean existe = false;
-		ServletContext servletContext = this.getServletContext();
-		ArrayList<Usuario> listaUsuarios = (ArrayList<Uusario>) servletContext.getAttribyte("listaUsuarios")
-		
-		servletContext.getAttrubute()
-		return existe; // El usuario no existe o la contraseña no coincide
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Login() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+    
+    private boolean existeUsuario (String usuario, String password)
+    {
+    		boolean existe = false;
+    			
+    			//leo el contexto, la lista y miro si este usuario está
+    			ServletContext servletContext = this.getServletContext();
+    			ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) servletContext.getAttribute("listaUsuarios");
+    			Usuario usuarioRecibido = new Usuario(usuario, password);
+    			existe = listaUsuarios.contains(usuarioRecibido);
+    		
+    		return existe;
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	
+		//leer el usuario y contraseña enviados por el cliente
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		
-		if (existeUsuario(usuario, password)) {
-			HttpSession sesion = request.getSession();
-			System.out.println("Sesión nueva creada " + sesion.getId() + " " + sesion);
-			response.sendRedirect("imc.html");
-			return; // ⚠️ CORRECCIÓN CRUCIAL: Detiene la ejecución aquí tras redirigir.
-		}
-		else {
-			response.sendRedirect("error-login.html");
-			System.out.println("Error en el proceso de login");
-		}
+		System.out.println("El usuario es " + usuario + " y su contraseña " + password);
 		
-		// Este método solo se ejecutará si el "if" de arriba fue falso
-		doGet(request, response);
+		//validar, ver si existe en mi lista de usuarios. De momento suponemos que sí
+		if (existeUsuario(usuario, password)) {
+			HttpSession sesion =  request.getSession();
+			System.out.println("Sesión nueva creada " + sesion.getId() + " "+sesion);
+			//le envío a la página del imc
+			response.sendRedirect("imc.html");
+		} else {
+			System.out.println("El usuario No existe");
+			//TODO redirigir página de error
+			response.sendRedirect("error-login.html");
+		}
+	
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Aquí va la lógica si acceden al servlet por GET (o puedes dejarlo vacío)
-	}
 }

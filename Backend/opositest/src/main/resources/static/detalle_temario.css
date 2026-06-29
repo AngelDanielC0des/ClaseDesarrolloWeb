@@ -1,0 +1,25 @@
+table {
+    border-collapse: collapse;
+    width: 70vw;
+    margin: 0 auto;
+}
+
+caption {
+    margin: 12px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+th, td {
+    border: 2px solid salmon;
+}
+
+tbody tr td:nth-child(1)
+{
+    text-align: center;
+}
+
+tbody tr td:nth-child(3)
+{
+    text-align: center;
+}

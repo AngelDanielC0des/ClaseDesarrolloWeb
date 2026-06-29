@@ -1,0 +1,213 @@
+<!-- TODO: 
+
+modificad la página, añadiendo una tabla
+para que cuando el usuario clique en el elmento
+etiquetas básicas de la sección html, le lleve
+a un tabla con 2 columnas:
+
+1 columna para el nombre de la etiqueta
+2 columna para la descripción de la etiqueta
+
+elegid 10 etiquetas, las que más os gusten
+
+la tabla la podéis hacer como una sección nueva
+de este página o abridla en una página nueva
+
+
+
+-->
+<!DOCTYPE html>
+<!-- idioma de la página -->
+<html lang='es'>
+<!-- sección head, cabecefra, información de contro, descripción, archivos css, js -->
+
+<head>
+    <!-- charset tabla de equivalencia símbolos y números -->
+    <meta charset='utf-8'>
+    <!-- descripción del contenido de la página -->
+    <meta name="description" content="Esta página, contiene el temario del Curso de Apps de Web de la Fundación Once">
+    <!-- título que aparece en la pestaña del navegador -->
+    <title>Primera práctica curso web</title>
+    <!-- ruta relativa (en el mismo directorio) -->
+    <link rel='stylesheet' href='css/main.css'>
+    <!-- favicon -->
+    <link rel="icon" href="favicon.ico">
+    <!-- defino un nuevo fichero javascript -->
+
+    <!-- la sección de estilos para "maquillar a cada etiqueta" CSS interno -->
+    <!-- para referirme a las etiquetas y poder aplicarles un estilo
+     necesito seleccionarlas. Existen los selectores para ello -->
+    <!-- 
+    <style>
+        /* h1 es el selector por el nombre la etiqueta */
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        h2 {
+            color:chocolate ;
+            text-align: left;
+        }
+        /* # es el selector por el id la etiqueta */
+        #subtitulo {
+            text-align: center;
+        }
+        /*las otras p's, las quiero en verde oscuro
+        con . selecciono a todas los elementos con esa clase*/
+        .description {
+            color: darkgreen;
+        }
+
+    </style>-->
+</head>
+
+<!-- sección visible dentro de la página -->
+<body>
+
+    <!-- header cabecera principal de la página -->
+    <header>
+        <!-- h1 tiene que haber solo uno por página: título principal -->
+         <!-- si uso style dentro del elemento, estoy haciendo CSS en línea -->
+        <!-- <h1 style="color: blue; text-align: center;">Curso de HTML y CSS</h1> -->
+        <h1>Curso de HTML y CSS</h1>
+        <p id="subtitulo">VAMOS A HACER PÁGIANAS WEB CHULAS :) </p>
+    </header>
+
+    <!-- índice de navegación interna, menú -->
+    <nav>
+        <h2>ÍNDICE DE CONTENIDOS</h2>
+        <!-- unordered list lista desordenada -->
+        <ul>
+            <!-- list item -->
+            <li>
+                <a href="#seccion-html"> HTML</a>
+            </li>
+            <li>
+                <a href="#seccion-css"> CSS</a>
+            </li>
+            <li>
+                <a href="#seccion-js"> JS</a>
+            </li>
+            <li>
+                <a href="#seccion-java"> JAVA</a>
+            </li>
+            <li>
+                <a href="#seccion-base-datos"> MYSQL</a>
+            </li>
+
+        </ul>
+    </nav>
+
+
+    <!-- contenido principal -->
+    <main>
+
+        <!-- sección html -->
+        <section id="seccion-html">
+            <h2>1 HTML</h2>
+            <!-- esto es una ruta absoluta -->
+
+            <p class="description">HTML creamos la estructura de páginas web</p>
+            <img src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png"
+                alt="Icono de Firefox">
+            <div id="lista-html">
+                <ol>
+                    <li>ESTRUCTURA DE UNA WEB</li>
+                    <li><a href="detalle_temario.html#tablahtmlbasica">ETIQUETAS BÁSICAS</a></li>
+                    <li>ENLACES</li>
+                    <li>RUTAS RELATIVAS VS RUTAS ABSOLUTAS</li>
+                </ol>
+            </div>
+
+
+        </section>
+
+        <!-- sección css -->
+        <section id="seccion-css">
+            <h2>2 CSS</h2>
+            <p class="description">Damos estilo a nuestras páginas</p>
+            <!-- esto es una ruta relativa estamos en el mismo directorio -->
+            <img src="img/css.png" alt="Imagen CSS">
+            <div id="lista-css">
+                <ol>
+                    <li>ELEMENTOS DE LÍNEA Y BLOQUE</li>
+                    <li>SELECTORES</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- sección js -->
+        <section id="seccion-js">
+            <h2>3 JAVASCRIPT (JS)</h2>
+            <p class="description">Con JS, damos "vida" a la página</p>
+            <!-- esto es una ruta relativa -->
+            <img src="img/js.png" alt="Icono de Javascript">
+            <div id="lista-js">
+                <ol>
+                    <li>SINTAXIS BÁSICA</li>
+                    <li>SINTAXIS AVANZADA</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- sección html -->
+        <section id="seccion-java">
+            <h2>4 JAVA</h2>
+            <p class="description">Con Java, programamos procesos en el servidor</p>
+            <!-- esto es una ruta absoluta -->
+            <img src="img/java.png" alt="Icono de Java">
+            <div id="lista-java">
+                <ol>
+                    <li>SINTAXIS BÁSICA</li>
+                    <li>SINTAXIS AVANZADA</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- sección html -->
+        <section id="seccion-base-datos">
+            <h2>5 MYSQL</h2>
+            <p class="description">Con MYSQL, guardamos los datos de la aplicación web</p>
+            <!-- esto es una ruta absoluta -->
+            <img src="img/basedatos.jpg" alt="Icono de Mysql">
+            <div id="lista-bd">
+                <ol>
+                    <li>TABLAS</li>
+                    <li>CLAVES PRIMARIAS</li>
+                    <li>USUARIOS</li>
+                </ol>
+            </div>
+        </section>
+</main>
+
+
+       <footer>  
+        <div id="seccion-enlaces">
+            <h2>ENLACES EXTERNOS</h2>
+            <ul>
+                <li>
+                    <!-- con target="-blank" el navegador, me abre el enlace en otra pestaña-->
+                    <a href="https://www.w3schools.com/html/default.asp" target="_blank">Enlace a W3 schools</a>
+                </li>
+                <li>
+                    <a href="https://developer.mozilla.org/es/docs/Web/HTML#tutoriales_para_principiantes"
+                        target="_blank">Enlace a Mozilla Developer Network MDN</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Valexx55/f11web" target="_blank">Enlace al repo del curso</a>
+                </li>
+            </ul>
+        </div>
+
+    
+
+    <!-- pie de página -->
+    
+        <p>CURSO DE APPS WEB - Fundación Once</p>
+     </footer>
+
+<script src="js/index.js" defer></script>
+
+</body>
+
+</html>

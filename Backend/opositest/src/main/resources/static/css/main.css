@@ -1,0 +1,106 @@
+/* 1. RESETEO UNIVERSAL: Evita que el padding, border y márgenes del navegador rompan el 100vh */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. CONFIGURACIÓN DEL BODY: Ocupa exactamente el alto de la pantalla y distribuye el contenido */
+body {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden; /* Evita por completo la barra de desplazamiento */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre header/h1, main y footer */
+    font-family: sans-serif; /* Opcional: una fuente más limpia */
+}
+
+/* 3. COMPONENTES */
+
+h1 {
+    color: blue;
+    text-align: center;
+    background-color: white;
+
+    width: 400px;
+    height: 150px; /* Ajustado para dar espacio al padding interior */
+    margin: 15px auto; /* Reducido para que no empuje el diseño hacia abajo */
+    padding: 20px; /* Reducido para que quepa bien dentro de los 100vh */
+    border: 5px solid black;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centra el bloque de tarjetas en la pantalla */
+    align-items: center;
+    flex-grow: 1;
+    gap: 15px; /* Crea una separación limpia y uniforme de 15px entre cada tarjeta */
+}
+
+nav {
+    background-color: coral;
+    padding: 10px;
+    border-radius: 50px;
+    width: fit-content;
+    margin: 10px auto; /* Reducido */
+}
+
+nav ul {
+    list-style: none; /* Quita los puntos por defecto */
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+#subtitulo {
+    text-align: center;
+}
+
+.description {
+    color: white;
+}
+
+section {
+    background-color: cornflowerblue;
+    text-align: center;
+    padding: 20px 10px; /* Añadimos algo de padding a los lados */
+    
+    /* SOLUCIÓN FLEXBOX: */
+    flex: 1;            /* Obliga a todas las tarjetas a repartirse el espacio en partes exactamente iguales */
+    max-width: 250px;   /* Ajusta este valor al ancho que quieras que tengan como máximo */
+    min-width: 0;       /* Permite que la tarjeta se encoja ignorando el tamaño del texto largo */
+    
+    /* SOLUCIÓN DE TEXTO: */
+    word-wrap: break-word; /* Si una palabra es extra larga, se dividirá en la siguiente línea */
+}
+
+section img {
+    width: 180px;
+    height: 180px;
+}
+
+ol {
+    list-style: none;
+}
+
+#seccion-enlaces {
+    text-align: center;
+}
+
+#seccion-enlaces ul {
+    list-style: none;
+}
+
+/* 4. FOOTER: Ahora se queda abajo de forma natural sin necesidad de los 300px de margen */
+footer {
+    margin: 0 auto; 
+    width: 100%;
+    text-align: center;
+    background-color: gray;
+    padding: 20px;
+}
