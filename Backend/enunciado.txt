@@ -1,3 +1,4 @@
+log: https://docs.spring.io/spring-boot/how-to/logging.html
 El objetivo de esta práctica es crear un servicio web REST con Spring Boot que permita simular el precio anual de un seguro de coche.
 
 	La aplicación recibirá unos datos del vehículo y del conductor, aplicará una serie de reglas de cálculo sencillas y devolverá una respuesta con la prima anual estimada.

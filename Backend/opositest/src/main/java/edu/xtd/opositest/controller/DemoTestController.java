@@ -16,7 +16,10 @@ import edu.xtd.opositest.modelo.ImcResultado;
 import edu.xtd.opositest.modelo.Test;
 import edu.xtd.opositest.service.DemoService;
 import jakarta.validation.Valid;
+import thecom.angel.controller.Controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,7 +36,7 @@ public class DemoTestController {
 	
 	@Autowired
 	DemoService demoService;
-	
+	 Logger logger = LoggerFactory.getLogger(DemoTestController.class);
 /* 	final DemoService demoService;
 
 	DemoTestController(DemoService demoService) {
