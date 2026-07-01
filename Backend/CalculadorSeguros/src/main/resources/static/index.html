@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Calculadora de pólizas de seguros (hogar, vida, salud) con API REST en Spring Boot.">
+    <meta name="color-scheme" content="light">
+    <title>Calculador de Pólizas</title>
+    <!-- Favicon inline (gato emoji) para evitar una petición extra a /favicon.ico -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <noscript>
+        <p style="padding:1rem;background:#fee;border:1px solid #c00;border-radius:6px;">
+            Esta aplicación necesita JavaScript habilitado para funcionar.
+        </p>
+    </noscript>
+
+    <header>
+        <h1>Calculador de Pólizas de Seguros</h1>
+        <p class="subtitle">API REST en Spring Boot · Java 21 · <a href="https://http.cat" target="_blank" rel="noopener">http.cat</a> en errores</p>
+    </header>
+
+    <main>
+        <form class="card" id="form-hogar" novalidate>
+            <h2>Seguro de Hogar <span class="endpoint">POST /demo/hogar</span></h2>
+
+            <div class="field">
+                <label for="hogar-metrosCuadrados">metrosCuadrados</label>
+                <input type="number" id="hogar-metrosCuadrados"
+                       data-form="hogar" data-field="metrosCuadrados"
+                       value="80" min="20" step="0.1" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field">
+                <label for="hogar-anioConstruccion">anioConstruccion</label>
+                <input type="number" id="hogar-anioConstruccion"
+                       data-form="hogar" data-field="anioConstruccion"
+                       value="1995" min="1900" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field">
+                <label for="hogar-valorMercado">valorMercado</label>
+                <input type="number" id="hogar-valorMercado"
+                       data-form="hogar" data-field="valorMercado"
+                       value="150000" min="0.01" step="0.01" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field">
+                <label for="hogar-zona">zona</label>
+                <input type="text" id="hogar-zona"
+                       data-form="hogar" data-field="zona"
+                       value="centro" required>
+                <span class="error-msg"></span>
+            </div>
+            <button type="submit">Calcular</button>
+        </form>
+
+        <form class="card" id="form-vida" novalidate>
+            <h2>Seguro de Vida <span class="endpoint">POST /demo/vida</span></h2>
+
+            <div class="field">
+                <label for="vida-edadAsegurado">edadAsegurado</label>
+                <input type="number" id="vida-edadAsegurado"
+                       data-form="vida" data-field="edadAsegurado"
+                       value="35" min="18" max="90" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field">
+                <label for="vida-capitalSolicitado">capitalSolicitado</label>
+                <input type="number" id="vida-capitalSolicitado"
+                       data-form="vida" data-field="capitalSolicitado"
+                       value="100000" min="0.01" step="0.01" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field checkbox-field">
+                <label for="vida-esFumador">esFumador</label>
+                <input type="checkbox" id="vida-esFumador"
+                       data-form="vida" data-field="esFumador">
+                <span class="error-msg"></span>
+            </div>
+            <div class="field checkbox-field">
+                <label for="vida-esDeportista">esDeportista</label>
+                <input type="checkbox" id="vida-esDeportista"
+                       data-form="vida" data-field="esDeportista" checked>
+                <span class="error-msg"></span>
+            </div>
+            <button type="submit">Calcular</button>
+        </form>
+
+        <form class="card" id="form-salud" novalidate>
+            <h2>Seguro de Salud <span class="endpoint">POST /demo/salud</span></h2>
+
+            <div class="field">
+                <label for="salud-edadAsegurado">edadAsegurado</label>
+                <input type="number" id="salud-edadAsegurado"
+                       data-form="salud" data-field="edadAsegurado"
+                       value="30" min="0" max="120" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field">
+                <label for="salud-copagoSeleccionado">copagoSeleccionado</label>
+                <input type="number" id="salud-copagoSeleccionado"
+                       data-form="salud" data-field="copagoSeleccionado"
+                       value="0" min="0" step="0.01" required>
+                <span class="error-msg"></span>
+            </div>
+            <div class="field checkbox-field">
+                <label for="salud-coberturaDental">coberturaDental</label>
+                <input type="checkbox" id="salud-coberturaDental"
+                       data-form="salud" data-field="coberturaDental">
+                <span class="error-msg"></span>
+            </div>
+            <div class="field checkbox-field">
+                <label for="salud-coberturaFamiliar">coberturaFamiliar</label>
+                <input type="checkbox" id="salud-coberturaFamiliar"
+                       data-form="salud" data-field="coberturaFamiliar" checked>
+                <span class="error-msg"></span>
+            </div>
+            <button type="submit">Calcular</button>
+        </form>
+
+        <section class="card respuesta" aria-labelledby="respuesta-titulo">
+            <h2 id="respuesta-titulo">Respuesta</h2>
+            <p id="correlacion">Correlation ID: —</p>
+            <pre id="salida">Pulsa "Calcular" en cualquier formulario…</pre>
+
+            <div id="cat" class="cat hidden" aria-live="polite">
+                <img id="cat-img" alt="">
+                <p class="cat-caption"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Calculador de Pólizas &middot; Proyecto académico Spring Boot 4.1.0 + Java 21</p>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+# =============================================================
+#  Calculador de Pólizas de Seguros - .gitignore
+# =============================================================
+#  Política:
+#    - Se suben:   código fuente (.java, .js, .css, .html),
+#                  configuración de build (pom.xml, mvnw,
+#                  .mvn/wrapper/*), documentación (.md).
+#    - NO se suben: artefactos de compilación (target/, *.class,
+#                  *.jar), metadatos de IDE, archivos del SO,
+#                  logs, configuración local con secretos.
+# =============================================================
+
+# ---- Maven / build ----
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# El wrapper de Maven SÍ se sube (es necesario para ./mvnw)
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# ---- IDE: Eclipse / Spring Tools Suite ----
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+bin/
+
+# ---- IDE: IntelliJ IDEA ----
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ---- IDE: NetBeans ----
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ---- IDE: VS Code ----
+.vscode/
+
+# ---- Sistema operativo ----
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# Linux
+*~
+
+# ---- Editores / backups ----
+*.swp
+*.swo
+*~
+.vs/
+
+# ---- Logs ----
+*.log
+logs/
+spring.log
+
+# ---- Configuración local / secretos ----
+# (defensa por si en el futuro se añaden .properties o .env
+#  con credenciales, URLs locales, etc.)
+.env
+.env.local
+*.env
+application-local.properties
+application-local.yml
+application-*-local.properties
+application-*-local.yml
+
+# ---- Gradle (por si se migra el build en el futuro) ----
+.gradle/

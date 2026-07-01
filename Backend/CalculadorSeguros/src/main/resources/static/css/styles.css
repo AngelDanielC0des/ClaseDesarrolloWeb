@@ -1,0 +1,258 @@
+/* =============================================================
+   Calculador de Pólizas — estilos
+   -------------------------------------------------------------
+   - Mobile-first: el layout base es para móvil; los breakpoint
+     siguientes (min-width) van ENGRANDANDO el diseño.
+   - Custom properties en :root para colores y tokens reutilizables.
+   - Sin frameworks (CSS puro), sin preprocesador.
+   ============================================================= */
+
+:root {
+    --color-fondo: #f5f7fa;
+    --color-card: #ffffff;
+    --color-texto: #1f2937;
+    --color-texto-suave: #6b7280;
+    --color-primario: #2563eb;
+    --color-primario-hover: #1d4ed8;
+    --color-exito: #16a34a;
+    --color-error: #dc2626;
+    --color-fondo-error: #fef2f2;
+    --color-borde: #d1d5db;
+    --color-borde-focus: #2563eb;
+    --radio: 8px;
+    --sombra: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --sombra-focus: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    --espaciado: 1rem;
+    /* Touch target mínimo recomendado (Apple HIG / Material) */
+    --touch-min: 44px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem var(--espaciado) 2rem;
+    line-height: 1.5;
+}
+
+header { margin-bottom: 1.5rem; }
+footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-borde);
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.subtitle {
+    margin: 0;
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+}
+.subtitle a { color: var(--color-primario); text-decoration: none; }
+.subtitle a:hover { text-decoration: underline; }
+
+h2 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+main { display: block; }
+
+.card {
+    background: var(--color-card);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.endpoint {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: 0.8rem;
+    background: #f3f4f6;
+    color: var(--color-texto-suave);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+/* ----- Field (label + input + error) -----
+   Mobile-first: el label va ENCIMA del input (flex-direction:column).
+   En pantallas grandes, label a la izquierda con ancho fijo. */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin: 0.75rem 0;
+    gap: 0.25rem;
+}
+
+.field label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+}
+
+.field input[type="number"],
+.field input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    min-height: var(--touch-min);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    font: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* :focus-visible es como :focus pero solo se activa con teclado,
+   evitando el "outline" en clicks de ratón. */
+.field input[type="number"]:focus-visible,
+.field input[type="text"]:focus-visible {
+    outline: none;
+    border-color: var(--color-borde-focus);
+    box-shadow: var(--sombra-focus);
+}
+
+.field input.input-error {
+    border-color: var(--color-error);
+    background: var(--color-fondo-error);
+}
+
+.error-msg {
+    color: var(--color-error);
+    font-size: 0.85rem;
+    min-height: 1.2em;
+}
+
+/* Checkbox field: layout horizontal incluso en móvil */
+.checkbox-field {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+.checkbox-field label { flex: 0 0 auto; color: var(--color-texto); }
+.checkbox-field input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 1.3rem;
+    height: 1.3rem;
+    cursor: pointer;
+    accent-color: var(--color-primario);
+}
+
+button {
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: var(--radio);
+    padding: 0.7rem 1.5rem;
+    min-height: var(--touch-min);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.15s, opacity 0.15s, transform 0.05s;
+}
+
+button:hover:not(:disabled) { background: var(--color-primario-hover); }
+button:active:not(:disabled) { transform: scale(0.98); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+button:focus-visible {
+    outline: none;
+    box-shadow: var(--sombra-focus);
+}
+
+#salida {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: var(--radio);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    font-family: ui-monospace, monospace;
+    border-left: 4px solid transparent;
+    margin: 0.5rem 0 0;
+}
+
+#salida.ok { border-left-color: var(--color-exito); }
+#salida.err { border-left-color: var(--color-error); }
+
+#correlacion {
+    font-family: ui-monospace, monospace;
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+    margin: 0.75rem 0 0;
+}
+
+.cat {
+    text-align: center;
+    margin: 1rem 0 0;
+    /* Animación sutil al aparecer */
+    animation: fadeIn 0.3s ease-out;
+}
+.cat.hidden { display: none; }
+
+.cat img {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    background: var(--color-card);
+}
+
+.cat-caption {
+    font-family: ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--color-texto-suave);
+    margin: 0.5rem 0 0;
+    word-break: break-all;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================================
+   Breakpoint tablet/desktop
+   -------------------------------------------------------------
+   A partir de 600px, label a la izquierda y el input crece.
+   ============================================================= */
+@media (min-width: 600px) {
+    h1 { font-size: 1.75rem; }
+    .card { padding: 1.5rem 2rem; }
+    .field {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .field label {
+        flex: 0 0 200px;
+        color: var(--color-texto);
+    }
+    .field input[type="number"],
+    .field input[type="text"] { width: auto; }
+    .error-msg { padding-left: 200px; }
+    .checkbox-field { padding-left: 200px; }
+    .cat img { max-width: 280px; }
+}
+
+/* Accesibilidad: respetar la preferencia del usuario de reducir
+   el movimiento (importante para personas con vértigo, etc.). */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
