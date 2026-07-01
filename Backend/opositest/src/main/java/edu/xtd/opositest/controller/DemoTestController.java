@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.xtd.opositest.modelo.ImcEntrada;
 import edu.xtd.opositest.modelo.ImcResultado;
 import edu.xtd.opositest.modelo.Test;
+import edu.xtd.opositest.service.DemoService;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,19 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/demo") // TODAS LAS PETICIONES A /demo, SON PARA ESTA CLASE
 public class DemoTestController {
+	
+	@Autowired
+	DemoService demoService;
+	
+/* 	final DemoService demoService;
+
+	DemoTestController(DemoService demoService) {
+		this.demoService = demoService;
+	}*/
+	
+	
+	
+	
 	@GetMapping("/saludo") // UNA PETICIÓN GET a /demo/saludo VENDRÁ AQUÍ
 	public String saludo() {
 		String saludo = "HOLA";
@@ -63,31 +78,9 @@ public class DemoTestController {
 
 	@PostMapping("/calcularImc")
 	public ImcResultado calcularImc(@Valid @RequestBody ImcEntrada imcentrada) {
-
-		ImcResultado imcResultado = null;
-		String imcNominal = null;
-
-		float imcnum = imcentrada.peso() / (imcentrada.altura() * imcentrada.altura());
-
-		 if (imcnum < 18.5) {
-		        imcNominal = "Bajo peso";
-		    } else if (imcnum >= 18.5 && imcnum < 25.0) {
-		        imcNominal = "Normal";
-		    } else if (imcnum >= 25.0 && imcnum < 30.0) {
-		        imcNominal = "Sobrepeso";
-		    } else if (imcnum >= 30.0 && imcnum < 35.0) {
-		        imcNominal = "Obesidad clase I";
-		    } else if (imcnum >= 35.0 && imcnum < 40.0) {
-		        imcNominal = "Obesidad clase II";
-		    } else {
-		        imcNominal = "Obesidad clase III";
-		    }
-
 		
-		imcResultado = new ImcResultado(imcentrada.peso(), imcentrada.altura(), imcnum, imcNominal);
-
-		return imcResultado;
-		// return resImc;
+		return this.demoService.calcularImc(imcentrada);
+		
 	}
 	// Menos de 18,5Peso normal: De 18,5 a 24,9Sobrepeso: De 25 a 29,9Obesidad: 30 o
 	// más

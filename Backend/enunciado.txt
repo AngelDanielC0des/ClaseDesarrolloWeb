@@ -1,0 +1,144 @@
+El objetivo de esta práctica es crear un servicio web REST con Spring Boot que permita simular el precio anual de un seguro de coche.
+
+	La aplicación recibirá unos datos del vehículo y del conductor, aplicará una serie de reglas de cálculo sencillas y devolverá una respuesta con la prima anual estimada.
+
+
+El servicio recibirá una petición de tipo POST
+
+POST /api/seguros/coche/simular
+
+
+
+El cliente enviará los datos en formato JSON.
+
+{
+  "edadConductor": 35,
+  "antiguedadCarnet": 10,
+  "valorVehiculo": 18000,
+  "tipoCobertura": "TODO_RIESGO",
+  "tieneGaraje": true
+}
+	La aplicación devolverá también una respuesta en formato JSON
+
+
+{
+  "tipoSeguro": "COCHE",
+  "primaAnual": 954.0,
+}
+
+
+
+
+
+
+
+
+
+Hay que validar la entrada
+
+La edad del conductor debe ser mayor que 0.
+La antigüedad del carnet no puede ser negativa.
+El valor del vehículo debe ser mayor que 0.
+El tipo de cobertura debe ser uno de los valores permitidos.
+
+
+Si algún dato no es correcto, el servicio debería devolver un error o un mensaje indicando que los datos no son válidos. 
+
+
+
+
+
+
+
+La prima base son 300 €
+
+
+
+
+Si edadConductor es menor de 25:
+    sumar 150 €
+
+Si edadConductor está entre 25 y 65:
+    no sumar nada
+
+Si edadConductor es mayor de 65:
+    sumar 100 €
+
+
+
+
+Si antiguedadCarnet es menor de 2:
+    sumar 200 €
+
+Si antiguedadCarnet está entre 2 y 10:
+    sumar 50 €
+
+Si antiguedadCarnet es mayor de 10:
+    no sumar nada
+
+
+
+Se sumará el 2% del valor del vehículo 
+
+
+prima = prima + valorVehiculo * 0.02
+
+
+
+
+
+
+Si tipoCobertura es TERCEROS:
+    no sumar nada
+
+Si tipoCobertura es TERCEROS_AMPLIADO:
+    sumar 150 €
+
+Si tipoCobertura es TODO_RIESGO:
+sumar 400 €
+
+
+
+
+Si tieneGaraje es true:
+    prima = prima - prima * 0.10
+
+Si tieneGaraje es false:
+no se aplica descuento
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
